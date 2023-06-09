@@ -11,7 +11,7 @@ import SwiftUI
 struct SkyPlaneApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LaunchScreenView()
         }
     }
 }
