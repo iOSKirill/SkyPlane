@@ -13,6 +13,8 @@ enum AssetsImage: String {
     case firstOnboarding = "firstOnboarding"
     case secondOnboarding = "secondOnboarding"
     case thirdOnboarding = "thirdOnboarding"
+    case logoSkyPlane = "logoSkyPlane"
+    case singInWithGoogle = "singInWithGoogle"
 }
 
 //MARK: - Extension Image -

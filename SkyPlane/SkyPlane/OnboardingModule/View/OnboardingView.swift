@@ -100,6 +100,9 @@ struct OnboardingView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
         }
+        .fullScreenCover(isPresented: $vm.isPresented) {
+            CreateAccountView()
+        }
     }
     
     //MARK: - Body -
