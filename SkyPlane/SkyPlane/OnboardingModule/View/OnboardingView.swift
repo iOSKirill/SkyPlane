@@ -21,7 +21,7 @@ struct OnboardingView: View {
         HStack {
             Spacer()
             Button {
-                vm.currentStep = $vm.onboardingSteps.count - 1
+                vm.skipButton()
             } label: {
                 Text("Skip")
                     .foregroundColor(Color(.textBlackWhiteColor))
@@ -33,28 +33,28 @@ struct OnboardingView: View {
     //MARK: - TablViw onboarding -
     var tablView: some View {
         TabView(selection: $vm.currentStep) {
-            ForEach(0..<vm.onboardingSteps.count, id: \.self) { item in
+            ForEach(Array(vm.onboardingSteps.enumerated()), id: \.element) { item, step in
                 VStack {
                     ZStack {
                         RoundedRectangle(cornerRadius: 100)
                             .stroke(Color(.silverColor), lineWidth: 20)
                             .frame(maxWidth: 200, maxHeight: 300)
                         
-                        Image(vm.onboardingSteps[item].image)
+                        Image(step.image)
                             .resizable()
                             .frame(maxWidth: 150, maxHeight: 200)
                     }
                     .padding(.bottom, 32)
                     
-                    Text(vm.onboardingSteps[item].title)
+                    Text(step.title)
                         .multilineTextAlignment(.center)
                         .font(.title)
                         .bold()
-                        .padding(.horizontal, 16)
-                    
-                    Text(vm.onboardingSteps[item].description)
-                        .multilineTextAlignment(.center)
                         .padding(.horizontal, 32)
+                    
+                    Text(step.description)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 50)
                         .padding(16)
                     
                     Spacer()
@@ -69,7 +69,7 @@ struct OnboardingView: View {
     //MARK: - PageControl onboarding -
     var pageControl: some View {
         HStack {
-            ForEach(0..<vm.onboardingSteps.count, id: \.self) { item in
+            ForEach(Array(vm.onboardingSteps.enumerated()), id: \.element) { item, step in
                 if item == vm.currentStep {
                     Rectangle()
                         .frame(width: 20, height: 10)
@@ -90,7 +90,7 @@ struct OnboardingView: View {
         Button {
             vm.nextStepOnButton()
         } label: {
-            Text(vm.currentStep < vm.onboardingSteps.count - 1 ? "Next" : "Get started")
+            Text(vm.getNextButtonText())
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(Color(.blackColor))
                 .padding(16)

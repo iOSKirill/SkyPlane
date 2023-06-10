@@ -27,4 +27,13 @@ final class OnboardingViewModel: ObservableObject {
             isPresented.toggle()
         }
     }
+    
+    func skipButton() {
+        currentStep = onboardingSteps.count - 1
+    }
+    
+    func getNextButtonText() -> String {
+        currentStep < onboardingSteps.count - 1 ? "Next" : "Get started"
+    }
+
 }
