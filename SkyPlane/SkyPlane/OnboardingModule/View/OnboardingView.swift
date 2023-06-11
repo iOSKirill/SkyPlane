@@ -33,26 +33,26 @@ struct OnboardingView: View {
     //MARK: - TablViw onboarding -
     var tablView: some View {
         TabView(selection: $vm.currentStep) {
-            ForEach(Array(vm.onboardingSteps.enumerated()), id: \.element) { item, step in
+            ForEach(vm.onboardingSteps, id: \.id) { item in
                 VStack {
                     ZStack {
                         RoundedRectangle(cornerRadius: 100)
                             .stroke(Color(.silverColor), lineWidth: 20)
                             .frame(maxWidth: 200, maxHeight: 300)
                         
-                        Image(step.image)
+                        Image(item.image)
                             .resizable()
                             .frame(maxWidth: 150, maxHeight: 200)
                     }
                     .padding(.bottom, 32)
                     
-                    Text(step.title)
+                    Text(item.title)
                         .multilineTextAlignment(.center)
                         .font(.title)
                         .bold()
                         .padding(.horizontal, 32)
                     
-                    Text(step.description)
+                    Text(item.description)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 50)
                         .padding(16)
@@ -69,8 +69,8 @@ struct OnboardingView: View {
     //MARK: - PageControl onboarding -
     var pageControl: some View {
         HStack {
-            ForEach(Array(vm.onboardingSteps.enumerated()), id: \.element) { item, step in
-                if item == vm.currentStep {
+            ForEach(vm.onboardingSteps, id: \.id) { item in
+                if item.id == vm.currentStep {
                     Rectangle()
                         .frame(width: 20, height: 10)
                         .cornerRadius(10)

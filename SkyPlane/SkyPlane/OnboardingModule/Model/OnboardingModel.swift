@@ -8,6 +8,7 @@
 import Foundation
 
 struct OnboardingStep: Hashable {
+    let id: Int
     let image: String
     let title: String
     let description: String

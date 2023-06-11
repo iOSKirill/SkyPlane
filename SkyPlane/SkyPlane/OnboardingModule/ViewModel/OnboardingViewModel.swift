@@ -14,9 +14,9 @@ final class OnboardingViewModel: ObservableObject {
     @Published var isPresented = false
     @Published var currentStep: Int = 0
     @Published var onboardingSteps = [
-        OnboardingStep(image: AssetsImage.firstOnboarding.rawValue, title: "Find a relax flight for next trip", description: "Easy to use app for your next flight booking ticket"),
-        OnboardingStep(image: AssetsImage.secondOnboarding.rawValue, title: "Big world out there, Go Explore", description: "Go to any destination easily by emirates flights"),
-        OnboardingStep(image: AssetsImage.thirdOnboarding.rawValue, title: "Ready to take \n off the flight", description: "Have a safe journey with emirates flights")
+        OnboardingStep(id: 0, image: AssetsImage.firstOnboarding.rawValue, title: "Find a relax flight for next trip", description: "Easy to use app for your next flight booking ticket"),
+        OnboardingStep(id: 1, image: AssetsImage.secondOnboarding.rawValue, title: "Big world out there, Go Explore", description: "Go to any destination easily by emirates flights"),
+        OnboardingStep(id: 2, image: AssetsImage.thirdOnboarding.rawValue, title: "Ready to take \n off the flight", description: "Have a safe journey with emirates flights")
     ]
     
     //MARK: - Methods -
