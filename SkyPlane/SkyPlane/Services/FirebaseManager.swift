@@ -16,6 +16,7 @@ import GoogleSignIn
 protocol FirebaseManagerProtocol {
     func singInWithGoogle() async throws -> User
     func signUpWithEmail(email: String, password: String) async throws -> User
+    func signInWithEmail(email: String, password: String) async throws -> User
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws
 }
 
@@ -56,6 +57,11 @@ class FirebaseManager: FirebaseManagerProtocol {
         try await Auth.auth().createUser(withEmail: email, password: password).user
     }
     
+    //MARK: - SingIn with Email -
+    func signInWithEmail(email: String, password: String) async throws -> User {
+        try await Auth.auth().signIn(withEmail: email, password: password).user
+    }
+    
     //MARK: - Create user data DB -
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws {
         let users  = UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, gender: gender,  urlImage: urlImage)
@@ -65,5 +71,4 @@ class FirebaseManager: FirebaseManagerProtocol {
             print("Error add User")
         }
     }
-
 }

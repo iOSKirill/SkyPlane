@@ -1,25 +1,41 @@
 //
-//  CreateAccountView.swift
+//  LoginView.swift
 //  SkyPlane
 //
-//  Created by Kirill Manuilenko on 9.06.23.
+//  Created by Kirill Manuilenko on 12.06.23.
 //
 
 import SwiftUI
 
-struct CreateAccountView: View {
+struct LoginView: View {
     
     //MARK: - Property -
-    @StateObject var vm = CreateAccountViewModel()
+    @StateObject var vm = LoginViewModel()
+    @Environment(\.dismiss) var dismiss
+    
+    //MARK: - ButtonBack -
+    var buttonBack : some View {
+        Button {
+            dismiss()
+        } label: {
+            Image(systemName: "arrow.backward")
+                .foregroundColor(Color(.textBlackWhiteColor))
+                .padding(10)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color(.textBlackWhiteColor), lineWidth: 1)
+                }
+        }
+    }
     
     var headerText: some View {
         Section("") {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Welcome!")
+                    Text("Welcome back!")
                         .foregroundColor(Color(.textBlackWhiteColor))
                         .font(.system(size: 32, weight: .semibold, design: .default))
-                    Text("Create account to continue")
+                    Text("Login to continue")
                         .foregroundColor(Color(.textBlackWhiteColor))
                         .font(.system(size: 15, weight: .regular, design: .default))
                 }
@@ -41,11 +57,11 @@ struct CreateAccountView: View {
     }
     
     //MARK: - Create account button -
-    var createAccountButton: some View {
+    var loginButton: some View {
         Button {
-            vm.createUser()
+            vm.loginUsers()
         } label: {
-            Text("Create account")
+            Text("Login")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(Color(.blackColor))
                 .padding(16)
@@ -55,8 +71,10 @@ struct CreateAccountView: View {
                 .padding(.bottom, -10)
         }
         .fullScreenCover(isPresented: $vm.isPresentedLogin) {
-            LoginView()
+            TabBarView()
         }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 10)
     }
     
     //MARK: - Divider -
@@ -77,14 +95,14 @@ struct CreateAccountView: View {
                     .background(Color(.textSilverWhite))
             }
         }
-        .padding(.bottom, -10)
+        .padding(.bottom, 10)
+        .padding(.horizontal, 16)
     }
     
     //MARK: - Login with google Button -
     var loginWithGoogleButton: some View {
         Button {
             vm.singInWithGoogle()
-            print("Continue with Google")
         } label: {
             HStack {
                 Image(.singInWithGoogle)
@@ -103,70 +121,40 @@ struct CreateAccountView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.textSilverWhite), lineWidth: 1))
-            
         }
         .fullScreenCover(isPresented: $vm.isPresentedGoogle) {
-            TabBarView()
+           TabBarView()
         }
-    }
-    
-    //MARK: - Present login view -
-    var presentLoginViewButton: some View {
-        HStack {
-            Text("Already have an account?")
-                .foregroundColor(Color(.textSilverWhite))
-                .font(.system(size: 16, weight: .regular))
-            NavigationLink {
-                LoginView()
-            } label: {
-                Text("Login")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(Color(.basicColor))
-                    .underline()
-            }
-        }
-        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 16)
         .padding(.bottom, 16)
     }
-
-    //MARK: - Body -
+    
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.backgroundColor).ignoresSafeArea()
+        ZStack {
+            Color(.backgroundColor).ignoresSafeArea()
             
-                VStack {
-                    List {
-                        headerText
-                        CustomSectionTextField(bindingValue: $vm.firstNameText, textSection: "First Name", textFieldValue: "Enter your first name")
-                        CustomSectionTextField(bindingValue: $vm.lastNameText, textSection: "Last Name", textFieldValue: "Enter your last name")
-                        CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
-                        CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
-                        CustomSectionTextFieldPassword(bindingValue: $vm.passwordConfirmText, secureValue: $vm.isSecureConfirmPassword, textSection: "Confirm Password", textFieldValue: "Confirm your password")
-                        
-                        //Buttons section
-                        Section("") {
-                            createAccountButton
-                            divider
-                            loginWithGoogleButton
-                        }
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                        
-                    }
-                    .listStyle(.plain)
-                    .padding(.top, 1)
-                    presentLoginViewButton
+            VStack {
+                List {
+                    headerText
+                    CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
+                    CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                 }
+                .listStyle(.plain)
+                .scrollDisabled(true)
                 
+                loginButton
+                divider
+                loginWithGoogleButton
             }
-            .navigationBarTitle(Text("Registration"), displayMode: .inline)
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: buttonBack)
+        .navigationTitle("Login")
     }
 }
 
-struct CreateAccountView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateAccountView()
+        LoginView()
     }
 }
