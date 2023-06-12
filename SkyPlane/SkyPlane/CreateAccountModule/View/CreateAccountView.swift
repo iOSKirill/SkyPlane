@@ -108,6 +108,7 @@ struct CreateAccountView: View {
         .fullScreenCover(isPresented: $vm.isPresentedGoogle) {
             TabBarView()
         }
+        .listRowSeparator(.hidden)
     }
     
     //MARK: - Present login view -
