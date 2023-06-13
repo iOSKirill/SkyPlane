@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "iconizer-AirplaneTakeoff.svg",
+      "filename" : "AirplaneTakeoff.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iconizer-AirplaneTakeoff (1).svg",
+      "filename" : "AirplaneTakeoff 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iconizer-AirplaneTakeoff@2x.svg",
+      "filename" : "AirplaneTakeoff@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iconizer-AirplaneTakeoff@2x (1).svg",
+      "filename" : "AirplaneTakeoff@2x 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "iconizer-AirplaneTakeoff@3x.svg",
+      "filename" : "AirplaneTakeoff@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iconizer-AirplaneTakeoff@3x (1).svg",
+      "filename" : "AirplaneTakeoff@3x 1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
