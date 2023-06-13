@@ -15,9 +15,15 @@ import GoogleSignIn
 //MARK: - Protocol Firebase -
 protocol FirebaseManagerProtocol {
     func singInWithGoogle() async throws -> User
+    func signUpWithEmail(email: String, password: String) async throws -> User
+    func signInWithEmail(email: String, password: String) async throws -> User
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
+    
+    //MARK: - Property -
+    private let db = Firestore.firestore()
     
     //MARK: - SingIn with Googl -
     func singInWithGoogle() async throws -> User {
@@ -44,7 +50,25 @@ class FirebaseManager: FirebaseManagerProtocol {
             print(error.localizedDescription)
             throw error
         }
-        
     }
-
+    
+    //MARK: - SingUp with Email -
+    func signUpWithEmail(email: String, password: String) async throws -> User {
+        try await Auth.auth().createUser(withEmail: email, password: password).user
+    }
+    
+    //MARK: - SingIn with Email -
+    func signInWithEmail(email: String, password: String) async throws -> User {
+        try await Auth.auth().signIn(withEmail: email, password: password).user
+    }
+    
+    //MARK: - Create user data DB -
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws {
+        let users  = UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, gender: gender,  urlImage: urlImage)
+        do {
+           try db.collection("Users").document(uid).setData(from: users)
+        } catch {
+            print("Error add User")
+        }
+    }
 }

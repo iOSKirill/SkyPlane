@@ -14,6 +14,9 @@
 		6C01D1962A33768100A3993F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C01D1952A33768100A3993F /* OnboardingView.swift */; };
 		6C01D1982A33769000A3993F /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C01D1972A33769000A3993F /* OnboardingViewModel.swift */; };
 		6C01D19B2A338A8100A3993F /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C01D19A2A338A8100A3993F /* OnboardingModel.swift */; };
+		6C5056F92A374A2900D11302 /* CreateAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5056F82A374A2900D11302 /* CreateAccountModel.swift */; };
+		6C5056FF2A3754B400D11302 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5056FE2A3754B400D11302 /* LoginView.swift */; };
+		6C5057012A3754C500D11302 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5057002A3754C500D11302 /* LoginViewModel.swift */; };
 		6C5665292A323678002BFBDB /* SkyPlaneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5665282A323678002BFBDB /* SkyPlaneApp.swift */; };
 		6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56652A2A323678002BFBDB /* LaunchScreenView.swift */; };
 		6C56652D2A323679002BFBDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C56652C2A323679002BFBDB /* Assets.xcassets */; };
@@ -49,6 +52,9 @@
 		6C5665722A323810002BFBDB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5665712A323810002BFBDB /* GoogleSignIn */; };
 		6C5665742A323810002BFBDB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5665732A323810002BFBDB /* GoogleSignInSwift */; };
 		6C5665772A323837002BFBDB /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5665762A323837002BFBDB /* GoogleMaps */; };
+		6C7E30082A37846300456564 /* CustomSectionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E30072A37846300456564 /* CustomSectionTextField.swift */; };
+		6C7E300A2A3786B600456564 /* CustomSectionTextFieldPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E30092A3786B600456564 /* CustomSectionTextFieldPassword.swift */; };
+		6C7E300E2A37894000456564 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E300D2A37894000456564 /* TabBarView.swift */; };
 		6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */; };
 		6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */; };
 		6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */; };
@@ -62,11 +68,17 @@
 		6C01D1952A33768100A3993F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		6C01D1972A33769000A3993F /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		6C01D19A2A338A8100A3993F /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
+		6C5056F82A374A2900D11302 /* CreateAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountModel.swift; sourceTree = "<group>"; };
+		6C5056FE2A3754B400D11302 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		6C5057002A3754C500D11302 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6C5665252A323678002BFBDB /* SkyPlane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyPlane.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C5665282A323678002BFBDB /* SkyPlaneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyPlaneApp.swift; sourceTree = "<group>"; };
 		6C56652A2A323678002BFBDB /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		6C56652C2A323679002BFBDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C56652F2A323679002BFBDB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6C7E30072A37846300456564 /* CustomSectionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionTextField.swift; sourceTree = "<group>"; };
+		6C7E30092A3786B600456564 /* CustomSectionTextFieldPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionTextFieldPassword.swift; sourceTree = "<group>"; };
+		6C7E300D2A37894000456564 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		6C915FEA2A339AED001C8B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
@@ -185,6 +197,39 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6C5056F72A374A1A00D11302 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C5056F82A374A2900D11302 /* CreateAccountModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C5056FB2A37547F00D11302 /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				6C5056FD2A3754A500D11302 /* View */,
+				6C5056FC2A37549600D11302 /* ViewModel */,
+			);
+			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		6C5056FC2A37549600D11302 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C5057002A3754C500D11302 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6C5056FD2A3754A500D11302 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C5056FE2A3754B400D11302 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6C56651C2A323678002BFBDB = {
 			isa = PBXGroup;
 			children = (
@@ -207,9 +252,12 @@
 				6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */,
 				6C915FEA2A339AED001C8B7F /* Info.plist */,
 				6CAFA7872A33B95F0014BF71 /* SkyPlaneApp */,
+				6C7E30062A3783D400456564 /* CustomViews */,
 				6C01D1882A32423900A3993F /* LaunchScreenModule */,
 				6C01D1922A33764600A3993F /* OnboardingModule */,
 				6C915FEB2A33AE13001C8B7F /* CreateAccountModule */,
+				6C5056FB2A37547F00D11302 /* LoginModule */,
+				6C7E300B2A37891700456564 /* TabBarModule */,
 				6CAFA7812A33B0860014BF71 /* Services */,
 				6C01D1862A323B7B00A3993F /* Extensions */,
 				6C56652C2A323679002BFBDB /* Assets.xcassets */,
@@ -226,9 +274,35 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		6C7E30062A3783D400456564 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				6C7E30072A37846300456564 /* CustomSectionTextField.swift */,
+				6C7E30092A3786B600456564 /* CustomSectionTextFieldPassword.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		6C7E300B2A37891700456564 /* TabBarModule */ = {
+			isa = PBXGroup;
+			children = (
+				6C7E300C2A37893200456564 /* View */,
+			);
+			path = TabBarModule;
+			sourceTree = "<group>";
+		};
+		6C7E300C2A37893200456564 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C7E300D2A37894000456564 /* TabBarView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6C915FEB2A33AE13001C8B7F /* CreateAccountModule */ = {
 			isa = PBXGroup;
 			children = (
+				6C5056F72A374A1A00D11302 /* Model */,
 				6C915FEC2A33AE3D001C8B7F /* View */,
 				6C915FED2A33AE4F001C8B7F /* ViewModel */,
 			);
@@ -379,15 +453,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C7E300E2A37894000456564 /* TabBarView.swift in Sources */,
 				6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */,
+				6C5056F92A374A2900D11302 /* CreateAccountModel.swift in Sources */,
 				6C01D1912A32477A00A3993F /* Color+Extension.swift in Sources */,
 				6C5665292A323678002BFBDB /* SkyPlaneApp.swift in Sources */,
+				6C7E30082A37846300456564 /* CustomSectionTextField.swift in Sources */,
 				6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */,
 				6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */,
+				6C5057012A3754C500D11302 /* LoginViewModel.swift in Sources */,
 				6C01D1962A33768100A3993F /* OnboardingView.swift in Sources */,
 				6C01D19B2A338A8100A3993F /* OnboardingModel.swift in Sources */,
 				6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */,
+				6C7E300A2A3786B600456564 /* CustomSectionTextFieldPassword.swift in Sources */,
 				6C01D18C2A32427F00A3993F /* LaunchScreenViewModel.swift in Sources */,
+				6C5056FF2A3754B400D11302 /* LoginView.swift in Sources */,
 				6C01D1982A33769000A3993F /* OnboardingViewModel.swift in Sources */,
 				6C01D18F2A3246BC00A3993F /* Image+Extension.swift in Sources */,
 			);
