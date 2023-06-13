@@ -29,31 +29,29 @@ struct LoginView: View {
     }
     
     var headerText: some View {
-        Section("") {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Welcome back!")
-                        .foregroundColor(Color(.textBlackWhiteColor))
-                        .font(.system(size: 32, weight: .semibold, design: .default))
-                    Text("Login to continue")
-                        .foregroundColor(Color(.textBlackWhiteColor))
-                        .font(.system(size: 15, weight: .regular, design: .default))
-                }
-                Spacer()
-                Circle()
-                    .foregroundColor(Color(.silverColor))
-                    .frame(maxWidth: 70, maxHeight: 70)
-                    .overlay {
-                        Image(.logoBlackGreen)
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                    }
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Welcome back!")
+                    .foregroundColor(Color(.textBlackWhiteColor))
+                    .font(.system(size: 32, weight: .semibold, design: .default))
+                Text("Login to continue")
+                    .foregroundColor(Color(.textBlackWhiteColor))
+                    .font(.system(size: 15, weight: .regular, design: .default))
             }
+            Spacer()
+            Circle()
+                .foregroundColor(Color(.silverColor))
+                .frame(maxWidth: 70, maxHeight: 70)
+                .overlay {
+                    Image(.logoBlackGreen)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                }
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-        .listRowInsets(EdgeInsets(top: 0,leading: 16, bottom: 0,trailing: 16))
+        .padding(.bottom, 16)
     }
     
     //MARK: - Create account button -

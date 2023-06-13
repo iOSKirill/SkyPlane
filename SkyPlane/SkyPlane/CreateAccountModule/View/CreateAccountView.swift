@@ -13,31 +13,29 @@ struct CreateAccountView: View {
     @StateObject var vm = CreateAccountViewModel()
     
     var headerText: some View {
-        Section("") {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Welcome!")
-                        .foregroundColor(Color(.textBlackWhiteColor))
-                        .font(.system(size: 32, weight: .semibold, design: .default))
-                    Text("Create account to continue")
-                        .foregroundColor(Color(.textBlackWhiteColor))
-                        .font(.system(size: 15, weight: .regular, design: .default))
-                }
-                Spacer()
-                Circle()
-                    .foregroundColor(Color(.silverColor))
-                    .frame(maxWidth: 70, maxHeight: 70)
-                    .overlay {
-                        Image(.logoBlackGreen)
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                    }
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Welcome!")
+                    .foregroundColor(Color(.textBlackWhiteColor))
+                    .font(.system(size: 32, weight: .semibold, design: .default))
+                Text("Create account to continue")
+                    .foregroundColor(Color(.textBlackWhiteColor))
+                    .font(.system(size: 15, weight: .regular, design: .default))
             }
+            Spacer()
+            Circle()
+                .foregroundColor(Color(.silverColor))
+                .frame(maxWidth: 70, maxHeight: 70)
+                .overlay {
+                    Image(.logoBlackGreen)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                }
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-        .listRowInsets(EdgeInsets(top: 0,leading: 16, bottom: 0,trailing: 16))
+        .padding(.bottom, 16)
     }
     
     //MARK: - Create account button -
@@ -57,6 +55,7 @@ struct CreateAccountView: View {
         .fullScreenCover(isPresented: $vm.isPresentedLogin) {
             LoginView()
         }
+        .padding(.top, 32)
     }
     
     //MARK: - Divider -
@@ -144,7 +143,7 @@ struct CreateAccountView: View {
                         CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
                         CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                         CustomSectionTextFieldPassword(bindingValue: $vm.passwordConfirmText, secureValue: $vm.isSecureConfirmPassword, textSection: "Confirm Password", textFieldValue: "Confirm your password")
-                            .padding(.bottom, 32)
+//                            .padding(.bottom, 32)
 
                             createAccountButton
                             divider

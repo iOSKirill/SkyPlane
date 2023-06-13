@@ -16,7 +16,11 @@ struct CustomSectionTextFieldPassword: View {
     
     //MARK: - Body -
     var body: some View {
-        Section(textSection) {
+        VStack(alignment: .leading) {
+            Text(textSection)
+                .foregroundColor(Color(.textBlackWhiteColor))
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .padding(.vertical, 4)
             HStack {
                 if secureValue {
                     SecureField(textFieldValue, text: $bindingValue)
@@ -50,13 +54,9 @@ struct CustomSectionTextFieldPassword: View {
             .foregroundColor(Color(.sectionTextFieldColor))
             .background(Color(.silverColor))
             .cornerRadius(16)
-            .padding(.top, 8)
         }
-        .foregroundColor(Color(.textBlackWhiteColor))
-        .font(.system(size: 16, weight: .medium, design: .default))
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: -10, trailing: 16))
     }
 }
 

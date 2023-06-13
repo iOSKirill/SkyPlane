@@ -15,7 +15,12 @@ struct CustomSectionTextField: View {
     
     //MARK: - Body -
     var body: some View {
-        Section(textSection) {
+        VStack(alignment: .leading) {
+            Text(textSection)
+                .foregroundColor(Color(.textBlackWhiteColor))
+                .font(.system(size: 16, weight: .medium, design: .default))
+                .padding(.vertical, 4)
+            
             TextField(textFieldValue, text: $bindingValue)
                 .font(.system(size: 16, weight: .regular, design: .default))
                 .frame(height: 52)
@@ -27,14 +32,10 @@ struct CustomSectionTextField: View {
                 .foregroundColor(Color(.sectionTextFieldColor))
                 .background(Color(.silverColor))
                 .cornerRadius(16)
-                .padding(.top, 8)
                 .autocapitalization(.none)
         }
-        .foregroundColor(Color(.textBlackWhiteColor))
-        .font(.system(size: 16, weight: .medium, design: .default))
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: -10, trailing: 16))
     }
 }
 
