@@ -55,6 +55,7 @@
 		6C7E30082A37846300456564 /* CustomSectionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E30072A37846300456564 /* CustomSectionTextField.swift */; };
 		6C7E300A2A3786B600456564 /* CustomSectionTextFieldPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E30092A3786B600456564 /* CustomSectionTextFieldPassword.swift */; };
 		6C7E300E2A37894000456564 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E300D2A37894000456564 /* TabBarView.swift */; };
+		6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */; };
 		6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */; };
 		6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */; };
 		6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */; };
@@ -79,6 +80,7 @@
 		6C7E30072A37846300456564 /* CustomSectionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionTextField.swift; sourceTree = "<group>"; };
 		6C7E30092A3786B600456564 /* CustomSectionTextFieldPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionTextFieldPassword.swift; sourceTree = "<group>"; };
 		6C7E300D2A37894000456564 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonOnTabBar.swift; sourceTree = "<group>"; };
 		6C915FEA2A339AED001C8B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			children = (
 				6C7E30072A37846300456564 /* CustomSectionTextField.swift */,
 				6C7E30092A3786B600456564 /* CustomSectionTextFieldPassword.swift */,
+				6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7E300E2A37894000456564 /* TabBarView.swift in Sources */,
+				6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */,
 				6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */,
 				6C5056F92A374A2900D11302 /* CreateAccountModel.swift in Sources */,
 				6C01D1912A32477A00A3993F /* Color+Extension.swift in Sources */,

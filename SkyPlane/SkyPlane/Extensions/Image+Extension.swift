@@ -10,12 +10,21 @@ import SwiftUI
 
 //MARK: - Enum AssetsImage -
 enum AssetsImage: String {
+    //Onboarding Images
     case firstOnboarding = "firstOnboarding"
     case secondOnboarding = "secondOnboarding"
     case thirdOnboarding = "thirdOnboarding"
+    
     case logoSkyPlane = "logoSkyPlane"
     case singInWithGoogle = "singInWithGoogle"
     case logoBlackGreen = "logoBlackGreen"
+    
+    //TabBar Images
+    case searchTabBar = "searchTabBar"
+    case ticketTabBar = "ticketTabBar"
+    case homeTabBar = "homeTabBar"
+    case weatherTabBar = "weatherTabBar"
+    case profileTabBar = "profileTabBar"
 }
 
 //MARK: - Extension Image -

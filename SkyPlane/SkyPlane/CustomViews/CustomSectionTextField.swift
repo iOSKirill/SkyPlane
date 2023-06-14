@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomSectionTextField: View {
+    
     //MARK: - Property -
     @Binding var bindingValue: String
     var textSection: String

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomSectionTextFieldPassword: View {
+    
     //MARK: - Property -
     @Binding var bindingValue: String
     @Binding var secureValue: Bool

@@ -17,6 +17,8 @@ enum AssetsColor: String {
     case textBlackWhiteColor = "textBlackWhiteColor"
     case sectionTextFieldColor = "sectionTextFieldColor"
     case textSilverWhite = "textSilverWhite"
+    case tabBarWhiteBackGray = "tabBarWhiteBackGray"
+    case tabBarWhiteGray = "tabBarWhiteGray"
 }
 
 //MARK: - Extension Color -
