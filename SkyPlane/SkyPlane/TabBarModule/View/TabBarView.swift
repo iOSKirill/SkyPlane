@@ -54,9 +54,9 @@ struct TabBarView: View {
             case 1:
                 OnboardingView()
             case 2:
-                LoginView()
+                HomeView()
             case 3:
-                LoginView()
+                WeatherView()
             case 4:
                 LoginView()
             default:
