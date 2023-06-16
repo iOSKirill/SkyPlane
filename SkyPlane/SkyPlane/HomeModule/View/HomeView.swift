@@ -14,7 +14,12 @@ struct HomeView: View {
     
     //MARK: - Body -
     var body: some View {
-        Text("Home")
+        Button {
+//            vm.getFlightInfo(origin: "MSQ", destination: "MOW", departureDate: "2023-06-17", returnDate: "2023-06-18")
+            vm.getPopularFlightInfo(cityName: "MSQ")
+        } label: {
+            Text("Go")
+        }
     }
 }
 

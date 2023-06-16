@@ -63,11 +63,13 @@
 		6C876DA82A39ED5E0087C137 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C876DA72A39ED5E0087C137 /* HomeView.swift */; };
 		6C876DAD2A39F4CA0087C137 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C876DAC2A39F4CA0087C137 /* WeatherViewModel.swift */; };
 		6C876DAF2A39F4E10087C137 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C876DAE2A39F4E10087C137 /* WeatherView.swift */; };
+		6C876DB12A3AF8290087C137 /* FlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C876DB02A3AF8290087C137 /* FlightModel.swift */; };
 		6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */; };
 		6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */; };
 		6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */; };
 		6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */; };
 		6CAFA7852A33B31B0014BF71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */; };
+		6CB15B952A3CE30A0027E2EA /* PopularFlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,12 +98,14 @@
 		6C876DA72A39ED5E0087C137 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6C876DAC2A39F4CA0087C137 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		6C876DAE2A39F4E10087C137 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		6C876DB02A3AF8290087C137 /* FlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightModel.swift; sourceTree = "<group>"; };
 		6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonOnTabBar.swift; sourceTree = "<group>"; };
 		6C915FEA2A339AED001C8B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
 		6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +330,8 @@
 			children = (
 				6C876D9E2A39E87C0087C137 /* CoordinateModel.swift */,
 				6C876DA02A39E8B60087C137 /* WeatherModel.swift */,
+				6C876DB02A3AF8290087C137 /* FlightModel.swift */,
+				6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -537,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7E300E2A37894000456564 /* TabBarView.swift in Sources */,
+				6CB15B952A3CE30A0027E2EA /* PopularFlightModel.swift in Sources */,
 				6C876D9A2A39E4410087C137 /* Constants.swift in Sources */,
 				6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */,
 				6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */,
@@ -560,6 +567,7 @@
 				6C5056FF2A3754B400D11302 /* LoginView.swift in Sources */,
 				6C876DA82A39ED5E0087C137 /* HomeView.swift in Sources */,
 				6C01D1982A33769000A3993F /* OnboardingViewModel.swift in Sources */,
+				6C876DB12A3AF8290087C137 /* FlightModel.swift in Sources */,
 				6C01D18F2A3246BC00A3993F /* Image+Extension.swift in Sources */,
 				6C876DAD2A39F4CA0087C137 /* WeatherViewModel.swift in Sources */,
 			);
