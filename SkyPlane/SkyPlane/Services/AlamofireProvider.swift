@@ -19,7 +19,6 @@ enum Units: String {
 protocol AlamofireProviderProtocol {
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel]
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel
-    func getImageIcon(icon: String) async throws -> Data
     func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight
 }
@@ -28,40 +27,39 @@ protocol AlamofireProviderProtocol {
 class AlamofireProvider: AlamofireProviderProtocol {
     
     //MARK: - Property -
-    private let apiWeather = Bundle.main.object(forInfoDictionaryKey: "ApiWeatherKey") as? String ?? "Api Weather Error"
-    private let apiAviasales = Bundle.main.object(forInfoDictionaryKey: "ApiAviasalesKey") as? String ?? "Api Aviasales Error"
+    private let apiWeather = Bundle.main.object(forInfoDictionaryKey: "ApiWeatherKey") as? String
+    private let apiAviasales = Bundle.main.object(forInfoDictionaryKey: "ApiAviasalesKey") as? String
     private let language = Locale.current.language.languageCode?.identifier ?? "en"
     private let units: Units = .metric
     
     //MARK: - Method -
     
+    //Generic request
+    private func makeRequest<T: Decodable>(url: String, parameters: [String: String], encoding: ParameterEncoder = URLEncodedFormParameterEncoder.default) async throws -> T {
+        return try await AF.request(url, method: .get, parameters: parameters, encoder: encoding).serializingDecodable(T.self).value
+    }
+
     //Getting Coordinates by city name
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel] {
-        let parameters = addParamsWeather(queryItems: ["q": nameCity,
+        let parameters = addParams(apiType: apiWeather ?? "", queryItems: ["q": nameCity,
                                                        "limit" : "1",
                                                        "lang" : language])
-        return try await AF.request(Constants.getCodingURL, method: .get, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default).serializingDecodable([CoordinateModel].self).value
+        return try await makeRequest(url: Constants.getCodingURL, parameters: parameters)
     }
     
     //Getting Weather by coordinates
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel {
-        let parameters = addParamsWeather(queryItems: ["lat" : lat.description,
+        let parameters = addParams(apiType: apiWeather ?? "" ,queryItems: ["lat" : lat.description,
                                                        "lon" : lon.description,
                                                        "exclude" : "alerts,minutely",
                                                        "units" : "\(units)",
                                                        "lang" : language])
-        return try await AF.request(Constants.weatherURL, method: .get, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default).serializingDecodable(WeatherModel.self).value
-    }
-    
-    //Getting the weather icon
-    func getImageIcon(icon: String) async throws -> Data {
-        let parameters = "\(Constants.imageURL)\(icon).png"
-        return try await AF.download(parameters).serializingData().value
+        return try await makeRequest(url: Constants.weatherURL, parameters: parameters)
     }
     
     //Getting all info from ticket
     func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo {
-        let parameters = addParamsAviasales(queryItems: ["origin" : origin,
+        let parameters = addParams(apiType: apiAviasales ?? "", queryItems: ["origin" : origin,
                                                          "destination" : destination,
                                                          "departure_at" : departureDate,
                                                          "return_at" : returnDate,
@@ -69,31 +67,30 @@ class AlamofireProvider: AlamofireProviderProtocol {
                                                          "sorting" : "price",
                                                          "direct" : "false",
                                                          "limit" : "1000"])
-        return try await AF.request(Constants.getFlightsInfo, method: .get, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default).serializingDecodable(FlightInfo.self).value
+        return try await makeRequest(url: Constants.getFlightsInfo, parameters: parameters)
     }
     
     //Getting popular flight by city name
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight {
-        let parameters = addParamsAviasales(queryItems: ["origin": cityName,
+        let parameters = addParams(apiType: apiAviasales ?? "", queryItems: ["origin": cityName,
                                                          "currency" : "usd",
                                                          "limit" : "10"])
-        return try await AF.request(Constants.getPopularFlightsByCityName, method: .get, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default).serializingDecodable(PopularFlight.self).value
+        return try await makeRequest(url: Constants.getPopularFlightsByCityName, parameters: parameters)
     }
     
-    //Parameters Weather
-    private func addParamsWeather(queryItems: [String: String]) -> [String: String] {
-        var params: [String: String] = [:]
-        params = queryItems
-        params["appid"] = apiWeather
+    //Parameters
+    private func addParams(apiType: String, queryItems: [String: String]) -> [String: String] {
+        var params: [String: String] = queryItems
+        switch apiType {
+        case apiWeather:
+            params["appid"] = apiWeather
+        case apiAviasales:
+            params["token"] = apiAviasales
+        default:
+            break
+        }
         return params
     }
-    
-    //Parameters Aviasales
-    private func addParamsAviasales(queryItems: [String: String]) -> [String: String] {
-        var params: [String: String] = [:]
-        params = queryItems
-        params["token"] = apiAviasales
-        return params
-    }
+
 }
 

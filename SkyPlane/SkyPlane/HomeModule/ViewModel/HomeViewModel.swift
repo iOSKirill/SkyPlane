@@ -18,9 +18,13 @@ final class HomeViewModel: ObservableObject {
     func getFlightInfo(origin: String, destination: String, departureDate: String, returnDate: String) {
         Task { [weak self] in
             guard let self = self else { return }
-            let flightInfo = try await alamofireProvider.getFlightsInfo(origin: origin, destination: destination, departureDate: departureDate, returnDate: returnDate)
-            await MainActor.run {
-                print(flightInfo)
+            do {
+                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: origin, destination: destination, departureDate: departureDate, returnDate: returnDate)
+                await MainActor.run {
+                    print(flightInfo)
+                }
+            } catch {
+                print("Error get flight info")
             }
         }
     }
@@ -29,9 +33,13 @@ final class HomeViewModel: ObservableObject {
     func getPopularFlightInfo(cityName: String) {
         Task { [weak self] in
             guard let self = self else { return }
-            let popularFlightInfo = try await alamofireProvider.getPopularFlightsByCityName(cityName: cityName)
-            await MainActor.run {
-                print(popularFlightInfo)
+            do {
+                let popularFlightInfo = try await alamofireProvider.getPopularFlightsByCityName(cityName: cityName)
+                await MainActor.run {
+                    print(popularFlightInfo)
+                }
+            } catch {
+                print("Error get popular flight info")
             }
         }
     }
