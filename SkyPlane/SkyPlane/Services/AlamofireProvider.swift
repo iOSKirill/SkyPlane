@@ -15,6 +15,20 @@ enum Units: String {
     case imperial = "Имперский"
 }
 
+enum ApiType {
+    case apiWeather
+    case apiAviasales
+    
+    var apiKey: String? {
+        switch self {
+        case .apiWeather:
+            return Bundle.main.object(forInfoDictionaryKey: "ApiWeatherKey") as? String
+        case .apiAviasales:
+            return Bundle.main.object(forInfoDictionaryKey: "ApiAviasalesKey") as? String
+        }
+    }
+}
+
 //MARK: - Protocol -
 protocol AlamofireProviderProtocol {
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel]
@@ -27,8 +41,6 @@ protocol AlamofireProviderProtocol {
 class AlamofireProvider: AlamofireProviderProtocol {
     
     //MARK: - Property -
-    private let apiWeather = Bundle.main.object(forInfoDictionaryKey: "ApiWeatherKey") as? String
-    private let apiAviasales = Bundle.main.object(forInfoDictionaryKey: "ApiAviasalesKey") as? String
     private let language = Locale.current.language.languageCode?.identifier ?? "en"
     private let units: Units = .metric
     
@@ -41,7 +53,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
 
     //Getting Coordinates by city name
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel] {
-        let parameters = addParams(apiType: true, queryItems: ["q": nameCity,
+        let parameters = addParams(apiType: .apiWeather, queryItems: ["q": nameCity,
                                                        "limit" : "1",
                                                        "lang" : language])
         return try await makeRequest(url: Constants.getCodingURL, parameters: parameters)
@@ -49,7 +61,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
     
     //Getting Weather by coordinates
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel {
-        let parameters = addParams(apiType: true,queryItems: ["lat" : lat.description,
+        let parameters = addParams(apiType: .apiWeather, queryItems: ["lat" : lat.description,
                                                        "lon" : lon.description,
                                                        "exclude" : "alerts,minutely",
                                                        "units" : "\(units)",
@@ -59,7 +71,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
     
     //Getting all info from ticket
     func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo {
-        let parameters = addParams(apiType: false, queryItems: ["origin" : origin,
+        let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin" : origin,
                                                          "destination" : destination,
                                                          "departure_at" : departureDate,
                                                          "return_at" : returnDate,
@@ -72,23 +84,26 @@ class AlamofireProvider: AlamofireProviderProtocol {
     
     //Getting popular flight by city name
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight {
-        let parameters = addParams(apiType: false, queryItems: ["origin": cityName,
+        let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin": cityName,
                                                          "currency" : "usd",
                                                          "limit" : "10"])
         return try await makeRequest(url: Constants.getPopularFlightsByCityName, parameters: parameters)
     }
     
     //Parameters
-    private func addParams(apiType: Bool, queryItems: [String: String]) -> [String: String] {
+    private func addParams(apiType: ApiType, queryItems: [String: String]) -> [String: String] {
         var params: [String: String] = queryItems
-        switch apiType {
-        case true:
-            params["appid"] = apiWeather
-        case false:
-            params["token"] = apiAviasales
+        if let apiKey = apiType.apiKey {
+            switch apiType {
+            case .apiWeather:
+                params["appid"] = apiKey
+            case .apiAviasales:
+                params["token"] = apiKey
+            }
         }
         return params
     }
+
 
 }
 
