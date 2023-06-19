@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ApiWeatherKey</key>
+	<string>becab7a40300bc4bce2a6cbb5dfe848c</string>
+	<key>ApiGoogleMapKey</key>
+	<string>AIzaSyCHOmmIxbEmelPPlDX1RQTFmKY1xBPdz9U</string>
+	<key>ApiAviasalesKey</key>
+	<string>8f67e9c06e4a9bbb7507fe8f0788de66</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

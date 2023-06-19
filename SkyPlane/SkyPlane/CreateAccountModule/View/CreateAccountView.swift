@@ -55,6 +55,8 @@ struct CreateAccountView: View {
         .fullScreenCover(isPresented: $vm.isPresentedLogin) {
             LoginView()
         }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
         .padding(.top, 32)
     }
     
@@ -76,6 +78,8 @@ struct CreateAccountView: View {
                     .background(Color(.textSilverWhite))
             }
         }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
         .padding(.bottom, -10)
     }
     
@@ -83,7 +87,6 @@ struct CreateAccountView: View {
     var loginWithGoogleButton: some View {
         Button {
             vm.singInWithGoogle()
-            print("Continue with Google")
         } label: {
             HStack {
                 Image(.singInWithGoogle)
@@ -108,6 +111,7 @@ struct CreateAccountView: View {
             TabBarView()
         }
         .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
     }
     
     //MARK: - Present login view -
@@ -134,7 +138,6 @@ struct CreateAccountView: View {
         NavigationView {
             ZStack {
                 Color(.backgroundColor).ignoresSafeArea()
-            
                 VStack {
                     List {
                         headerText
@@ -143,7 +146,6 @@ struct CreateAccountView: View {
                         CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
                         CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                         CustomSectionTextFieldPassword(bindingValue: $vm.passwordConfirmText, secureValue: $vm.isSecureConfirmPassword, textSection: "Confirm Password", textFieldValue: "Confirm your password")
-//                            .padding(.bottom, 32)
 
                             createAccountButton
                             divider
