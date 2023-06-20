@@ -35,6 +35,7 @@ protocol AlamofireProviderProtocol {
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel
     func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight
+    func getCodeByCityName(cityName: String) async throws -> [Autocomplete]
 }
 
 //MARK: - Class -
@@ -88,6 +89,14 @@ class AlamofireProvider: AlamofireProviderProtocol {
                                                          "currency" : "usd",
                                                          "limit" : "10"])
         return try await makeRequest(url: Constants.getPopularFlightsByCityName, parameters: parameters)
+    }
+    
+    //Getting code by city name
+    func getCodeByCityName(cityName: String) async throws -> [Autocomplete] {
+        let parameters = addParams(apiType: .apiAviasales, queryItems: ["locale" : "en",
+                                                                        "types[]" : "city" ,
+                                                                        "term" : cityName])
+        return try await makeRequest(url: Constants.autocompleteURL, parameters: parameters)
     }
     
     //Parameters

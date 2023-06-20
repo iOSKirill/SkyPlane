@@ -20,7 +20,7 @@ struct DateTicket: Codable {
     let price: Int?
     let airline, flightNumber: String?
     let departureAt, returnAt: String?
-    let transfers, returnTransfers, duration: Int?
+    let transfers, returnTransfers, duration, duration_to: Int?
     let link: String?
 
     enum CodingKeys: String, CodingKey {
@@ -33,6 +33,6 @@ struct DateTicket: Codable {
         case returnAt = "return_at"
         case transfers
         case returnTransfers = "return_transfers"
-        case duration, link
+        case duration, link, duration_to
     }
 }
