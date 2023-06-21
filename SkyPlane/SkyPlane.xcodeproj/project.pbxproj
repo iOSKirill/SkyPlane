@@ -74,6 +74,8 @@
 		6CD3E2792A40BD0200994E9F /* CustomDatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3E2782A40BD0200994E9F /* CustomDatePickerTextField.swift */; };
 		6CD3E27C2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3E27B2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift */; };
 		6CE3B3A22A42328800E2FBCC /* Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3B3A12A42328800E2FBCC /* Autocomplete.swift */; };
+		6CE3B3A62A43115D00E2FBCC /* TicketsFoundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3B3A52A43115D00E2FBCC /* TicketsFoundViewModel.swift */; };
+		6CE3B3A92A43117400E2FBCC /* TicketsFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3B3A82A43117400E2FBCC /* TicketsFoundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +116,8 @@
 		6CD3E2782A40BD0200994E9F /* CustomDatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerTextField.swift; sourceTree = "<group>"; };
 		6CD3E27B2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPassengerAndClassTextField.swift; sourceTree = "<group>"; };
 		6CE3B3A12A42328800E2FBCC /* Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.swift; sourceTree = "<group>"; };
+		6CE3B3A52A43115D00E2FBCC /* TicketsFoundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsFoundViewModel.swift; sourceTree = "<group>"; };
+		6CE3B3A82A43117400E2FBCC /* TicketsFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsFoundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +293,7 @@
 				6C5056FB2A37547F00D11302 /* LoginModule */,
 				6C7E300B2A37891700456564 /* TabBarModule */,
 				6C876DA22A39ED150087C137 /* HomeModule */,
+				6CE3B3A32A4310EF00E2FBCC /* TicketsFoundModule */,
 				6C876DA92A39F48F0087C137 /* WeatherModule */,
 				6CAFA7812A33B0860014BF71 /* Services */,
 				6C876D9D2A39E6A70087C137 /* Models */,
@@ -442,6 +447,31 @@
 			path = SkyPlaneApp;
 			sourceTree = "<group>";
 		};
+		6CE3B3A32A4310EF00E2FBCC /* TicketsFoundModule */ = {
+			isa = PBXGroup;
+			children = (
+				6CE3B3A72A43116600E2FBCC /* View */,
+				6CE3B3A42A43110500E2FBCC /* ViewModel */,
+			);
+			path = TicketsFoundModule;
+			sourceTree = "<group>";
+		};
+		6CE3B3A42A43110500E2FBCC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6CE3B3A52A43115D00E2FBCC /* TicketsFoundViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6CE3B3A72A43116600E2FBCC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6CE3B3A82A43117400E2FBCC /* TicketsFoundView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -569,6 +599,7 @@
 				6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */,
 				6CD3E27C2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift in Sources */,
 				6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */,
+				6CE3B3A92A43117400E2FBCC /* TicketsFoundView.swift in Sources */,
 				6C876DA12A39E8B60087C137 /* WeatherModel.swift in Sources */,
 				6C5057012A3754C500D11302 /* LoginViewModel.swift in Sources */,
 				6C01D1962A33768100A3993F /* OnboardingView.swift in Sources */,
@@ -583,6 +614,7 @@
 				6C01D1982A33769000A3993F /* OnboardingViewModel.swift in Sources */,
 				6CD3E2792A40BD0200994E9F /* CustomDatePickerTextField.swift in Sources */,
 				6C876DB12A3AF8290087C137 /* FlightModel.swift in Sources */,
+				6CE3B3A62A43115D00E2FBCC /* TicketsFoundViewModel.swift in Sources */,
 				6C01D18F2A3246BC00A3993F /* Image+Extension.swift in Sources */,
 				6C876DAD2A39F4CA0087C137 /* WeatherViewModel.swift in Sources */,
 				6CE3B3A22A42328800E2FBCC /* Autocomplete.swift in Sources */,

@@ -71,7 +71,7 @@ struct HomeView: View {
                 .padding(.bottom, 16)
         }
         .fullScreenCover(isPresented: $vm.isPresentedSearchView) {
-            CreateAccountView()
+            TicketsFoundView()
         }
     }
     var changeTypeFlight: some View {
@@ -81,9 +81,14 @@ struct HomeView: View {
                 vm.datePickerShow = .departureDatePicker
             } label: {
                 Text("One Way")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 15, weight: .medium))
+                    .fixedSize(horizontal: true, vertical: false)
                     .padding(.vertical,10)
                     .padding(.horizontal,45)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(vm.datePickerShow == .departureDatePicker ?  Color(.basicColor) : Color(.buttonTypesFlight), lineWidth: 2)
+                    }
                     .background(vm.datePickerShow == .departureDatePicker ?  Color(.basicColor) : Color(.ticketBackgroundColor))
                     .foregroundColor(vm.datePickerShow == .departureDatePicker ? .black : Color(.textBlackWhiteColor))
                     .cornerRadius(15)
@@ -93,48 +98,73 @@ struct HomeView: View {
                 vm.datePickerShow = .departureAndReturnDatePicker
             } label: {
                 Text("Round Trip")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.system(size: 15, weight: .medium))
+                    .fixedSize(horizontal: true, vertical: false)
                     .padding(.vertical,10)
                     .padding(.horizontal,45)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(vm.datePickerShow == .departureAndReturnDatePicker ? Color(.basicColor) : Color(.buttonTypesFlight), lineWidth: 2)
+                    }
                     .background(vm.datePickerShow == .departureAndReturnDatePicker ?  Color(.basicColor) : Color(.ticketBackgroundColor))
                     .foregroundColor(vm.datePickerShow == .departureAndReturnDatePicker ? .black : Color(.textBlackWhiteColor))
                     .cornerRadius(15)
             }
             
-        }
+        }.padding(.top, 16)
+            .padding(.horizontal, 16)
     }
 
     //MARK: - Body -
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
-            
+           
             VStack {
-                HStack {
-                    changeTypeFlight
+                ZStack {
+                    Image(.headerScreen)
+                        .resizable()
+                        .ignoresSafeArea()
+                        .frame(maxWidth: .infinity, maxHeight: 250)
                 }
-                .frame(maxWidth: .infinity, maxHeight: 50)
-                .background(Color(.ticketBackgroundColor))
-                .cornerRadius(16)
-                .padding(.horizontal, 16)
-                .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 0)
-                
-                VStack {
-                    originDestination
-                    departureAndReturnDatePicker
-                    
-                    CustomPassengerAndClassTextField(passengerValue: $vm.passenger, classFlightValue: $vm.classFlight, isPresented: $vm.isPresentedPassenger, textFieldValue: "Enter passenger", textSection: "Passenger and class")
-                        .padding(.horizontal, 16)
-                    
-                    searchButton
-                }
-                .frame(maxWidth: .infinity, maxHeight: 480)
-                .background(Color(.ticketBackgroundColor))
-                .cornerRadius(16)
-                .padding(.horizontal, 16)
-                .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 0)
+                Spacer()
             }
-
+            VStack(alignment: .leading, spacing: 0) {
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Hello 👋")
+                        .font(.system(size: 22, weight: .regular))
+                        .foregroundColor(Color(.backgroundColor))
+                        .padding(.horizontal, 16)
+                    Text("Find your flights")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(Color(.backgroundColor))
+                        .padding(.horizontal, 16)
+                }
+                .padding(.vertical, 22)
+                
+                List {
+                    VStack {
+                        changeTypeFlight
+                        originDestination
+                        departureAndReturnDatePicker
+                        
+                        CustomPassengerAndClassTextField(passengerValue: $vm.passenger, classFlightValue: $vm.classFlight, isPresented: $vm.isPresentedPassenger, textFieldValue: "Enter passenger", textSection: "Passenger and class")
+                            .padding(.horizontal, 16)
+                        
+                        searchButton
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 500)
+                    .background(Color(.ticketBackgroundColor))
+                    .cornerRadius(16)
+                    .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 10)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                }
+                .buttonStyle(.plain)
+            }
+            .listStyle(.plain)
+            
         }
     }
 }

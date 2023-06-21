@@ -21,6 +21,7 @@ enum AssetsColor: String {
     case tabBarWhiteGray = "tabBarWhiteGray"
     case homeBackgroundColor = "homeBackgroundColor"
     case ticketBackgroundColor = "ticketBackgroundColor"
+    case buttonTypesFlight = "buttonTypesFlight"
 }
 
 //MARK: - Extension Color -
