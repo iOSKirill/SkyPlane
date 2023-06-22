@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class CreateAccountViewModel: ObservableObject {
     
     //MARK: - Property -
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
-    @Published var isPresentedGoogle = false
+    @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
     @Published var isPresentedLogin = false
     @Published var isSecurePassword = true
     @Published var isSecureConfirmPassword = true
@@ -27,7 +28,7 @@ final class CreateAccountViewModel: ObservableObject {
             guard let self = self else { return }
             let user = try await firebaseManager.singInWithGoogle()
             await MainActor.run {
-                self.isPresentedGoogle = true
+                self.appCondition = .homeView
             }
         }
     }

@@ -41,7 +41,8 @@ struct CreateAccountView: View {
     //MARK: - Create account button -
     var createAccountButton: some View {
         Button {
-            vm.createUser()
+//            vm.createUser()
+            vm.isPresentedLogin = true
         } label: {
             Text("Create account")
                 .font(.system(size: 18, weight: .medium))
@@ -105,10 +106,6 @@ struct CreateAccountView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.textSilverWhite), lineWidth: 1))
-            
-        }
-        .fullScreenCover(isPresented: $vm.isPresentedGoogle) {
-            TabBarView()
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
