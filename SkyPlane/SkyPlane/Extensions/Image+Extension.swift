@@ -29,6 +29,8 @@ enum AssetsImage: String {
     case arrowsHome = "arrowsHome"
     case datePicker = "datePicker"
     case headerScreen = "headerScreen"
+    case ticketBackground = "ticketBackground"
+    case logoOnTicket = "logoOnTicket"
 }
 
 //MARK: - Extension Image -

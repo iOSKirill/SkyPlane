@@ -117,54 +117,94 @@ struct HomeView: View {
 
     //MARK: - Body -
     var body: some View {
-        ZStack {
-            Color(.homeBackgroundColor).ignoresSafeArea()
-           
-            VStack {
-                ZStack {
-                    Image(.headerScreen)
-                        .resizable()
-                        .ignoresSafeArea()
-                        .frame(maxWidth: .infinity, maxHeight: 250)
-                }
-                Spacer()
-            }
-            VStack(alignment: .leading, spacing: 0) {
+        NavigationView {
+            ZStack {
+                Color(.homeBackgroundColor).ignoresSafeArea()
                 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Hello 👋")
-                        .font(.system(size: 22, weight: .regular))
-                        .foregroundColor(Color(.backgroundColor))
-                        .padding(.horizontal, 16)
-                    Text("Find your flights")
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(Color(.backgroundColor))
-                        .padding(.horizontal, 16)
-                }
-                .padding(.vertical, 22)
-                
-                List {
-                    VStack {
-                        changeTypeFlight
-                        originDestination
-                        departureAndReturnDatePicker
-                        
-                        CustomPassengerAndClassTextField(passengerValue: $vm.passenger, classFlightValue: $vm.classFlight, isPresented: $vm.isPresentedPassenger, textFieldValue: "Enter passenger", textSection: "Passenger and class")
-                            .padding(.horizontal, 16)
-                        
-                        searchButton
+                VStack {
+                    ZStack {
+                        Image(.headerScreen)
+                            .resizable()
+                            .ignoresSafeArea()
+                            .frame(maxWidth: .infinity, maxHeight: 250)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 500)
-                    .background(Color(.ticketBackgroundColor))
-                    .cornerRadius(16)
-                    .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 10)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                    Spacer()
                 }
-                .buttonStyle(.plain)
+                VStack(alignment: .leading, spacing: 0) {
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Hello 👋")
+                            .font(.system(size: 22, weight: .regular))
+                            .foregroundColor(Color(.backgroundColor))
+                            .padding(.horizontal, 16)
+                        Text("Find your flights")
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(Color(.backgroundColor))
+                            .padding(.horizontal, 16)
+                    }
+                    .padding(.vertical, 22)
+                    
+                    List {
+                        VStack {
+                            changeTypeFlight
+                            originDestination
+                            departureAndReturnDatePicker
+                            
+                            CustomPassengerAndClassTextField(passengerValue: $vm.passenger, classFlightValue: $vm.classFlight, isPresented: $vm.isPresentedPassenger, textFieldValue: "Enter passenger", textSection: "Passenger and class")
+                                .padding(.horizontal, 16)
+                            
+                            searchButton
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 500)
+                        .background(Color(.ticketBackgroundColor))
+                        .cornerRadius(16)
+                        .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 10)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        
+                        HStack {
+                            Text("Popular Flights")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(Color(.textBlackWhiteColor))
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                            Spacer()
+                       
+                            ZStack {
+                                NavigationLink {
+                                    PopularFlightView(vm: vm.popularFlightVM)
+                                } label: {
+                                    Text("View All")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(Color(.textTicketColor))
+                                }
+                                .opacity(0)
+                                Text("View All")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(Color(.textTicketColor))
+                                    .padding(.leading, 130)
+                            }
+
+
+                        }
+                        .padding(.top, 16)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .buttonStyle(.plain)
+                        
+                        //Popular tickets
+                        ForEach(vm.popularFlightInfo.prefix(2), id: \.self) { i in
+                            CustomTicketCell(origin: i.origin ?? "", destination: i.destination ?? "", departureDate: i.departureAt ?? "", flightNumber: i.flightNumber ?? 0, price: i.price ?? 0, icon: i.airline ?? "")
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+                .listStyle(.plain)
+                
             }
-            .listStyle(.plain)
-            
+            .task {
+                vm.getPopularFlightInfo(cityName: "Paris")
+            }
         }
     }
 }

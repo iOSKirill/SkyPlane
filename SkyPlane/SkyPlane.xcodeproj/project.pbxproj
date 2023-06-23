@@ -68,9 +68,12 @@
 		6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */; };
 		6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */; };
 		6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */; };
+		6CA9174E2A44B910009A2E02 /* CustomTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9174D2A44B910009A2E02 /* CustomTicketCell.swift */; };
 		6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */; };
 		6CAFA7852A33B31B0014BF71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */; };
 		6CB15B952A3CE30A0027E2EA /* PopularFlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */; };
+		6CB5D0E42A45FC9D004C5A25 /* PopularFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5D0E32A45FC9D004C5A25 /* PopularFlightView.swift */; };
+		6CB5D0E62A45FCCA004C5A25 /* PopularFlightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5D0E52A45FCCA004C5A25 /* PopularFlightViewModel.swift */; };
 		6CD3E2792A40BD0200994E9F /* CustomDatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3E2782A40BD0200994E9F /* CustomDatePickerTextField.swift */; };
 		6CD3E27C2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3E27B2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift */; };
 		6CE3B3A22A42328800E2FBCC /* Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3B3A12A42328800E2FBCC /* Autocomplete.swift */; };
@@ -110,9 +113,12 @@
 		6C915FEA2A339AED001C8B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
+		6CA9174D2A44B910009A2E02 /* CustomTicketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTicketCell.swift; sourceTree = "<group>"; };
 		6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightModel.swift; sourceTree = "<group>"; };
+		6CB5D0E32A45FC9D004C5A25 /* PopularFlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightView.swift; sourceTree = "<group>"; };
+		6CB5D0E52A45FCCA004C5A25 /* PopularFlightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightViewModel.swift; sourceTree = "<group>"; };
 		6CD3E2782A40BD0200994E9F /* CustomDatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerTextField.swift; sourceTree = "<group>"; };
 		6CD3E27B2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPassengerAndClassTextField.swift; sourceTree = "<group>"; };
 		6CE3B3A12A42328800E2FBCC /* Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.swift; sourceTree = "<group>"; };
@@ -294,6 +300,7 @@
 				6C7E300B2A37891700456564 /* TabBarModule */,
 				6C876DA22A39ED150087C137 /* HomeModule */,
 				6CE3B3A32A4310EF00E2FBCC /* TicketsFoundModule */,
+				6CB5D0E02A45FC62004C5A25 /* PopularFlightModule */,
 				6C876DA92A39F48F0087C137 /* WeatherModule */,
 				6CAFA7812A33B0860014BF71 /* Services */,
 				6C876D9D2A39E6A70087C137 /* Models */,
@@ -321,6 +328,7 @@
 				6C33561C2A40768B00A5FC7D /* CustomHomeTextField.swift */,
 				6CD3E2782A40BD0200994E9F /* CustomDatePickerTextField.swift */,
 				6CD3E27B2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift */,
+				6CA9174D2A44B910009A2E02 /* CustomTicketCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -445,6 +453,31 @@
 				6C5665282A323678002BFBDB /* SkyPlaneApp.swift */,
 			);
 			path = SkyPlaneApp;
+			sourceTree = "<group>";
+		};
+		6CB5D0E02A45FC62004C5A25 /* PopularFlightModule */ = {
+			isa = PBXGroup;
+			children = (
+				6CB5D0E22A45FC84004C5A25 /* View */,
+				6CB5D0E12A45FC77004C5A25 /* ViewModel */,
+			);
+			path = PopularFlightModule;
+			sourceTree = "<group>";
+		};
+		6CB5D0E12A45FC77004C5A25 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6CB5D0E52A45FCCA004C5A25 /* PopularFlightViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6CB5D0E22A45FC84004C5A25 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6CB5D0E32A45FC9D004C5A25 /* PopularFlightView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6CE3B3A32A4310EF00E2FBCC /* TicketsFoundModule */ = {
@@ -585,9 +618,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7E300E2A37894000456564 /* TabBarView.swift in Sources */,
+				6CA9174E2A44B910009A2E02 /* CustomTicketCell.swift in Sources */,
+				6CB5D0E42A45FC9D004C5A25 /* PopularFlightView.swift in Sources */,
 				6CB15B952A3CE30A0027E2EA /* PopularFlightModel.swift in Sources */,
 				6C876D9A2A39E4410087C137 /* Constants.swift in Sources */,
 				6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */,
+				6CB5D0E62A45FCCA004C5A25 /* PopularFlightViewModel.swift in Sources */,
 				6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */,
 				6C5056F92A374A2900D11302 /* CreateAccountModel.swift in Sources */,
 				6C876DAF2A39F4E10087C137 /* WeatherView.swift in Sources */,
@@ -750,6 +786,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SkyPlane/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -780,6 +817,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SkyPlane/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
