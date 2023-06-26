@@ -21,16 +21,24 @@ enum DatePickerShow {
     case departureAndReturnDatePicker
 }
 
+enum ShowHomeScreen: String, Identifiable {
+    case ticketsFoundView
+    case passengerAndClassView
+    
+    var id: String {
+        return self.rawValue
+    }
+}
+
+
 final class HomeViewModel: ObservableObject {
     
     //MARK: - Property -
     private var alamofireProvider: AlamofireProviderProtocol = AlamofireProvider()
     private var cancellable = Set<AnyCancellable>()
     @Published var popularFlightVM = PopularFlightViewModel()
-    @Published var isPresentedSearchView = false
-    @Published var isPresentedPassenger = false
-    @Published var isPresentedClass = false
     @Published var popularFlightInfo: [Datum] = []
+    @Published var showHomeScreen: ShowHomeScreen?
     
     init() {
         $popularFlightInfo
@@ -39,11 +47,9 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellable)
     }
- 
+    
     //Date picker
-    @Published var showDatePickerDeparture = false
     @Published var selectedDateDeparture = Date()
-    @Published var showDatePickerReturn = false
     @Published var selectedDateReturn = Date()
     @Published var datePickerShow: DatePickerShow = .departureDatePicker
     
@@ -58,7 +64,7 @@ final class HomeViewModel: ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
-    
+
     //MARK: - Get flight info round trip -
     func getFlightInfoRoundTrip() {
         Task { [weak self] in
@@ -71,7 +77,7 @@ final class HomeViewModel: ObservableObject {
                 
                 let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: selectedDateReturn))
                 await MainActor.run {
-                    self.isPresentedSearchView = true
+                    self.showHomeScreen = .ticketsFoundView
                     print(flightInfo)
                 }
             } catch {
@@ -85,18 +91,14 @@ final class HomeViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self, !originNameCity.isEmpty, !destinationNameCity.isEmpty  else { return }
             do {
-                let calendar = Calendar.current
-                let dateComponents = DateComponents()
-                let newDate = calendar.date(byAdding: dateComponents, to: selectedDateDeparture)
-                
+                let newDate =  Calendar.current.date(byAdding: .day, value: 1, to: selectedDateDeparture)
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
-
                 let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: newDate ?? .now))
                 await MainActor.run {
-                    self.isPresentedSearchView = true
+                    self.showHomeScreen = .ticketsFoundView
                     print(flightInfo)
                 }
             } catch {

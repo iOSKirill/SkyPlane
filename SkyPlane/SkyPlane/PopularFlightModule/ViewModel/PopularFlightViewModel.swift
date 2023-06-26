@@ -13,5 +13,4 @@ final class PopularFlightViewModel: ObservableObject {
     
     //MARK: - Property -
     @Published var popularFlightInfo: [Datum] = []
-
 }

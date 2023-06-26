@@ -31,7 +31,7 @@ struct PopularFlightView: View {
     
     var popularTickets: some View { 
         ForEach(vm.popularFlightInfo, id: \.self) { i in
-            CustomTicketCell(origin: i.origin ?? "", destination: i.destination ?? "", departureDate: i.departureAt ?? "", flightNumber: i.flightNumber ?? 0, price: i.price ?? 0, icon: i.airline ?? "")
+            CustomTicketCell(popularFlightInfo: PopularFlightInfoModel(data: i))
         }
         .padding(.top, 16)
     } 
@@ -56,9 +56,6 @@ struct PopularFlightView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: buttonBack)
             .navigationTitle("Popular Flight")
-        }
-        .task {
-            print(vm.popularFlightInfo)
         }
     }
 }

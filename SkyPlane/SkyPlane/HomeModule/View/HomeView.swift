@@ -39,12 +39,12 @@ struct HomeView: View {
         HStack {
             switch vm.datePickerShow {
             case .departureDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.showDatePickerDeparture, textSection: "Departure")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, showDatePickerItem: .departureDatePicker, textSection: "Departure")
                     .padding(.horizontal, 16)
             case .departureAndReturnDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.showDatePickerDeparture, textSection: "Departure")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, showDatePickerItem: .departureAndReturnDatePicker, textSection: "Departure")
                     .padding(.leading, 16)
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.showDatePickerReturn, textSection: "Return")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, showDatePickerItem: .departureAndReturnDatePicker, textSection: "Return")
                     .padding(.trailing, 16)
             }
         }
@@ -69,9 +69,6 @@ struct HomeView: View {
                 .cornerRadius(16)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
-        }
-        .fullScreenCover(isPresented: $vm.isPresentedSearchView) {
-            TicketsFoundView()
         }
     }
     var changeTypeFlight: some View {
@@ -150,10 +147,18 @@ struct HomeView: View {
                             originDestination
                             departureAndReturnDatePicker
                             
-                            CustomPassengerAndClassTextField(passengerValue: $vm.passenger, classFlightValue: $vm.classFlight, isPresented: $vm.isPresentedPassenger, textFieldValue: "Enter passenger", textSection: "Passenger and class")
+                            CustomPassengerAndClassTextField(isPresented: $vm.showHomeScreen, passengerValue: vm.passenger, classFlightValue: vm.classFlight, textFieldValue: "Enter passenger", textSection: "Passenger and class")
                                 .padding(.horizontal, 16)
                             
                             searchButton
+                        }
+                        .fullScreenCover(item: $vm.showHomeScreen) { screen in
+                            switch screen {
+                            case .ticketsFoundView:
+                                TicketsFoundView()
+                            case .passengerAndClassView:
+                                CreateAccountView()
+                            }
                         }
                         .frame(maxWidth: .infinity, maxHeight: 500)
                         .background(Color(.ticketBackgroundColor))
@@ -194,7 +199,7 @@ struct HomeView: View {
                         
                         //Popular tickets
                         ForEach(vm.popularFlightInfo.prefix(2), id: \.self) { i in
-                            CustomTicketCell(origin: i.origin ?? "", destination: i.destination ?? "", departureDate: i.departureAt ?? "", flightNumber: i.flightNumber ?? 0, price: i.price ?? 0, icon: i.airline ?? "")
+                            CustomTicketCell(popularFlightInfo: PopularFlightInfoModel(data: i))
                         }
                     }
                     .buttonStyle(.plain)

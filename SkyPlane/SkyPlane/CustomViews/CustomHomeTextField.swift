@@ -27,7 +27,6 @@ struct CustomHomeTextField: View {
                     }
                     .foregroundColor(Color(.textBlackWhiteColor))
                     .cornerRadius(16)
-                    .autocapitalization(.none)
                 
                 Text(textSection)
                     .foregroundColor(Color(.basicColor))

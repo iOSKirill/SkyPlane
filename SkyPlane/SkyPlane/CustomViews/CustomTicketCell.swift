@@ -11,12 +11,7 @@ import SDWebImageSwiftUI
 
 struct CustomTicketCell: View {
     //MARK: - Property -
-    var origin: String
-    var destination: String
-    var departureDate: String
-    var flightNumber: Int
-    var price: Int
-    var icon: String
+    var popularFlightInfo: PopularFlightInfoModel
     
     var body: some View {
         ZStack {
@@ -24,14 +19,14 @@ struct CustomTicketCell: View {
                 .resizable()
             VStack(spacing: 8) {
                 HStack {
-                    Text(origin)
+                    Text(popularFlightInfo.origin)
                         .font(.system(size: 22, weight: .bold))
                         .padding(.leading, 32)
                         .foregroundColor(Color(.textSilverWhite))
                     Spacer()
                     Image(.logoOnTicket)
                     Spacer()
-                    Text(destination)
+                    Text(popularFlightInfo.destination)
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
@@ -64,12 +59,12 @@ struct CustomTicketCell: View {
                 
                 HStack {
 
-                    Text("\(departureDate)")
+                    Text(popularFlightInfo.departureDate)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.leading, 32)
                     Spacer()
-                    Text("\(flightNumber)")
+                    Text("\(popularFlightInfo.flightNumber)")
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
@@ -84,10 +79,10 @@ struct CustomTicketCell: View {
                 .padding(.top, 16)
                 
                 HStack {
-                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(icon).png"))
+                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(popularFlightInfo.icon).png"))
                         .padding(.leading, 32)
                     Spacer()
-                    Text("$\(price)")
+                    Text(popularFlightInfo.price)
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)

@@ -43,6 +43,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
     
     //MARK: - Property -
     private let language = Locale.current.language.languageCode?.identifier ?? "en"
+    private let currency = Locale.current.currency?.identifier ?? "usd"
     private let units: Units = .metric
     
     //MARK: - Method -
@@ -76,7 +77,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
                                                          "destination" : destination,
                                                          "departure_at" : departureDate,
                                                          "return_at" : returnDate,
-                                                         "currency" : "usd",
+                                                         "currency" : "\(currency)",
                                                          "sorting" : "price",
                                                          "direct" : "false",
                                                          "limit" : "1000"])
@@ -86,14 +87,14 @@ class AlamofireProvider: AlamofireProviderProtocol {
     //Getting popular flight by city name
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight {
         let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin": cityName,
-                                                         "currency" : "usd",
+                                                         "currency" : "\(currency)",
                                                          "limit" : "10"])
         return try await makeRequest(url: Constants.getPopularFlightsByCityName, parameters: parameters)
     }
     
     //Getting code by city name
     func getCodeByCityName(cityName: String) async throws -> [Autocomplete] {
-        let parameters = addParams(apiType: .apiAviasales, queryItems: ["locale" : "en",
+        let parameters = addParams(apiType: .apiAviasales, queryItems: ["locale" : language,
                                                                         "types[]" : "city" ,
                                                                         "term" : cityName])
         return try await makeRequest(url: Constants.autocompleteURL, parameters: parameters)

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CustomPassengerAndClassTextField: View {
     //MARK: - Property -
-    @Binding var passengerValue: String
-    @Binding var classFlightValue: ClassFlight
-    @Binding var isPresented: Bool
+    @Binding var isPresented: ShowHomeScreen?
+    var passengerValue: String
+    var classFlightValue: ClassFlight
     var textFieldValue: String
     var textSection: String
     
@@ -24,7 +24,7 @@ struct CustomPassengerAndClassTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             Button() {
-                isPresented.toggle()
+                isPresented = .passengerAndClassView
             } label: {
                 HStack {
                     Text("\(passengerValue), \(classFlightValue.rawValue)")
@@ -33,9 +33,6 @@ struct CustomPassengerAndClassTextField: View {
                         .padding(.leading, 16)
                     Spacer()
                 }
-            }
-            .fullScreenCover(isPresented: $isPresented) {
-                CreateAccountView()
             }
             .frame(maxWidth: .infinity)
             .overlay {
