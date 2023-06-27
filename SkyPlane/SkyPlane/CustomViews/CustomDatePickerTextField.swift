@@ -12,7 +12,6 @@ struct CustomDatePickerTextField: View {
     //MARK: - Property -
     @Binding var selectedDate: Date
     @Binding var showDatePicker: DatePickerShow
-    var showDatePickerItem: DatePickerShow
     var textSection: String
     
     let dateFormat: DateFormatter = {
@@ -24,16 +23,11 @@ struct CustomDatePickerTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             HStack {
-                Button {
-                    showDatePicker = showDatePickerItem
-                } label: {
-                    Image(.datePicker)
-                        .overlay {
-                            DatePicker("", selection: $selectedDate, displayedComponents: [.date])
-                                .blendMode(.destinationOver)
-                        }
-
-                }
+                Image(.datePicker)
+                    .overlay {
+                        DatePicker("", selection: $selectedDate, displayedComponents: [.date])
+                            .blendMode(.destinationOver)
+                    }
                 .padding(.leading, 16)
        
                 Text("\(selectedDate, formatter: dateFormat)")

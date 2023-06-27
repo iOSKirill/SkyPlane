@@ -37,7 +37,7 @@ final class HomeViewModel: ObservableObject {
     private var alamofireProvider: AlamofireProviderProtocol = AlamofireProvider()
     private var cancellable = Set<AnyCancellable>()
     @Published var popularFlightVM = PopularFlightViewModel()
-    @Published var popularFlightInfo: [Datum] = []
+    @Published var popularFlightInfo: [PopularFlightInfoModel] = []
     @Published var showHomeScreen: ShowHomeScreen?
     
     init() {
@@ -115,10 +115,10 @@ final class HomeViewModel: ObservableObject {
                 let codeByCityName = try await alamofireProvider.getCodeByCityName(cityName: cityName)
                 guard let codeNameCity = codeByCityName.first?.code else { return }
                 let popularFlightInfo = try await alamofireProvider.getPopularFlightsByCityName(cityName: codeNameCity)
-                await MainActor.run {
-                    self.popularFlightInfo = popularFlightInfo.data?.values.sorted(by: { $0.price ?? 0 < $1.price ?? 0 }) ?? []
+                let mappedData = popularFlightInfo.data?.values.map { PopularFlightInfoModel(data: $0) } ?? []
 
-                    print(popularFlightInfo)
+                await MainActor.run {
+                    self.popularFlightInfo = mappedData.sorted(by: { $0.price < $1.price })
                 }
             } catch {
                 print("Error get popular flight info")

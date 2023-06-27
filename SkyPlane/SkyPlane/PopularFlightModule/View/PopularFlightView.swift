@@ -30,8 +30,9 @@ struct PopularFlightView: View {
     }
     
     var popularTickets: some View { 
-        ForEach(vm.popularFlightInfo, id: \.self) { i in
-            CustomTicketCell(popularFlightInfo: PopularFlightInfoModel(data: i))
+        //Popular tickets
+        ForEach(vm.popularFlightInfo) { i in
+            CustomTicketCell(popularFlightInfo: i)
         }
         .padding(.top, 16)
     } 

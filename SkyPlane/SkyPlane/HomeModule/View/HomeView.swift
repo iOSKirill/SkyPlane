@@ -39,12 +39,12 @@ struct HomeView: View {
         HStack {
             switch vm.datePickerShow {
             case .departureDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, showDatePickerItem: .departureDatePicker, textSection: "Departure")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.horizontal, 16)
             case .departureAndReturnDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, showDatePickerItem: .departureAndReturnDatePicker, textSection: "Departure")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.leading, 16)
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, showDatePickerItem: .departureAndReturnDatePicker, textSection: "Return")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return")
                     .padding(.trailing, 16)
             }
         }
@@ -198,8 +198,8 @@ struct HomeView: View {
                         .buttonStyle(.plain)
                         
                         //Popular tickets
-                        ForEach(vm.popularFlightInfo.prefix(2), id: \.self) { i in
-                            CustomTicketCell(popularFlightInfo: PopularFlightInfoModel(data: i))
+                        ForEach(vm.popularFlightInfo.prefix(2)) { i in
+                            CustomTicketCell(popularFlightInfo: i)
                         }
                     }
                     .buttonStyle(.plain)

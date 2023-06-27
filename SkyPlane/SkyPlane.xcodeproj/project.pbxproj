@@ -80,6 +80,8 @@
 		6CE3B3A62A43115D00E2FBCC /* TicketsFoundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3B3A52A43115D00E2FBCC /* TicketsFoundViewModel.swift */; };
 		6CE3B3A92A43117400E2FBCC /* TicketsFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3B3A82A43117400E2FBCC /* TicketsFoundView.swift */; };
 		6CEB60672A4A2172004345E6 /* PopularFlightInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB60662A4A2172004345E6 /* PopularFlightInfoModel.swift */; };
+		6CEB60692A4AB424004345E6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB60682A4AB424004345E6 /* String+Extension.swift */; };
+		6CEB606B2A4AB4EE004345E6 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB606A2A4AB4EE004345E6 /* Int+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +128,8 @@
 		6CE3B3A52A43115D00E2FBCC /* TicketsFoundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsFoundViewModel.swift; sourceTree = "<group>"; };
 		6CE3B3A82A43117400E2FBCC /* TicketsFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsFoundView.swift; sourceTree = "<group>"; };
 		6CEB60662A4A2172004345E6 /* PopularFlightInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightInfoModel.swift; sourceTree = "<group>"; };
+		6CEB60682A4AB424004345E6 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		6CEB606A2A4AB4EE004345E6 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +180,8 @@
 			children = (
 				6C01D18E2A3246BC00A3993F /* Image+Extension.swift */,
 				6C01D1902A32477A00A3993F /* Color+Extension.swift */,
+				6CEB60682A4AB424004345E6 /* String+Extension.swift */,
+				6CEB606A2A4AB4EE004345E6 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -653,6 +659,7 @@
 				6C01D1962A33768100A3993F /* OnboardingView.swift in Sources */,
 				6C876D9F2A39E87C0087C137 /* CoordinateModel.swift in Sources */,
 				6C01D19B2A338A8100A3993F /* OnboardingModel.swift in Sources */,
+				6CEB606B2A4AB4EE004345E6 /* Int+Extension.swift in Sources */,
 				6C876D9C2A39E4BA0087C137 /* AlamofireProvider.swift in Sources */,
 				6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */,
 				6C7E300A2A3786B600456564 /* CustomSectionTextFieldPassword.swift in Sources */,
@@ -666,6 +673,7 @@
 				6C01D18F2A3246BC00A3993F /* Image+Extension.swift in Sources */,
 				6C876DAD2A39F4CA0087C137 /* WeatherViewModel.swift in Sources */,
 				6CE3B3A22A42328800E2FBCC /* Autocomplete.swift in Sources */,
+				6CEB60692A4AB424004345E6 /* String+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

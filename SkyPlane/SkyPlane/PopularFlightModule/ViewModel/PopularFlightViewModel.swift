@@ -12,5 +12,5 @@ import SwiftUI
 final class PopularFlightViewModel: ObservableObject {
     
     //MARK: - Property -
-    @Published var popularFlightInfo: [Datum] = []
+    @Published var popularFlightInfo: [PopularFlightInfoModel] = []
 }

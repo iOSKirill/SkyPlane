@@ -77,7 +77,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
                                                          "destination" : destination,
                                                          "departure_at" : departureDate,
                                                          "return_at" : returnDate,
-                                                         "currency" : "\(currency)",
+                                                         "currency" : currency,
                                                          "sorting" : "price",
                                                          "direct" : "false",
                                                          "limit" : "1000"])
@@ -87,7 +87,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
     //Getting popular flight by city name
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight {
         let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin": cityName,
-                                                         "currency" : "\(currency)",
+                                                         "currency" : currency,
                                                          "limit" : "10"])
         return try await makeRequest(url: Constants.getPopularFlightsByCityName, parameters: parameters)
     }
