@@ -11,7 +11,7 @@ import SwiftUI
 final class OnboardingViewModel: ObservableObject {
     
     //MARK: - Property -
-    @Published var isPresented = false
+    @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
     @Published var currentStep: Int = 0
     @Published var onboardingSteps = [
         OnboardingStep(id: 0, image: AssetsImage.firstOnboarding.rawValue, title: "Find a relax flight for next trip", description: "Easy to use app for your next flight booking ticket"),
@@ -24,7 +24,7 @@ final class OnboardingViewModel: ObservableObject {
         if currentStep < onboardingSteps.count - 1 {
             currentStep += 1
         } else {
-            isPresented.toggle()
+            appCondition = .createAccountView
         }
     }
     

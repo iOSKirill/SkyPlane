@@ -68,9 +68,6 @@ struct LoginView: View {
                 .cornerRadius(16)
                 .padding(.bottom, -10)
         }
-        .fullScreenCover(isPresented: $vm.isPresentedLogin) {
-            TabBarView()
-        }
         .padding(.horizontal, 16)
         .padding(.bottom, 10)
     }
@@ -120,9 +117,6 @@ struct LoginView: View {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.textSilverWhite), lineWidth: 1))
         }
-        .fullScreenCover(isPresented: $vm.isPresentedGoogle) {
-           TabBarView()
-        }
         .padding(.horizontal, 16)
         .padding(.bottom, 16)
     }
@@ -144,6 +138,7 @@ struct LoginView: View {
                 divider
                 loginWithGoogleButton
             }
+            .padding(.top, 16)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)

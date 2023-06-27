@@ -24,6 +24,7 @@ struct Constants {
     
     //MARK: - AviasalesApi
     static var baseURLAviasales = "https://api.travelpayouts.com/"
+    static var autocompleteURL = "https://autocomplete.travelpayouts.com/places2"
     
     static var getFlightsInfo: String {
         return baseURLAviasales.appending("aviasales/v3/prices_for_dates?")

@@ -8,9 +8,16 @@
 import Foundation
 import SwiftUI
 
+enum AppCondition: String {
+    case onboardingView
+    case createAccountView
+    case homeView
+}
+
 final class LaunchScreenViewModel: ObservableObject {
     
     //MARK: - Property -
+    @AppStorage("appCondition") var appCondition: AppCondition?
     @Published var isPresented = false
     @Published var isLoading = false
     @Published var value = 1

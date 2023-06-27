@@ -12,8 +12,7 @@ final class LoginViewModel: ObservableObject {
     
     //MARK: - Property -
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
-    @Published var isPresentedGoogle = false
-    @Published var isPresentedLogin = false
+    @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
     @Published var isSecurePassword = true
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
@@ -24,7 +23,7 @@ final class LoginViewModel: ObservableObject {
             guard let self = self else { return }
             let user = try await firebaseManager.singInWithGoogle()
             await MainActor.run {
-                self.isPresentedGoogle = true
+                self.appCondition = .homeView
             }
         }
     }
@@ -36,7 +35,7 @@ final class LoginViewModel: ObservableObject {
             let userInfo = try await firebaseManager.signInWithEmail(email: emailText, password: passwordText)
             UserDefaults.standard.set(userInfo.uid.description, forKey: "uid")
             await MainActor.run {
-                self.isPresentedLogin = true
+                self.appCondition = .homeView
             }
         }
     }

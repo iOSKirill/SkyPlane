@@ -51,7 +51,16 @@ struct LaunchScreenView: View {
             }
         }
         .fullScreenCover(isPresented: $vm.isPresented) {
-            OnboardingView()
+            switch vm.appCondition {
+            case .onboardingView:
+                OnboardingView()
+            case .createAccountView:
+                CreateAccountView()
+            case .homeView:
+                TabBarView()
+            case .none:
+                OnboardingView()
+            }
         }
         .onAppear(perform: vm.nextOnboardingView)
     }

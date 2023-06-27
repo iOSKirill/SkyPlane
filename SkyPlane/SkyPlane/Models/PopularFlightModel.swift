@@ -15,7 +15,7 @@ struct PopularFlight: Codable {
 }
 
 // MARK: - Datum
-struct Datum: Codable {
+struct Datum: Codable, Hashable {
     let origin, destination: String?
     let price: Int?
     let airline: String?
