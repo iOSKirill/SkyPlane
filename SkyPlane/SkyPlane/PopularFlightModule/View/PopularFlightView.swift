@@ -32,7 +32,7 @@ struct PopularFlightView: View {
     var popularTickets: some View { 
         //Popular tickets
         ForEach(vm.popularFlightInfo) { i in
-            CustomTicketCell(popularFlightInfo: i)
+            CustomPopularTicketCell(popularFlightInfo: i)
         }
         .padding(.top, 16)
     } 

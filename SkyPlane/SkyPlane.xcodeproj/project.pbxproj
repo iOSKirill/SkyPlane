@@ -68,7 +68,9 @@
 		6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */; };
 		6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */; };
 		6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */; };
-		6CA9174E2A44B910009A2E02 /* CustomTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9174D2A44B910009A2E02 /* CustomTicketCell.swift */; };
+		6C97EA012A4CAA89001C550E /* BuyTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C97EA002A4CAA89001C550E /* BuyTicketViewModel.swift */; };
+		6C97EA032A4CAABF001C550E /* BuyTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C97EA022A4CAABF001C550E /* BuyTicketView.swift */; };
+		6CA9174E2A44B910009A2E02 /* CustomPopularTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9174D2A44B910009A2E02 /* CustomPopularTicketCell.swift */; };
 		6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */; };
 		6CAFA7852A33B31B0014BF71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */; };
 		6CB15B952A3CE30A0027E2EA /* PopularFlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */; };
@@ -82,6 +84,8 @@
 		6CEB60672A4A2172004345E6 /* PopularFlightInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB60662A4A2172004345E6 /* PopularFlightInfoModel.swift */; };
 		6CEB60692A4AB424004345E6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB60682A4AB424004345E6 /* String+Extension.swift */; };
 		6CEB606B2A4AB4EE004345E6 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB606A2A4AB4EE004345E6 /* Int+Extension.swift */; };
+		6CEB606E2A4B177B004345E6 /* TicketsFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB606D2A4B177B004345E6 /* TicketsFoundModel.swift */; };
+		6CEB60702A4C02D4004345E6 /* CustomTicketsFoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEB606F2A4C02D4004345E6 /* CustomTicketsFoundCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,7 +120,9 @@
 		6C915FEA2A339AED001C8B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
-		6CA9174D2A44B910009A2E02 /* CustomTicketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTicketCell.swift; sourceTree = "<group>"; };
+		6C97EA002A4CAA89001C550E /* BuyTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketViewModel.swift; sourceTree = "<group>"; };
+		6C97EA022A4CAABF001C550E /* BuyTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketView.swift; sourceTree = "<group>"; };
+		6CA9174D2A44B910009A2E02 /* CustomPopularTicketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopularTicketCell.swift; sourceTree = "<group>"; };
 		6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CB15B942A3CE30A0027E2EA /* PopularFlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightModel.swift; sourceTree = "<group>"; };
@@ -130,6 +136,8 @@
 		6CEB60662A4A2172004345E6 /* PopularFlightInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularFlightInfoModel.swift; sourceTree = "<group>"; };
 		6CEB60682A4AB424004345E6 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6CEB606A2A4AB4EE004345E6 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		6CEB606D2A4B177B004345E6 /* TicketsFoundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsFoundModel.swift; sourceTree = "<group>"; };
+		6CEB606F2A4C02D4004345E6 /* CustomTicketsFoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTicketsFoundCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +317,7 @@
 				6C876DA22A39ED150087C137 /* HomeModule */,
 				6CE3B3A32A4310EF00E2FBCC /* TicketsFoundModule */,
 				6CB5D0E02A45FC62004C5A25 /* PopularFlightModule */,
+				6C97E9FD2A4CAA1B001C550E /* BuyTicketModule */,
 				6C876DA92A39F48F0087C137 /* WeatherModule */,
 				6CAFA7812A33B0860014BF71 /* Services */,
 				6C876D9D2A39E6A70087C137 /* Models */,
@@ -336,7 +345,8 @@
 				6C33561C2A40768B00A5FC7D /* CustomHomeTextField.swift */,
 				6CD3E2782A40BD0200994E9F /* CustomDatePickerTextField.swift */,
 				6CD3E27B2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift */,
-				6CA9174D2A44B910009A2E02 /* CustomTicketCell.swift */,
+				6CA9174D2A44B910009A2E02 /* CustomPopularTicketCell.swift */,
+				6CEB606F2A4C02D4004345E6 /* CustomTicketsFoundCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -445,6 +455,31 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		6C97E9FD2A4CAA1B001C550E /* BuyTicketModule */ = {
+			isa = PBXGroup;
+			children = (
+				6C97E9FF2A4CAA69001C550E /* View */,
+				6C97E9FE2A4CAA5E001C550E /* ViewModel */,
+			);
+			path = BuyTicketModule;
+			sourceTree = "<group>";
+		};
+		6C97E9FE2A4CAA5E001C550E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C97EA002A4CAA89001C550E /* BuyTicketViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6C97E9FF2A4CAA69001C550E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C97EA022A4CAABF001C550E /* BuyTicketView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6CAFA7812A33B0860014BF71 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +527,7 @@
 		6CE3B3A32A4310EF00E2FBCC /* TicketsFoundModule */ = {
 			isa = PBXGroup;
 			children = (
+				6CEB606C2A4B1766004345E6 /* Model */,
 				6CE3B3A72A43116600E2FBCC /* View */,
 				6CE3B3A42A43110500E2FBCC /* ViewModel */,
 			);
@@ -518,6 +554,14 @@
 			isa = PBXGroup;
 			children = (
 				6CEB60662A4A2172004345E6 /* PopularFlightInfoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6CEB606C2A4B1766004345E6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CEB606D2A4B177B004345E6 /* TicketsFoundModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -636,12 +680,13 @@
 			files = (
 				6C7E300E2A37894000456564 /* TabBarView.swift in Sources */,
 				6CEB60672A4A2172004345E6 /* PopularFlightInfoModel.swift in Sources */,
-				6CA9174E2A44B910009A2E02 /* CustomTicketCell.swift in Sources */,
+				6CA9174E2A44B910009A2E02 /* CustomPopularTicketCell.swift in Sources */,
 				6CB5D0E42A45FC9D004C5A25 /* PopularFlightView.swift in Sources */,
 				6CB15B952A3CE30A0027E2EA /* PopularFlightModel.swift in Sources */,
 				6C876D9A2A39E4410087C137 /* Constants.swift in Sources */,
 				6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */,
 				6CB5D0E62A45FCCA004C5A25 /* PopularFlightViewModel.swift in Sources */,
+				6C97EA012A4CAA89001C550E /* BuyTicketViewModel.swift in Sources */,
 				6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */,
 				6C5056F92A374A2900D11302 /* CreateAccountModel.swift in Sources */,
 				6C876DAF2A39F4E10087C137 /* WeatherView.swift in Sources */,
@@ -661,6 +706,7 @@
 				6C01D19B2A338A8100A3993F /* OnboardingModel.swift in Sources */,
 				6CEB606B2A4AB4EE004345E6 /* Int+Extension.swift in Sources */,
 				6C876D9C2A39E4BA0087C137 /* AlamofireProvider.swift in Sources */,
+				6CEB60702A4C02D4004345E6 /* CustomTicketsFoundCell.swift in Sources */,
 				6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */,
 				6C7E300A2A3786B600456564 /* CustomSectionTextFieldPassword.swift in Sources */,
 				6C01D18C2A32427F00A3993F /* LaunchScreenViewModel.swift in Sources */,
@@ -669,6 +715,8 @@
 				6C01D1982A33769000A3993F /* OnboardingViewModel.swift in Sources */,
 				6CD3E2792A40BD0200994E9F /* CustomDatePickerTextField.swift in Sources */,
 				6C876DB12A3AF8290087C137 /* FlightModel.swift in Sources */,
+				6C97EA032A4CAABF001C550E /* BuyTicketView.swift in Sources */,
+				6CEB606E2A4B177B004345E6 /* TicketsFoundModel.swift in Sources */,
 				6CE3B3A62A43115D00E2FBCC /* TicketsFoundViewModel.swift in Sources */,
 				6C01D18F2A3246BC00A3993F /* Image+Extension.swift in Sources */,
 				6C876DAD2A39F4CA0087C137 /* WeatherViewModel.swift in Sources */,

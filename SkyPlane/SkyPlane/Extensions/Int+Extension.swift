@@ -18,4 +18,12 @@ extension Int {
         let formattedValue = formatter.string(from: NSNumber(value: self)) ?? ""
         return formattedValue
     }
+    
+    //MARK: - Formatter duration ticket -
+    func formatDuration() -> String {
+        let hours = self / 60
+        let remainingMinutes = self % 60
+        let formattedString = String(format: "%dh/%dm", hours, remainingMinutes)
+        return formattedString
+    }
 }

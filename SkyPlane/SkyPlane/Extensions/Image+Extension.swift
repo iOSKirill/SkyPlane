@@ -31,6 +31,7 @@ enum AssetsImage: String {
     case headerScreen = "headerScreen"
     case ticketBackground = "ticketBackground"
     case logoOnTicket = "logoOnTicket"
+    case headerTicketsFound = "headerTicketsFound"
 }
 
 //MARK: - Extension Image -

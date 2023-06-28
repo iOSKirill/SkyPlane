@@ -10,12 +10,12 @@ import Foundation
 //MARK: - FlightInfo -
 struct FlightInfo: Codable {
     let success: Bool?
-    let data: [DateTicket]?
+    let data: [DateTicket]
     let currency: String?
 }
 
 //MARK: - DateElements -
-struct DateTicket: Codable {
+struct DateTicket: Codable, Hashable {
     let origin, destination, originAirport, destinationAirport: String?
     let price: Int?
     let airline, flightNumber: String?

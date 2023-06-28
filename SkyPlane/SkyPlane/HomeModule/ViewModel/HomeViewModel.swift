@@ -30,20 +30,39 @@ enum ShowHomeScreen: String, Identifiable {
     }
 }
 
-
 final class HomeViewModel: ObservableObject {
     
     //MARK: - Property -
     private var alamofireProvider: AlamofireProviderProtocol = AlamofireProvider()
     private var cancellable = Set<AnyCancellable>()
     @Published var popularFlightVM = PopularFlightViewModel()
+    @Published var ticketsFoundVM = TicketsFoundViewModel()
     @Published var popularFlightInfo: [PopularFlightInfoModel] = []
+    @Published var ticketFoundInfo: [TicketsFoundModel] = []
     @Published var showHomeScreen: ShowHomeScreen?
     
     init() {
         $popularFlightInfo
             .sink { item in
                 self.popularFlightVM.popularFlightInfo = item
+            }
+            .store(in: &cancellable)
+        
+        $ticketFoundInfo
+            .sink { item in
+                self.ticketsFoundVM.flightInfo = item
+            }
+            .store(in: &cancellable)
+        
+        $originNameCity
+            .sink { item in
+                self.ticketsFoundVM.originNameCity = item
+            }
+            .store(in: &cancellable)
+        
+        $destinationNameCity
+            .sink { item in
+                self.ticketsFoundVM.destinationNameCity = item
             }
             .store(in: &cancellable)
     }
@@ -64,7 +83,7 @@ final class HomeViewModel: ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
-
+    
     //MARK: - Get flight info round trip -
     func getFlightInfoRoundTrip() {
         Task { [weak self] in
@@ -74,11 +93,13 @@ final class HomeViewModel: ObservableObject {
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
-                
                 let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: selectedDateReturn))
+                let mappedData = flightInfo.data
+                    .map { TicketsFoundModel(data: $0) }
+                
                 await MainActor.run {
                     self.showHomeScreen = .ticketsFoundView
-                    print(flightInfo)
+                    self.ticketFoundInfo = mappedData
                 }
             } catch {
                 print("Error get flight info")
@@ -97,9 +118,12 @@ final class HomeViewModel: ObservableObject {
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
                 let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: newDate ?? .now))
+                let mappedData = flightInfo.data
+                    .map { TicketsFoundModel(data: $0) }
+
                 await MainActor.run {
                     self.showHomeScreen = .ticketsFoundView
-                    print(flightInfo)
+                    self.ticketFoundInfo = mappedData
                 }
             } catch {
                 print("Error get flight info")

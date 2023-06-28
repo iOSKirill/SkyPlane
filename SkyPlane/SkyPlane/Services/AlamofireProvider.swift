@@ -34,6 +34,7 @@ protocol AlamofireProviderProtocol {
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel]
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel
     func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo
+    func getFilterFlightInfo(origin: String, destination: String, departureDate: String, returnDate: String, direct: Bool, sorting: String) async throws -> FlightInfo
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight
     func getCodeByCityName(cityName: String) async throws -> [Autocomplete]
 }
@@ -80,6 +81,19 @@ class AlamofireProvider: AlamofireProviderProtocol {
                                                          "currency" : currency,
                                                          "sorting" : "price",
                                                          "direct" : "false",
+                                                         "limit" : "1000"])
+        return try await makeRequest(url: Constants.getFlightsInfo, parameters: parameters)
+    }
+    
+    //Getting filter flight info
+    func getFilterFlightInfo(origin: String, destination: String, departureDate: String, returnDate: String, direct: Bool, sorting: String) async throws -> FlightInfo {
+        let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin" : origin,
+                                                         "destination" : destination,
+                                                         "departure_at" : departureDate,
+                                                         "return_at" : returnDate,
+                                                         "currency" : currency,
+                                                         "sorting" : sorting,
+                                                         "direct" : "\(direct)",
                                                          "limit" : "1000"])
         return try await makeRequest(url: Constants.getFlightsInfo, parameters: parameters)
     }

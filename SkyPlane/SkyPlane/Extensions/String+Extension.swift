@@ -19,5 +19,16 @@ extension String {
         let outputDateString = outputDateFormatter.string(from: date)
         return outputDateString
     }
+    
+    //MARK: - Formatter filter ticket -
+    func formatFilterTicket() -> String {
+        let inputDateFormatter = DateFormatter()
+        inputDateFormatter.dateFormat = "MMM dd, HH:mm"
+        let date = inputDateFormatter.date(from: self) ?? Date()
+        let outputDateFormatter = DateFormatter()
+        outputDateFormatter.dateFormat = "2023-MM-dd"
+        let outputDateString = outputDateFormatter.string(from: date)
+        return outputDateString
+    }
 }
 

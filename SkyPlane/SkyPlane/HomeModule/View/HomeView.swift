@@ -155,7 +155,7 @@ struct HomeView: View {
                         .fullScreenCover(item: $vm.showHomeScreen) { screen in
                             switch screen {
                             case .ticketsFoundView:
-                                TicketsFoundView()
+                                TicketsFoundView(vm: vm.ticketsFoundVM)
                             case .passengerAndClassView:
                                 CreateAccountView()
                             }
@@ -199,7 +199,7 @@ struct HomeView: View {
                         
                         //Popular tickets
                         ForEach(vm.popularFlightInfo.prefix(2)) { i in
-                            CustomTicketCell(popularFlightInfo: i)
+                            CustomPopularTicketCell(popularFlightInfo: i)
                         }
                     }
                     .buttonStyle(.plain)
@@ -208,7 +208,7 @@ struct HomeView: View {
                 
             }
             .task {
-                vm.getPopularFlightInfo(cityName: "Paris")
+                vm.getPopularFlightInfo(cityName: "Minsk")
             }
         }
     }
