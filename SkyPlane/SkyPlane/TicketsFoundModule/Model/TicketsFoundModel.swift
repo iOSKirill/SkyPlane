@@ -14,7 +14,7 @@ struct TicketsFoundModel: Identifiable {
     var departureDate: String
     var returnDate: String
     var flightNumber: String
-    var price: String
+    var price: Int
     var icon: String
     var duration: String
     
@@ -24,7 +24,7 @@ struct TicketsFoundModel: Identifiable {
         departureDate = data.departureAt?.formatDateTicket() ?? ""
         returnDate = data.returnAt?.formatDateTicket() ?? ""
         flightNumber = data.flightNumber ?? ""
-        price = data.price?.formatCurrency() ?? ""
+        price = data.price ?? 0
         icon = data.airline ?? ""
         duration = data.duration_to?.formatDuration() ?? ""
     }

@@ -10,10 +10,8 @@ import SwiftUI
 import Combine
 
 enum ClassFlight: String {
-    case economy = "Economy"
-    case comfort = "Comfort"
-    case business = "Business"
-    case firstClass = "First Class"
+    case economy = "Economy Class"
+    case business = "Business Class"
 }
 
 enum DatePickerShow {

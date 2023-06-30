@@ -72,7 +72,7 @@ struct CustomPopularTicketCell: View {
                     WebImage(url: URL(string: "https://pics.avs.io/100/50/\(popularFlightInfo.icon).png"))
                         .padding(.leading, 32)
                     Spacer()
-                    Text(popularFlightInfo.price)
+                    Text("\(popularFlightInfo.price)")
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)

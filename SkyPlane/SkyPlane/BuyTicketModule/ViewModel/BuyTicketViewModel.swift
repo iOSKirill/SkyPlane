@@ -7,12 +7,16 @@
 
 import Foundation
 
+
 final class BuyTicketViewModel: ObservableObject {
     
     //MARK: - Property -
     @Published var buyTicketInfo: TicketsFoundModel
-    
+    @Published var classFlight: ClassFlight = .economy
+    @Published var businessPrice: Int = 0
+
     init(buyTicketInfo: TicketsFoundModel) {
         self.buyTicketInfo = buyTicketInfo
     }
+    
 }

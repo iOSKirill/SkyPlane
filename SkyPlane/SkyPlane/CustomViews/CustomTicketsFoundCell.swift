@@ -91,7 +91,7 @@ struct CustomTicketsFoundCell: View {
                     WebImage(url: URL(string: "https://pics.avs.io/100/50/\(ticketsFound.icon).png"))
                         .padding(.leading, 32)
                     Spacer()
-                    Text(ticketsFound.price)
+                    Text("\(ticketsFound.price.formatCurrency())")
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)

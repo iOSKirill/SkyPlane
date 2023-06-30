@@ -30,5 +30,23 @@ extension String {
         let outputDateString = outputDateFormatter.string(from: date)
         return outputDateString
     }
+    
+    func formatCurrency() -> String {
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        
+        guard let floatValue = Float(self), let _ = formatter.number(from: self) else {
+            return ""
+        }
+        
+        let multipliedValue = floatValue * 2
+        let multipliedNumber = NSNumber(value: multipliedValue)
+        
+        let formattedValue = formatter.string(from: multipliedNumber) ?? ""
+        return formattedValue
+    }
+    
 }
 
