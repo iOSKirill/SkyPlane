@@ -145,17 +145,17 @@ struct PaymentView: View {
     }
     
     var confirmButton: some View {
-        Button {
+        NavigationLink(destination: BoordingPassView().onAppear {
             vm.saveTicket()
-        } label: {
-            Text("Confirm")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(Color(.blackColor))
-                .padding(16)
-                .frame(maxWidth: .infinity)
-                .background(Color(.basicColor))
-                .cornerRadius(16)
-        }
+                  }) {
+                      Text("Confirm")
+                          .font(.system(size: 18, weight: .medium))
+                          .foregroundColor(Color(.blackColor))
+                          .padding(16)
+                          .frame(maxWidth: .infinity)
+                          .background(Color(.basicColor))
+                          .cornerRadius(16)
+                  }
     }
     var cancelButton: some View {
         Button {
