@@ -13,6 +13,7 @@ struct UserModel: Codable {
     let lastName: String
     let email: String
     let dateOfBirth: Date
-    let gender: String
     let urlImage: String
+    let passport: String
+    let country: String
 }

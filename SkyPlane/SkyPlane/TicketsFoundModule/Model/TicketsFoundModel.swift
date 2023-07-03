@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TicketsFoundModel: Identifiable {
+struct TicketsFoundModel: Identifiable, Encodable {
     var id = UUID()
     var origin: String
     var destination: String

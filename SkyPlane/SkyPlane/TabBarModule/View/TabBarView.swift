@@ -58,7 +58,7 @@ struct TabBarView: View {
             case 3:
                 WeatherView()
             case 4:
-                LoginView()
+                ProfileView()
             default:
                 Text("View")
             }

@@ -18,12 +18,14 @@ struct BuyTicketModel: Identifiable {
     init(classFlight: ClassFlight) {
         switch classFlight {
         case .economy:
+            Ticket.shared.saveClassFlight(classFlight: .economy)
             selectClassName = ClassFlight.economy.rawValue
             cabingBag = "4 Kg"
             changeFree = "$200"
             meal = "Free"
             cancellation = "Non-refundable"
         case .business:
+            Ticket.shared.saveClassFlight(classFlight: .business)
             selectClassName = ClassFlight.business.rawValue
             cabingBag = "7 Kg"
             changeFree = "$120"

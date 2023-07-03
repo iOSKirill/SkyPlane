@@ -41,7 +41,7 @@ struct CreateAccountView: View {
     //MARK: - Create account button -
     var createAccountButton: some View {
         Button {
-//            vm.createUser()
+            vm.createUser()
             vm.isPresentedLogin = true
         } label: {
             Text("Create account")

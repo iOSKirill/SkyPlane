@@ -15,9 +15,12 @@ import GoogleSignIn
 //MARK: - Protocol Firebase -
 protocol FirebaseManagerProtocol {
     func singInWithGoogle() async throws -> User
+    func getUserDataDB(id: String) async throws -> UserModel
     func signUpWithEmail(email: String, password: String) async throws -> User
     func signInWithEmail(email: String, password: String) async throws -> User
-    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
+    func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL
+    func saveTicket(uid: String) async throws 
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -62,11 +65,58 @@ class FirebaseManager: FirebaseManagerProtocol {
         try await Auth.auth().signIn(withEmail: email, password: password).user
     }
     
+    //MARK: - Get user data DB -
+    func getUserDataDB(id: String) async throws -> UserModel  {
+         try await db.collection("Users").document(id).getDocument(as: UserModel.self)
+    }
+    
     //MARK: - Create user data DB -
-    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws {
-        let users  = UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, gender: gender,  urlImage: urlImage)
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws {
+        let users  = UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, urlImage: urlImage, passport: passport, country: country)
         do {
            try db.collection("Users").document(uid).setData(from: users)
+        } catch {
+            print("Error add User")
+        }
+    }
+    
+    //MARK: - Create user image data db -
+    func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL {
+        let ref = Storage.storage().reference().child("images").child(id)
+            
+        guard let fileURL = URL(string: imageAccount) else {
+            fatalError("Invalid URL")
+        }
+        
+        do {
+            print (fileURL)
+            let imageData = try Data(contentsOf: fileURL)
+            guard let imageData = UIImage(data: imageData)?.jpegData(compressionQuality: 0.8) else {
+                fatalError("Invalid image data")
+            }
+            
+            let metadata = StorageMetadata()
+            metadata.contentType = "images/jpeg"
+            
+            ref.putData(imageData, metadata: metadata)
+        
+            let downloadURLTask = try await ref.downloadURL()
+            
+            let db = Firestore.firestore()
+            try await db.collection("Users").document(id).updateData(["urlImage": downloadURLTask.absoluteString])
+            
+            return downloadURLTask
+        } catch {
+            throw error
+        }
+    }
+    
+    //MARK: - Create user data DB -
+    func saveTicket(uid: String) async throws {
+        do {
+            let data = Ticket.shared
+            let ticket  = TicketsFoundModel(data: DateTicket(origin: data.origin, destination: data.destination, originAirport: "", destinationAirport: "", price: data.price, airline: "", flightNumber: data.flightNumber, departureAt: data.departureDate, returnAt: "", transfers: 0, returnTransfers: 0, duration: Int(data.duration), duration_to: 0, link: ""))
+            try db.collection("Users").document(uid).collection("Tickets").document(Ticket.shared.id).setData(from: ticket)
         } catch {
             print("Error add User")
         }

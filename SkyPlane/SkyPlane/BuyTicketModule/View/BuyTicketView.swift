@@ -169,7 +169,7 @@ struct BuyTicketView: View {
     
     var confirmButton: some View {
         NavigationLink {
-           CreateAccountView()
+            EditProfileView(currentScreen: .buyTicket)
         } label: {
             Text("Confirm")
                 .font(.system(size: 18, weight: .medium))
@@ -179,7 +179,6 @@ struct BuyTicketView: View {
                 .background(Color(.basicColor))
                 .cornerRadius(16)
                 .padding(.horizontal, 16)
-                .padding(.bottom, 16)
         }
     }
     var cancelButton: some View {
@@ -201,6 +200,16 @@ struct BuyTicketView: View {
         }
     }
     
+    var nameSection: some View {
+        HStack {
+            Text("Select Your Class")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundColor(Color(.textBlackWhiteColor))
+                .padding(.leading, 16)
+            Spacer()
+        }
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color(.homeBackgroundColor).ignoresSafeArea()
@@ -208,9 +217,10 @@ struct BuyTicketView: View {
             headerPlanet
             ScrollView {
                 ticket
+                nameSection
                 classFlight
-                cancelButton
                 confirmButton
+                cancelButton
             }
             .scrollIndicators(.never)
             .frame(width: UIScreen.main.bounds.width)
@@ -220,6 +230,9 @@ struct BuyTicketView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
         .navigationTitle("Fligth Details")
+        .task {
+            Ticket.shared.saveInfo(ticket: vm.buyTicketInfo)
+        }
     }
 }
 

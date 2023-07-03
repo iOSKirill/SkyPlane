@@ -28,16 +28,47 @@ enum ShowHomeScreen: String, Identifiable {
     }
 }
 
+class UserData {
+    static let shared = UserData()
+    
+    private init() {}
+
+    var firstName = ""
+    var lastName = ""
+    var email = ""
+    var dateOfBirth: Date = .now
+    var urlImage = ""
+    var passport = ""
+    var country = ""
+    
+    func saveInfo(user: UserModel) {
+        firstName = user.firstName
+        lastName =  user.lastName
+        email = user.email
+        dateOfBirth = user.dateOfBirth
+        urlImage = user.urlImage
+        passport = user.passport
+        country = user.country
+    }
+    
+    func getInfo() -> UserModel {
+        UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, urlImage: urlImage, passport: passport, country: country)
+    }
+}
+
 final class HomeViewModel: ObservableObject {
     
     //MARK: - Property -
     private var alamofireProvider: AlamofireProviderProtocol = AlamofireProvider()
+    private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
+    private var uid = UserDefaults.standard.string(forKey: "uid")
     private var cancellable = Set<AnyCancellable>()
     @Published var popularFlightVM = PopularFlightViewModel()
     @Published var ticketsFoundVM = TicketsFoundViewModel()
     @Published var popularFlightInfo: [PopularFlightInfoModel] = []
     @Published var ticketFoundInfo: [TicketsFoundModel] = []
     @Published var showHomeScreen: ShowHomeScreen?
+    @Published var userInfo = UserData.shared
     
     init() {
         $popularFlightInfo
@@ -81,6 +112,18 @@ final class HomeViewModel: ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
+    
+    
+    func getUserData() {
+        Task {
+            do {
+                let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
+                UserData.shared.saveInfo(user: data)
+            } catch {
+                print ("error")
+            }
+        }
+    }
     
     //MARK: - Get flight info round trip -
     func getFlightInfoRoundTrip() {

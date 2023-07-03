@@ -130,7 +130,7 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Hello 👋")
+                        Text("Hello \(vm.userInfo.firstName) 👋")
                             .font(.system(size: 22, weight: .regular))
                             .foregroundColor(Color(.backgroundColor))
                             .padding(.horizontal, 16)
@@ -209,6 +209,7 @@ struct HomeView: View {
             }
             .task {
                 vm.getPopularFlightInfo(cityName: "Minsk")
+                vm.getUserData()
             }
         }
     }

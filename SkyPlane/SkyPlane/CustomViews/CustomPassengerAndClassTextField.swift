@@ -24,7 +24,7 @@ struct CustomPassengerAndClassTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             Button() {
-                isPresented = .passengerAndClassView
+//                isPresented = .passengerAndClassView
             } label: {
                 HStack {
                     Text("\(passengerValue), \(classFlightValue.rawValue)")

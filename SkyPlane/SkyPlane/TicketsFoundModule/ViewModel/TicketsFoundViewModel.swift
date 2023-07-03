@@ -14,6 +14,7 @@ enum FilterFlight: String {
     case directSotred = "direct"
 }
 
+
 final class TicketsFoundViewModel: ObservableObject {
     
     //MARK: - Property -

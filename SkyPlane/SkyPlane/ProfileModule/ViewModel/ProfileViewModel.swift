@@ -11,5 +11,11 @@ import SwiftUI
 final class ProfileViewModel: ObservableObject {
     
     //MARK: - Property -
+    @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
+    @Published var userInfo = UserData.shared
     
+    func logout() {
+        UserDefaults.standard.removeObject(forKey: "uid")
+        appCondition = .createAccountView
+    }
 }

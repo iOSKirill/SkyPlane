@@ -39,6 +39,18 @@ enum AssetsImage: String {
     case calendarClass = "calendarClass"
     case mealClass = "mealClass"
     case dollarClass = "dollarClass"
+    
+    case headerProfile = "headerProfile"
+    case ticketProfile = "ticketProfile"
+    case editProfile = "editProfile"
+    case privacyPolicyProfile = "privacyPolicyProfile"
+    case termsProfile = "termsProfile"
+    case arrowProfile = "arrowProfile"
+    case changeImage = "changeImage"
+    case cards = "cards"
+    case headerBookingPass = "headerBookingPass"
+    case ticketBoording = "ticketBoording"
+    case barcode = "barcode"
 }
 
 //MARK: - Extension Image -
