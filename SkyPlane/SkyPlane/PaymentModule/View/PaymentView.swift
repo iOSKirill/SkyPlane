@@ -34,20 +34,20 @@ struct PaymentView: View {
                 .resizable()
             VStack(spacing: 8) {
                 HStack {
-                    Text(vm.ticketInfo.origin)
+                    Text(vm.buyTicketInfo.origin)
                         .font(.system(size: 22, weight: .bold))
                         .padding(.leading, 32)
                         .foregroundColor(Color(.textSilverWhite))
                     Spacer()
                     VStack {
                         Image(.logoOnTicket)
-                        Text(vm.ticketInfo.duration)
+                        Text(vm.buyTicketInfo.duration)
                             .font(.system(size: 16, weight: .regular))
                             .foregroundColor(Color(.durationColor))
                     }
                     .padding(.top, 20)
                     Spacer()
-                    Text(vm.ticketInfo.destination)
+                    Text(vm.buyTicketInfo.destination)
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
@@ -67,12 +67,12 @@ struct PaymentView: View {
                 .padding(.top, 8)
                 
                 HStack {
-                    Text(vm.ticketInfo.departureDate)
+                    Text(vm.buyTicketInfo.departureDate)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.leading, 32)
                     Spacer()
-                    Text("\(vm.ticketInfo.flightNumber)")
+                    Text(vm.buyTicketInfo.flightNumber)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
@@ -87,17 +87,17 @@ struct PaymentView: View {
                 .padding(.top, 16)
                 
                 HStack {
-                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(vm.ticketInfo.icon).png"))
+                    WebImage(url: URL(string: vm.imageURL))
                         .padding(.leading, 32)
                     Spacer()
-                    switch vm.ticketInfo.classFlight {
+                    switch vm.classFlight {
                     case .economy:
-                        Text("\(vm.ticketInfo.price.formatCurrency())")
+                        Text(vm.buyTicketInfo.price.formatCurrency())
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(Color(.textSilverWhite))
                             .padding(.trailing, 32)
                     case .business:
-                        Text("\((vm.ticketInfo.price * 2).formatCurrency())")
+                        Text("\(((vm.buyTicketInfo.price) * 2).formatCurrency())")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(Color(.textSilverWhite))
                             .padding(.trailing, 32)
@@ -120,7 +120,7 @@ struct PaymentView: View {
                     }
                 .padding(.leading, 16)
        
-                Text("\(vm.date, formatter: vm.dateFormat)")
+                Text("\(vm.date.dateFormatPayment())")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                 
@@ -145,17 +145,20 @@ struct PaymentView: View {
     }
     
     var confirmButton: some View {
-        NavigationLink(destination: BoordingPassView().onAppear {
+        Button {
             vm.saveTicket()
-                  }) {
-                      Text("Confirm")
-                          .font(.system(size: 18, weight: .medium))
-                          .foregroundColor(Color(.blackColor))
-                          .padding(16)
-                          .frame(maxWidth: .infinity)
-                          .background(Color(.basicColor))
-                          .cornerRadius(16)
-                  }
+        } label: {
+            Text("Confirm")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(.blackColor))
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(Color(.basicColor))
+                .cornerRadius(16)
+        }
+        .fullScreenCover(isPresented: $vm.isPresented) {
+            BoordingPassView(vm: vm.boordingPassVM)
+        }
     }
     var cancelButton: some View {
         Button {
@@ -205,6 +208,6 @@ struct PaymentView: View {
 
 struct PaymentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentView()
+        PaymentView(vm: PaymentViewModel())
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     //MARK: - Property -
-    @StateObject var vm = HomeViewModel()
+    @ObservedObject var vm: HomeViewModel
     
     //MARK: - Origin Destination textField -
     var originDestination: some View {
@@ -130,7 +130,7 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Hello \(vm.userInfo.firstName) 👋")
+                        Text("Hello \(vm.dataUser.firstName) 👋")
                             .font(.system(size: 22, weight: .regular))
                             .foregroundColor(Color(.backgroundColor))
                             .padding(.horizontal, 16)
@@ -217,6 +217,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(vm: HomeViewModel())
     }
 }

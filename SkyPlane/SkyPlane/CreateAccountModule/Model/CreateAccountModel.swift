@@ -9,11 +9,15 @@ import Foundation
 
 //MARK: - User model -
 struct UserModel: Codable {
-    let firstName: String
-    let lastName: String
-    let email: String
-    let dateOfBirth: Date
-    let urlImage: String
-    let passport: String
-    let country: String
+    var firstName: String
+    var lastName: String
+    var email: String
+    var dateOfBirth: Date
+    var urlImage: String
+    var passport: String
+    var country: String
+    
+    func firstLastName() -> String {
+        return "\(firstName) \(lastName)"
+    }
 }

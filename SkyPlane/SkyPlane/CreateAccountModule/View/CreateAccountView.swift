@@ -42,7 +42,6 @@ struct CreateAccountView: View {
     var createAccountButton: some View {
         Button {
             vm.createUser()
-            vm.isPresentedLogin = true
         } label: {
             Text("Create account")
                 .font(.system(size: 18, weight: .medium))
@@ -155,6 +154,11 @@ struct CreateAccountView: View {
                 
             }
             .navigationBarTitle(Text("Registration"), displayMode: .inline)
+        }
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
         }
     }
 }

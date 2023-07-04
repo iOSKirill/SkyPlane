@@ -20,7 +20,7 @@ protocol FirebaseManagerProtocol {
     func signInWithEmail(email: String, password: String) async throws -> User
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
     func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL
-    func saveTicket(uid: String) async throws 
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -112,11 +112,10 @@ class FirebaseManager: FirebaseManagerProtocol {
     }
     
     //MARK: - Create user data DB -
-    func saveTicket(uid: String) async throws {
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws {
         do {
-            let data = Ticket.shared
-            let ticket  = TicketsFoundModel(data: DateTicket(origin: data.origin, destination: data.destination, originAirport: "", destinationAirport: "", price: data.price, airline: "", flightNumber: data.flightNumber, departureAt: data.departureDate, returnAt: "", transfers: 0, returnTransfers: 0, duration: Int(data.duration), duration_to: 0, link: ""))
-            try db.collection("Users").document(uid).collection("Tickets").document(Ticket.shared.id).setData(from: ticket)
+            let ticket  = TicketsFoundModel(data: DateTicket(origin: origin, destination: destination, originAirport: "", destinationAirport: "", price: price, airline: icon, flightNumber: flightNumber, departureAt: departureDate, returnAt: returnDate, transfers: 0, returnTransfers: 0, duration: Int(duration)?.formatDurationTicket(), duration_to: 0, link: ""))
+            try db.collection("Users").document(uid).collection("Tickets").document(ticket.id.uuidString).setData(from: ticket)
         } catch {
             print("Error add User")
         }

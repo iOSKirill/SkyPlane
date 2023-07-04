@@ -15,12 +15,6 @@ struct CustomPassengerAndClassTextField: View {
     var textFieldValue: String
     var textSection: String
     
-    let dateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        return formatter
-    }()
-    
     var body: some View {
         ZStack(alignment: .leading) {
             Button() {

@@ -68,7 +68,7 @@ final class HomeViewModel: ObservableObject {
     @Published var popularFlightInfo: [PopularFlightInfoModel] = []
     @Published var ticketFoundInfo: [TicketsFoundModel] = []
     @Published var showHomeScreen: ShowHomeScreen?
-    @Published var userInfo = UserData.shared
+    @Published var dataUser: UserModel = UserModel(firstName: "", lastName: "", email: "", dateOfBirth: .now, urlImage: "", passport: "", country: "")
     
     init() {
         $popularFlightInfo

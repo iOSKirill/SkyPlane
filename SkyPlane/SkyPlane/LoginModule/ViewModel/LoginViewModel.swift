@@ -16,6 +16,12 @@ final class LoginViewModel: ObservableObject {
     @Published var isSecurePassword = true
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
+    @Published var isAlert: Bool = false
+    @Published var errorText = "" {
+        didSet {
+            isAlert = true
+        }
+    }
     
     //MARK: - Sing In with Google -
     func singInWithGoogle() {
@@ -32,10 +38,16 @@ final class LoginViewModel: ObservableObject {
     func loginUsers() {
         Task { [weak self] in
             guard let self = self else { return }
-            let userInfo = try await firebaseManager.signInWithEmail(email: emailText, password: passwordText)
-            UserDefaults.standard.set(userInfo.uid.description, forKey: "uid")
-            await MainActor.run {
-                self.appCondition = .homeView
+            do {
+                let userInfo = try await firebaseManager.signInWithEmail(email: emailText, password: passwordText)
+                UserDefaults.standard.set(userInfo.uid.description, forKey: "uid")
+                await MainActor.run {
+                    self.appCondition = .homeView
+                }
+            } catch {
+                await MainActor.run {
+                    errorText = error.localizedDescription
+                }
             }
         }
     }

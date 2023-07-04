@@ -14,12 +14,6 @@ struct CustomDatePickerTextField: View {
     @Binding var showDatePicker: DatePickerShow
     var textSection: String
     
-    let dateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        return formatter
-    }()
-    
     var body: some View {
         ZStack(alignment: .leading) {
             HStack {
@@ -30,7 +24,7 @@ struct CustomDatePickerTextField: View {
                     }
                 .padding(.leading, 16)
        
-                Text("\(selectedDate, formatter: dateFormat)")
+                Text("\(selectedDate.dateFormat())")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                 

@@ -11,6 +11,7 @@ struct TabBarView: View {
     
     //MARK: - Property -
     @State var selectedIndex: Int = 2
+    @ObservedObject var vm = TabBarViewModel()
     
     //MARK: - Tabar buttons -
     var tabBarButtons: some View {
@@ -54,11 +55,11 @@ struct TabBarView: View {
             case 1:
                 OnboardingView()
             case 2:
-                HomeView()
+                HomeView(vm: vm.homeVM)
             case 3:
                 WeatherView()
             case 4:
-                ProfileView()
+                ProfileView(vm: vm.profileVM)
             default:
                 Text("View")
             }
@@ -66,6 +67,9 @@ struct TabBarView: View {
             ZStack() {
                 tabBarButtons
             }
+        }
+        .task {
+            vm.getUserData()
         }
     }
 }

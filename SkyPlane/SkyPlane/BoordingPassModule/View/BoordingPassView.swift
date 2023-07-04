@@ -12,7 +12,7 @@ struct BoordingPassView: View {
     
     //MARK: - Property -
     @Environment(\.dismiss) var dismiss
-    @StateObject var vm = BoordingViewModel()
+    @StateObject var vm = BoordingPassViewModel()
     
     var buttonBack: some View {
         Button {
@@ -40,6 +40,38 @@ struct BoordingPassView: View {
         }
     }
     
+    var sendByEmailButton: some View {
+        Button {
+     
+        } label: {
+            Text("Send by email")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(.blackColor))
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(Color(.basicColor))
+                .cornerRadius(16)
+        }
+        .padding(.horizontal, 16)
+    }
+    var backHomeView: some View {
+        Button {
+            vm.isPresented.toggle()
+        } label: {
+            Text("Book another flight")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(.basicColor))
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(.clear)
+                .cornerRadius(16)
+        }
+        .padding(.horizontal, 16)
+        .fullScreenCover(isPresented: $vm.isPresented) {
+            HomeView(vm: HomeViewModel())
+        }
+    }
+    
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
@@ -52,24 +84,24 @@ struct BoordingPassView: View {
                         .resizable()
                     VStack(spacing: 8) {
                         
-                        WebImage(url: URL(string: "https://pics.avs.io/100/50/\(vm.ticketInfo.icon).png"))
+                        WebImage(url: URL(string: vm.imageURL))
                             .padding(.top, 50)
                         
                         HStack {
-                            Text(vm.ticketInfo.origin)
+                            Text(vm.buyTicketInfo.origin)
                                 .font(.system(size: 22, weight: .bold))
                                 .padding(.leading, 32)
                                 .foregroundColor(Color(.textSilverWhite))
                             Spacer()
                             VStack {
                                 Image(.logoOnTicket)
-                                Text(vm.ticketInfo.duration)
+                                Text(vm.buyTicketInfo.duration)
                                     .font(.system(size: 16, weight: .regular))
                                     .foregroundColor(Color(.durationColor))
                             }
                             .padding(.top, 20)
                             Spacer()
-                            Text(vm.ticketInfo.destination)
+                            Text(vm.buyTicketInfo.destination)
                                 .font(.system(size: 22, weight: .bold))
                                 .foregroundColor(Color(.textSilverWhite))
                                 .padding(.trailing, 32)
@@ -84,7 +116,7 @@ struct BoordingPassView: View {
                                 Text("DEPARTURE")
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
-                                Text("\(vm.userInfo.firstName) \(vm.userInfo.lastName)")
+                                Text(vm.dataUser.firstLastName())
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(Color(.textSilverWhite))
                                     .padding(.top, 1)
@@ -102,7 +134,7 @@ struct BoordingPassView: View {
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
                                     .padding(.top, 1)
-                                Text(vm.ticketInfo.departureDate)
+                                Text(vm.buyTicketInfo.departureDate)
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(Color(.textSilverWhite))
                                     .padding(.top, 1)
@@ -122,7 +154,7 @@ struct BoordingPassView: View {
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
                                     .padding(.top, 1)
-                                Text("aa")
+                                Text(vm.classFlight.rawValue)
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(Color(.textSilverWhite))
                                     .padding(.top, 1)
@@ -131,7 +163,7 @@ struct BoordingPassView: View {
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
                                     .padding(.top, 1)
-                                Text(vm.userInfo.passport)
+                                Text(vm.dataUser.passport)
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(Color(.textSilverWhite))
                                     .padding(.top, 1)
@@ -168,6 +200,8 @@ struct BoordingPassView: View {
                 .padding(.horizontal, 22)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
+                sendByEmailButton
+                backHomeView
             }
         }
         .navigationTitle("Boording Pass")
@@ -178,6 +212,6 @@ struct BoordingPassView: View {
 
 struct BoordingPassView_Previews: PreviewProvider {
     static var previews: some View {
-        BoordingPassView()
+        BoordingPassView(vm: BoordingPassViewModel())
     }
 }

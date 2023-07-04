@@ -143,6 +143,11 @@ struct LoginView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
         .navigationTitle("Login")
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
+        }
     }
 }
 

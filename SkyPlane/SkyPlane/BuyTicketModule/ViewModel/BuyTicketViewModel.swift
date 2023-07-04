@@ -6,49 +6,34 @@
 //
 
 import Foundation
-
-class Ticket {
-    static let shared = Ticket()
-    
-    private init() {}
-    
-    var id = ""
-    var origin = ""
-    var destination = ""
-    var departureDate = ""
-    var returnDate = ""
-    var flightNumber = ""
-    var price = 0
-    var icon = ""
-    var duration = ""
-    var classFlight: ClassFlight = .economy
-    
-    func saveInfo(ticket: TicketsFoundModel) {
-        origin = ticket.origin
-        destination = ticket.destination
-        departureDate = ticket.departureDate
-        returnDate = ticket.returnDate
-        flightNumber = ticket.flightNumber
-        price = ticket.price
-        icon = ticket.icon
-        duration = ticket.duration
-        id = ticket.id.uuidString
-    }
-    
-    func saveClassFlight(classFlight: ClassFlight) {
-        self.classFlight = classFlight
-    }
-}
+import Combine
 
 final class BuyTicketViewModel: ObservableObject {
     
     //MARK: - Property -
+    private var cancellable = Set<AnyCancellable>()
+    @Published var editProfileVM = EditProfileViewModel()
     @Published var buyTicketInfo: TicketsFoundModel
     @Published var classFlight: ClassFlight = .economy
     @Published var businessPrice: Int = 0
+    
+    var imageURL: String {
+           return "https://pics.avs.io/100/50/\(buyTicketInfo.icon).png"
+    }
 
     init(buyTicketInfo: TicketsFoundModel) {
         self.buyTicketInfo = buyTicketInfo
+        $buyTicketInfo
+            .sink { item in
+                self.editProfileVM.buyTicketInfo = item
+            }
+            .store(in: &cancellable)
+        
+        $classFlight
+            .sink { item in
+                self.editProfileVM.classFlight = item
+            }
+            .store(in: &cancellable)
     }
     
 }

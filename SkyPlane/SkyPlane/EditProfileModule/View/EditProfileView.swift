@@ -17,12 +17,13 @@ struct EditProfileView: View {
     
     //MARK: - Property -
     @Environment(\.dismiss) var dismiss
-    @StateObject var vm = EditProfileViewModel()
+    @ObservedObject var vm: EditProfileViewModel
     @State var currentScreen: ScreenProfile = .profile
     
     var buttonBack: some View {
         Button {
             dismiss()
+            
         } label: {
             Image(systemName: "arrow.backward")
                 .foregroundColor(Color(.textBlackWhiteColor))
@@ -36,7 +37,7 @@ struct EditProfileView: View {
     
     var imageAccount: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebImage(url: URL(string: vm.userInfo.urlImage))
+            WebImage(url: URL(string: vm.dataUser.urlImage))
                 .resizable()
                 .frame(width: 100, height: 100)
                 .mask(Circle())
@@ -63,7 +64,7 @@ struct EditProfileView: View {
                     }
                     .padding(.leading, 16)
                 
-                Text("\(vm.userInfo.dateOfBirth, formatter: vm.dateFormat)")
+                Text("\(vm.userInfo.dateOfBirth.dateFormat())")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                 
@@ -103,7 +104,7 @@ struct EditProfileView: View {
     
     var skipButton: some View {
         NavigationLink {
-            PaymentView()
+            PaymentView(vm: vm.paymentVM)
         } label: {
             Text("Skip")
                 .font(.system(size: 18, weight: .medium, design: .default))
@@ -126,11 +127,11 @@ struct EditProfileView: View {
             VStack {
                 imageAccount
                 ScrollView {
-                    CustomProfileTextField(bindingValue: $vm.userInfo.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
-                    CustomProfileTextField(bindingValue: $vm.userInfo.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
-                    CustomProfileTextField(bindingValue: $vm.userInfo.email, textSection: "E-mail", textFieldValue: "Enter your e-mail")
-                    CustomProfileTextField(bindingValue: $vm.userInfo.passport, textSection: "Passport", textFieldValue: "Enter your passport")
-                    CustomProfileTextField(bindingValue: $vm.userInfo.country, textSection: "Country", textFieldValue: "Enter your country")
+                    CustomProfileTextField(bindingValue: $vm.dataUser.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
+                    CustomProfileTextField(bindingValue: $vm.dataUser.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
+                    CustomProfileTextField(bindingValue: $vm.dataUser.email, textSection: "E-mail", textFieldValue: "Enter your e-mail")
+                    CustomProfileTextField(bindingValue: $vm.dataUser.passport, textSection: "Passport", textFieldValue: "Enter your passport")
+                    CustomProfileTextField(bindingValue: $vm.dataUser.country, textSection: "Country", textFieldValue: "Enter your country")
                     datePicker
                     switch currentScreen {
                     case .profile:
@@ -152,6 +153,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView()
+        EditProfileView(vm: EditProfileViewModel())
     }
 }

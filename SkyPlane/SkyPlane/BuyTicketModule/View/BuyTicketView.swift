@@ -37,7 +37,7 @@ struct BuyTicketView: View {
                     .frame(maxHeight: 400)
                 VStack(spacing: 8) {
                     
-                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(vm.buyTicketInfo.icon).png"))
+                    WebImage(url: URL(string: vm.imageURL))
                     
                     HStack {
                         Text("---------------------------------------------")
@@ -169,7 +169,7 @@ struct BuyTicketView: View {
     
     var confirmButton: some View {
         NavigationLink {
-            EditProfileView(currentScreen: .buyTicket)
+            EditProfileView(vm: vm.editProfileVM, currentScreen: .buyTicket)
         } label: {
             Text("Confirm")
                 .font(.system(size: 18, weight: .medium))
@@ -230,9 +230,6 @@ struct BuyTicketView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
         .navigationTitle("Fligth Details")
-        .task {
-            Ticket.shared.saveInfo(ticket: vm.buyTicketInfo)
-        }
     }
 }
 
