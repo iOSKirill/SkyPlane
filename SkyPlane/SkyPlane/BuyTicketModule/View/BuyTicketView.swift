@@ -198,6 +198,7 @@ struct BuyTicketView: View {
                 .cornerRadius(16)
                 .padding(.horizontal, 16)
         }
+        .padding(.bottom, 8)
     }
     
     var nameSection: some View {

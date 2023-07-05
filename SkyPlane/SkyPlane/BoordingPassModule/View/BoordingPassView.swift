@@ -42,7 +42,7 @@ struct BoordingPassView: View {
     
     var sendByEmailButton: some View {
         Button {
-     
+           
         } label: {
             Text("Send by email")
                 .font(.system(size: 18, weight: .medium))
@@ -68,7 +68,7 @@ struct BoordingPassView: View {
         }
         .padding(.horizontal, 16)
         .fullScreenCover(isPresented: $vm.isPresented) {
-            HomeView(vm: HomeViewModel())
+            TabBarView()
         }
     }
     

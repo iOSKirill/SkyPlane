@@ -181,23 +181,25 @@ struct PaymentView: View {
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
-            VStack {
+            ScrollView(showsIndicators: false) {
+                VStack {
                     ticket
-                    .padding(.top, 16)
-                VStack(alignment: .leading) {
-                    CustomProfileTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000 0000 0000 0000")
-                    CustomProfileTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
-                    HStack {
-                        CustomProfileTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
-                        datePicker
+                        .padding(.top, 16)
+                    VStack(alignment: .leading) {
+                        CustomProfileTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000 0000 0000 0000")
+                        CustomProfileTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
+                        HStack {
+                            CustomProfileTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
+                            datePicker
+                        }
+                        Image(.cards)
+                            .padding(.bottom, 16)
+                        confirmButton
+                        cancelButton
                     }
-                    Image(.cards)
-                        .padding(.bottom, 16)
-                    confirmButton
-                    cancelButton
+                    .padding(.horizontal, 16)
+                    Spacer()
                 }
-                .padding(.horizontal, 16)
-                Spacer()
             }
         }
         .navigationTitle("Payment")

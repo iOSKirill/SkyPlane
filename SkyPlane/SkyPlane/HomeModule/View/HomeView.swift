@@ -52,14 +52,14 @@ struct HomeView: View {
     
     //MARK: - Search button -
     var searchButton: some View {
-        Button {
+        NavigationLink(destination: TicketsFoundView(vm: vm.ticketsFoundVM).onAppear {
             switch vm.datePickerShow {
             case .departureAndReturnDatePicker:
                 vm.getFlightInfoRoundTrip()
             case .departureDatePicker:
                 vm.getFlightInfoOneWay()
             }
-        } label: {
+        }) {
             Text("Search")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(Color(.blackColor))
@@ -141,7 +141,7 @@ struct HomeView: View {
                     }
                     .padding(.vertical, 22)
                     
-                    List {
+                    ScrollView(showsIndicators: false) {
                         VStack {
                             changeTypeFlight
                             originDestination
@@ -151,14 +151,6 @@ struct HomeView: View {
                                 .padding(.horizontal, 16)
                             
                             searchButton
-                        }
-                        .fullScreenCover(item: $vm.showHomeScreen) { screen in
-                            switch screen {
-                            case .ticketsFoundView:
-                                TicketsFoundView(vm: vm.ticketsFoundVM)
-                            case .passengerAndClassView:
-                                CreateAccountView()
-                            }
                         }
                         .frame(maxWidth: .infinity, maxHeight: 500)
                         .background(Color(.ticketBackgroundColor))
@@ -175,22 +167,13 @@ struct HomeView: View {
                                 .listRowBackground(Color.clear)
                             Spacer()
                        
-                            ZStack {
-                                NavigationLink {
-                                    PopularFlightView(vm: vm.popularFlightVM)
-                                } label: {
-                                    Text("View All")
-                                        .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(Color(.textTicketColor))
-                                }
-                                .opacity(0)
+                            NavigationLink {
+                                PopularFlightView(vm: vm.popularFlightVM)
+                            } label: {
                                 Text("View All")
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(Color(.textTicketColor))
-                                    .padding(.leading, 130)
                             }
-
-
                         }
                         .padding(.top, 16)
                         .listRowSeparator(.hidden)
@@ -201,7 +184,9 @@ struct HomeView: View {
                         ForEach(vm.popularFlightInfo.prefix(2)) { i in
                             CustomPopularTicketCell(popularFlightInfo: i)
                         }
+                        .padding(.bottom, 8)
                     }
+                    .padding(.horizontal, 16)
                     .buttonStyle(.plain)
                 }
                 .listStyle(.plain)

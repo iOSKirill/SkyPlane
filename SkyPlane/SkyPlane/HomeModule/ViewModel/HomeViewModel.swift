@@ -99,7 +99,6 @@ final class HomeViewModel: ObservableObject {
                     .map { TicketsFoundModel(data: $0) }
                 
                 await MainActor.run {
-                    self.showHomeScreen = .ticketsFoundView
                     self.ticketFoundInfo = mappedData
                 }
             } catch {
@@ -123,7 +122,6 @@ final class HomeViewModel: ObservableObject {
                     .map { TicketsFoundModel(data: $0) }
 
                 await MainActor.run {
-                    self.showHomeScreen = .ticketsFoundView
                     self.ticketFoundInfo = mappedData
                 }
             } catch {

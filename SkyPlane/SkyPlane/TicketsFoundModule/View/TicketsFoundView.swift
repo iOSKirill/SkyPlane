@@ -146,17 +146,16 @@ struct TicketsFoundView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.homeBackgroundColor).ignoresSafeArea()
-                VStack {
+        ZStack {
+            Color(.homeBackgroundColor).ignoresSafeArea()
+            VStack {
 
-                    content
-                }
+                content
             }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: buttonBack)
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: buttonBack)
+        .navigationTitle("")
     }
 }
 
