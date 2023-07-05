@@ -21,6 +21,7 @@ protocol FirebaseManagerProtocol {
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
     func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL
     func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws
+    func getTicketsDB(id: String) async throws -> [TicketsFoundModel]
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -68,6 +69,14 @@ class FirebaseManager: FirebaseManagerProtocol {
     //MARK: - Get user data DB -
     func getUserDataDB(id: String) async throws -> UserModel  {
          try await db.collection("Users").document(id).getDocument(as: UserModel.self)
+    }
+    
+    //MARK: - Get tickets DB -
+    func getTicketsDB(id: String) async throws -> [TicketsFoundModel]  {
+        var array: [TicketsFoundModel] = []
+        let tickets = try await db.collection("Users").document(id).collection("Tickets").getDocuments()
+        array = try tickets.documents.map {try $0.data (as: TicketsFoundModel.self) }
+        return array
     }
     
     //MARK: - Create user data DB -

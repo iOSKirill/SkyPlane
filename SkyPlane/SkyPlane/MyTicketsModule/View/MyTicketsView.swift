@@ -27,14 +27,36 @@ struct MyTicketsView: View {
         }
     }
     
+    var header: some View {
+        VStack(spacing: 8) {
+            ZStack {
+                Image(.headerPlanet)
+                    .resizable()
+                    .ignoresSafeArea()
+                    .frame(maxWidth: .infinity, maxHeight: 150)
+            }
+            Spacer()
+        }
+    }
+    
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            header
+            
+            ScrollView(showsIndicators: false) {
+                ForEach(vm.tickets) { i in
+                    CustomTicketsFoundCell(ticketsFound: i, originFullName: "", destinationFullName: "")
+                }
+            }
+            .padding(.top, 30)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
         .navigationTitle("My Tickets")
+        .task {
+            vm.getTicktes()
+        }
     }
 }
 

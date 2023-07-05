@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TicketsFoundModel: Identifiable, Encodable {
+struct TicketsFoundModel: Identifiable, Encodable, Decodable {
     var id = UUID()
     var origin: String
     var destination: String
@@ -16,7 +16,7 @@ struct TicketsFoundModel: Identifiable, Encodable {
     var flightNumber: String
     var price: Int
     var icon: String
-    var duration: String
+    var duration: String 
     
     init(data: DateTicket) {
         origin = data.origin ?? ""

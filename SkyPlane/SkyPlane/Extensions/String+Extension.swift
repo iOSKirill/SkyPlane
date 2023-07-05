@@ -54,6 +54,5 @@ extension String {
         return formattedValue
     }
     
-    
 }
 
