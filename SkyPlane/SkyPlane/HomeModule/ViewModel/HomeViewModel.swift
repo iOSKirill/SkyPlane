@@ -95,7 +95,7 @@ final class HomeViewModel: ObservableObject {
     //MARK: - Get flight info round trip -
     func getFlightInfoRoundTrip() {
         Task { [weak self] in
-            guard let self = self, !originNameCity.isEmpty, !destinationNameCity.isEmpty  else { return }
+            guard let self = self else { return }
             do {
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
@@ -121,9 +121,6 @@ final class HomeViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else {
-                    return await MainActor.run { self.errorText = "Fill in the search data" }
-                }
                 let newDate =  Calendar.current.date(byAdding: .day, value: 1, to: selectedDateDeparture)
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }

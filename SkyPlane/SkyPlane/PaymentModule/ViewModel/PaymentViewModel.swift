@@ -22,6 +22,12 @@ final class PaymentViewModel: ObservableObject {
     @Published var boordingPassVM = BoordingPassViewModel()
     @Published var buyTicketInfo: TicketsFoundModel
     @Published var classFlight: ClassFlight = .economy
+    @Published var isAlert: Bool = false
+    @Published var errorText = "" {
+        didSet {
+            isAlert = true
+        }
+    }
     
     var imageURL: String {
         return "https://pics.avs.io/100/50/\(buyTicketInfo.icon).png"
@@ -52,12 +58,14 @@ final class PaymentViewModel: ObservableObject {
                 case .business:
                     buyTicketInfo.price *= 2
                 }
+                guard !cardNumber.isEmpty, !cardHolderName.isEmpty, !cvv.isEmpty else { return await MainActor.run { self.errorText = "Fill in the card data" } }
+                guard cardNumber.count == 16, cvv.count == 3 else { return await MainActor.run { self.errorText = "Invalid format" } }
                 try await firebaseManager.saveTicket(uid: uid, origin: buyTicketInfo.origin, destination: buyTicketInfo.destination, price: buyTicketInfo.price, flightNumber: buyTicketInfo.flightNumber, departureDate: buyTicketInfo.departureDate.formatSaveTicket(), returnDate: buyTicketInfo.returnDate.formatSaveTicket(), duration: buyTicketInfo.duration, icon: buyTicketInfo.icon)
                 await MainActor.run {
                     self.isPresented.toggle()
                 }
             } catch {
-                print("Error Save")
+                errorText = error.localizedDescription
             }
         }
     }

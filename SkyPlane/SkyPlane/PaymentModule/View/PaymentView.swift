@@ -186,6 +186,7 @@ struct PaymentView: View {
                         .padding(.top, 16)
                     VStack(alignment: .leading) {
                         CustomProfileTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000 0000 0000 0000")
+
                         CustomProfileTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
                         HStack {
                             CustomProfileTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
@@ -204,6 +205,11 @@ struct PaymentView: View {
         .navigationTitle("Payment")
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
+        }
     }
 }
 

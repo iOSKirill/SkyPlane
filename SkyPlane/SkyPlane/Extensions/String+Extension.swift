@@ -54,5 +54,11 @@ extension String {
         return formattedValue
     }
     
+    func isValidPassportNumber() -> Bool {
+          let passportNumberRegex = "^[A-Za-z]{2}[0-9]{7}$"
+          let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
+          return passportNumberTest.evaluate(with: self)
+      }
+
 }
 

@@ -104,7 +104,7 @@ struct EditProfileView: View {
     
     var skipButton: some View {
         NavigationLink {
-            PaymentView(vm: vm.paymentVM)
+                PaymentView(vm: vm.paymentVM)
         } label: {
             Text("Skip")
                 .font(.system(size: 18, weight: .medium, design: .default))
@@ -148,6 +148,11 @@ struct EditProfileView: View {
         .navigationTitle("Edit Profile")
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
+        }
     }
 }
 

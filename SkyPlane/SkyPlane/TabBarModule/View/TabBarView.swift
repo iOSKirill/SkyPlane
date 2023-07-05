@@ -51,7 +51,7 @@ struct TabBarView: View {
         VStack(spacing: 0) {
             switch selectedIndex {
             case 0:
-                CreateAccountView()
+                MapView()
             case 1:
                 MyTicketsView()
             case 2:

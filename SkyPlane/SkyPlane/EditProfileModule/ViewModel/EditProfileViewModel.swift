@@ -19,6 +19,12 @@ final class EditProfileViewModel: ObservableObject {
     @Published var classFlight: ClassFlight = .economy
     @Published var userInfo = UserData.shared
     @Published var isPresented = false
+    @Published var isAlert: Bool = false
+    @Published var errorText = "" {
+        didSet {
+            isAlert = true
+        }
+    }
 
     init() {
         buyTicketInfo = TicketsFoundModel(data: DateTicket(origin: "", destination: "", originAirport: "", destinationAirport: "", price: 0, airline: "", flightNumber: "", departureAt: "", returnAt: "", transfers: 0, returnTransfers: 0, duration: 0, durationTo: 0, link: ""))
@@ -38,6 +44,8 @@ final class EditProfileViewModel: ObservableObject {
     func updateUserData() {
         Task {
             do {
+                guard !userInfo.firstName.isEmpty, !userInfo.lastName.isEmpty, !userInfo.passport.isEmpty, !userInfo.country.isEmpty else { return await MainActor.run { self.errorText = "Fill in the user data" } }
+                guard userInfo.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
                 let userImage = try await firebaseManager.createUserImageDataDB(imageAccount: userInfo.urlImage, id: uid ?? "")
                 await MainActor.run {
                     self.userInfo.urlImage = userImage.absoluteString
@@ -47,7 +55,9 @@ final class EditProfileViewModel: ObservableObject {
                 userInfo.saveInfo(user: data)
                 
             } catch {
-                print ("error")
+                await MainActor.run {
+                    errorText = error.localizedDescription
+                }
             }
         }
     }
