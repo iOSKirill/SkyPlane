@@ -16,7 +16,7 @@ struct TabBarView: View {
     //MARK: - Tabar buttons -
     var tabBarButtons: some View {
         HStack {
-            CustomButtonOnTabBar(selectedIndex: $selectedIndex, index: 0, image: .searchTabBar)
+            CustomButtonOnTabBar(selectedIndex: $selectedIndex, index: 0, image: .map)
             Spacer(minLength: 12)
             CustomButtonOnTabBar(selectedIndex: $selectedIndex, index: 1, image: .ticketTabBar)
             Spacer(minLength: 12)
@@ -53,7 +53,7 @@ struct TabBarView: View {
             case 0:
                 CreateAccountView()
             case 1:
-                OnboardingView()
+                MyTicketsView()
             case 2:
                 HomeView()
             case 3:

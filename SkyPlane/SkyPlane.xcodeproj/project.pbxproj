@@ -70,6 +70,10 @@
 		6C876DAF2A39F4E10087C137 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C876DAE2A39F4E10087C137 /* WeatherView.swift */; };
 		6C876DB12A3AF8290087C137 /* FlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C876DB02A3AF8290087C137 /* FlightModel.swift */; };
 		6C87EE822A399CFE0078B98E /* CustomButtonOnTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */; };
+		6C89E2B82A5597A200184823 /* CustomHourlyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89E2B72A5597A200184823 /* CustomHourlyWeatherCell.swift */; };
+		6C89E2BB2A55A85F00184823 /* CurrenWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89E2BA2A55A85F00184823 /* CurrenWeatherModel.swift */; };
+		6C89E2BD2A55A94D00184823 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89E2BC2A55A94D00184823 /* DailyWeatherModel.swift */; };
+		6C89E2BF2A55C15800184823 /* CustomDailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89E2BE2A55C15800184823 /* CustomDailyWeatherCell.swift */; };
 		6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */; };
 		6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */; };
 		6C9197F52A5050CE00232668 /* CustomProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9197F42A5050CE00232668 /* CustomProfileButton.swift */; };
@@ -139,6 +143,10 @@
 		6C876DAE2A39F4E10087C137 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		6C876DB02A3AF8290087C137 /* FlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightModel.swift; sourceTree = "<group>"; };
 		6C87EE812A399CFD0078B98E /* CustomButtonOnTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonOnTabBar.swift; sourceTree = "<group>"; };
+		6C89E2B72A5597A200184823 /* CustomHourlyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHourlyWeatherCell.swift; sourceTree = "<group>"; };
+		6C89E2BA2A55A85F00184823 /* CurrenWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenWeatherModel.swift; sourceTree = "<group>"; };
+		6C89E2BC2A55A94D00184823 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
+		6C89E2BE2A55C15800184823 /* CustomDailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDailyWeatherCell.swift; sourceTree = "<group>"; };
 		6C915FEA2A339AED001C8B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C915FEE2A33AE8B001C8B7F /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		6C915FF02A33AEAB001C8B7F /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
@@ -394,6 +402,8 @@
 				6CB11C892A4DFFFA0071CB57 /* CustomSelectClass.swift */,
 				6C9197F42A5050CE00232668 /* CustomProfileButton.swift */,
 				6C370B0E2A52EBF20048DDC6 /* CustomProfileTextField.swift */,
+				6C89E2B72A5597A200184823 /* CustomHourlyWeatherCell.swift */,
+				6C89E2BE2A55C15800184823 /* CustomDailyWeatherCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -480,6 +490,7 @@
 		6C876DA92A39F48F0087C137 /* WeatherModule */ = {
 			isa = PBXGroup;
 			children = (
+				6C89E2B92A55A84E00184823 /* Model */,
 				6C876DAB2A39F4B70087C137 /* View */,
 				6C876DAA2A39F49B0087C137 /* ViewModel */,
 			);
@@ -500,6 +511,15 @@
 				6C876DAE2A39F4E10087C137 /* WeatherView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		6C89E2B92A55A84E00184823 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C89E2BA2A55A85F00184823 /* CurrenWeatherModel.swift */,
+				6C89E2BC2A55A94D00184823 /* DailyWeatherModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6C915FEB2A33AE13001C8B7F /* CreateAccountModule */ = {
@@ -920,12 +940,15 @@
 				6C915FEF2A33AE8B001C8B7F /* CreateAccountView.swift in Sources */,
 				6CD3E27C2A418B0A00994E9F /* CustomPassengerAndClassTextField.swift in Sources */,
 				6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */,
+				6C89E2B82A5597A200184823 /* CustomHourlyWeatherCell.swift in Sources */,
 				6CE3B3A92A43117400E2FBCC /* TicketsFoundView.swift in Sources */,
 				6C9198032A50548300232668 /* MyTicketsView.swift in Sources */,
 				6C876DA12A39E8B60087C137 /* WeatherModel.swift in Sources */,
 				6C85017D2A4F096000194678 /* ProfileViewModel.swift in Sources */,
 				6C5057012A3754C500D11302 /* LoginViewModel.swift in Sources */,
+				6C89E2BD2A55A94D00184823 /* DailyWeatherModel.swift in Sources */,
 				6C01D1962A33768100A3993F /* OnboardingView.swift in Sources */,
+				6C89E2BB2A55A85F00184823 /* CurrenWeatherModel.swift in Sources */,
 				6C876D9F2A39E87C0087C137 /* CoordinateModel.swift in Sources */,
 				6C01D19B2A338A8100A3993F /* OnboardingModel.swift in Sources */,
 				6C9197FA2A50539B00232668 /* EditProfileView.swift in Sources */,
@@ -936,6 +959,7 @@
 				6C9197FD2A5053C100232668 /* EditProfileViewModel.swift in Sources */,
 				6C370B112A52EEB10048DDC6 /* ImagePicker.swift in Sources */,
 				6C915FF12A33AEAB001C8B7F /* CreateAccountViewModel.swift in Sources */,
+				6C89E2BF2A55C15800184823 /* CustomDailyWeatherCell.swift in Sources */,
 				6C7E300A2A3786B600456564 /* CustomSectionTextFieldPassword.swift in Sources */,
 				6C01D18C2A32427F00A3993F /* LaunchScreenViewModel.swift in Sources */,
 				6C5056FF2A3754B400D11302 /* LoginView.swift in Sources */,
