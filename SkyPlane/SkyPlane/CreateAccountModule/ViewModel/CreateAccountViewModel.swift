@@ -52,7 +52,7 @@ final class CreateAccountViewModel: ObservableObject {
                     UserDefaults.standard.set(userInfo.uid.description, forKey: "uid")
                     
                     //Create user data in db
-                    try await firebaseManager.createUserDataDB(firstName: firstNameText, lastName: lastNameText, email: emailText, dateOfBirth: .now, uid: userInfo.uid, urlImage: "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg", passport: "", country: "")
+                    try await firebaseManager.createUserDataDB(firstName: firstNameText, lastName: lastNameText, email: emailText, dateOfBirth: .now, uid: userInfo.uid, urlImage: "https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg", passport: "", country: "")
                     
                     await MainActor.run {
                         self.isPresentedLogin = true

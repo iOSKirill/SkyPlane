@@ -126,7 +126,7 @@ struct EditProfileView: View {
             
             VStack {
                 imageAccount
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     CustomProfileTextField(bindingValue: $vm.userInfo.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
                     CustomProfileTextField(bindingValue: $vm.userInfo.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
                     CustomProfileTextField(bindingValue: $vm.userInfo.email, textSection: "E-mail", textFieldValue: "Enter your e-mail")

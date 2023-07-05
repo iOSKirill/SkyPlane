@@ -114,16 +114,15 @@ struct PaymentView: View {
         ZStack(alignment: .leading) {
             HStack {
                 Image(.datePicker)
-                    .overlay {
-                        DatePicker("", selection: $vm.date, displayedComponents: [.date])
-                            .blendMode(.destinationOver)
-                    }
                 .padding(.leading, 16)
        
                 Text("\(vm.date.dateFormatPayment())")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
-                
+                    .overlay {
+                        DatePicker("", selection: $vm.date, displayedComponents: [.date])
+                            .blendMode(.destinationOver)
+                    }
                 Spacer()
             }
             .frame(maxWidth: .infinity)

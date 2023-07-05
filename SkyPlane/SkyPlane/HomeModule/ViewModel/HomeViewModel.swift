@@ -41,6 +41,13 @@ final class HomeViewModel: ObservableObject {
     @Published var ticketFoundInfo: [TicketsFoundModel] = []
     @Published var showHomeScreen: ShowHomeScreen?
     @Published var userInfo = UserData.shared
+    @Published var calendarId: Int = 0
+    @Published var isAlert: Bool = false
+    @Published var errorText = "" {
+        didSet {
+            isAlert = true
+        }
+    }
     
     init() {
         $popularFlightInfo
@@ -102,7 +109,9 @@ final class HomeViewModel: ObservableObject {
                     self.ticketFoundInfo = mappedData
                 }
             } catch {
-                print("Error get flight info")
+                await MainActor.run {
+                    self.errorText = error.localizedDescription
+                }
             }
         }
     }
@@ -110,8 +119,11 @@ final class HomeViewModel: ObservableObject {
     //MARK: - Get flight info one way -
     func getFlightInfoOneWay() {
         Task { [weak self] in
-            guard let self = self, !originNameCity.isEmpty, !destinationNameCity.isEmpty  else { return }
+            guard let self = self else { return }
             do {
+                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else {
+                    return await MainActor.run { self.errorText = "Fill in the search data" }
+                }
                 let newDate =  Calendar.current.date(byAdding: .day, value: 1, to: selectedDateDeparture)
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
@@ -125,7 +137,9 @@ final class HomeViewModel: ObservableObject {
                     self.ticketFoundInfo = mappedData
                 }
             } catch {
-                print("Error get flight info")
+                await MainActor.run {
+                    self.errorText = error.localizedDescription
+                }
             }
         }
     }

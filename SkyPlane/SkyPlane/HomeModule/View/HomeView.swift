@@ -39,12 +39,12 @@ struct HomeView: View {
         HStack {
             switch vm.datePickerShow {
             case .departureDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure", calendarId: $vm.calendarId)
                     .padding(.horizontal, 16)
             case .departureAndReturnDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure", calendarId: $vm.calendarId)
                     .padding(.leading, 16)
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return")
+                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return", calendarId: $vm.calendarId)
                     .padding(.trailing, 16)
             }
         }
@@ -195,6 +195,11 @@ struct HomeView: View {
             .task {
                 vm.getPopularFlightInfo(cityName: "Minsk")
             }
+        }
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
         }
     }
 }
