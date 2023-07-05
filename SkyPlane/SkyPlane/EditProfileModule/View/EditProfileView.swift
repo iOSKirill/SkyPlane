@@ -17,7 +17,7 @@ struct EditProfileView: View {
     
     //MARK: - Property -
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var vm: EditProfileViewModel
+    @StateObject var vm = EditProfileViewModel()
     @State var currentScreen: ScreenProfile = .profile
     
     var buttonBack: some View {
@@ -37,7 +37,7 @@ struct EditProfileView: View {
     
     var imageAccount: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebImage(url: URL(string: vm.dataUser.urlImage))
+            WebImage(url: URL(string: vm.userInfo.urlImage))
                 .resizable()
                 .frame(width: 100, height: 100)
                 .mask(Circle())
@@ -127,11 +127,11 @@ struct EditProfileView: View {
             VStack {
                 imageAccount
                 ScrollView {
-                    CustomProfileTextField(bindingValue: $vm.dataUser.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
-                    CustomProfileTextField(bindingValue: $vm.dataUser.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
-                    CustomProfileTextField(bindingValue: $vm.dataUser.email, textSection: "E-mail", textFieldValue: "Enter your e-mail")
-                    CustomProfileTextField(bindingValue: $vm.dataUser.passport, textSection: "Passport", textFieldValue: "Enter your passport")
-                    CustomProfileTextField(bindingValue: $vm.dataUser.country, textSection: "Country", textFieldValue: "Enter your country")
+                    CustomProfileTextField(bindingValue: $vm.userInfo.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
+                    CustomProfileTextField(bindingValue: $vm.userInfo.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
+                    CustomProfileTextField(bindingValue: $vm.userInfo.email, textSection: "E-mail", textFieldValue: "Enter your e-mail")
+                    CustomProfileTextField(bindingValue: $vm.userInfo.passport, textSection: "Passport", textFieldValue: "Enter your passport")
+                    CustomProfileTextField(bindingValue: $vm.userInfo.country, textSection: "Country", textFieldValue: "Enter your country")
                     datePicker
                     switch currentScreen {
                     case .profile:

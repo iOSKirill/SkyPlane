@@ -7,24 +7,14 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 final class ProfileViewModel: ObservableObject {
     
     //MARK: - Property -
     @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
-    private var cancellable = Set<AnyCancellable>()
-    @Published var editProfileVM = EditProfileViewModel()
-    @Published var dataUser: UserModel = UserModel(firstName: "", lastName: "", email: "", dateOfBirth: .now, urlImage: "", passport: "", country: "")
-    init() {
-        $dataUser
-            .sink { item in
-                self.editProfileVM.dataUser = item
-                print(item.firstName)
-            }
-            .store(in: &cancellable)
-    }
+    @Published var userInfo = UserData.shared
     
+    //MARK: -Logout -
     func logout() {
         UserDefaults.standard.removeObject(forKey: "uid")
         appCondition = .createAccountView

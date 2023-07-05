@@ -20,15 +20,15 @@ final class PaymentViewModel: ObservableObject {
     @Published var cvv: String = ""
     @Published var date = Date()
     @Published var boordingPassVM = BoordingPassViewModel()
-    @Published var buyTicketInfo: TicketsFoundModel = TicketsFoundModel(data: DateTicket(origin: "", destination: "", originAirport: "", destinationAirport: "", price: 0, airline: "", flightNumber: "", departureAt: "", returnAt: "", transfers: 0, returnTransfers: 0, duration: 0, duration_to: 0, link: ""))
+    @Published var buyTicketInfo: TicketsFoundModel
     @Published var classFlight: ClassFlight = .economy
-    @Published var dataUser: UserModel = UserModel(firstName: "", lastName: "", email: "", dateOfBirth: .now, urlImage: "", passport: "", country: "")
     
     var imageURL: String {
         return "https://pics.avs.io/100/50/\(buyTicketInfo.icon).png"
     }
     
     init() {
+        buyTicketInfo = TicketsFoundModel(data: DateTicket(origin: "", destination: "", originAirport: "", destinationAirport: "", price: 0, airline: "", flightNumber: "", departureAt: "", returnAt: "", transfers: 0, returnTransfers: 0, duration: 0, durationTo: 0, link: ""))
         $buyTicketInfo
             .sink { item in
                 self.boordingPassVM.buyTicketInfo = item
@@ -38,12 +38,6 @@ final class PaymentViewModel: ObservableObject {
         $classFlight
             .sink { item in
                 self.boordingPassVM.classFlight = item
-            }
-            .store(in: &cancellable)
-        
-        $dataUser
-            .sink { item in
-                self.boordingPassVM.dataUser = item
             }
             .store(in: &cancellable)
     }

@@ -26,6 +26,6 @@ struct TicketsFoundModel: Identifiable, Encodable {
         flightNumber = data.flightNumber ?? ""
         price = data.price ?? 0
         icon = data.airline ?? ""
-        duration = data.duration_to?.formatDuration() ?? ""
+        duration = data.durationTo?.formatDuration() ?? ""
     }
 }

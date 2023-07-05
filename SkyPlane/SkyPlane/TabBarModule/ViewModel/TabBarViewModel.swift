@@ -6,33 +6,49 @@
 //
 
 import Foundation
-import Combine
+
+class UserData {
+    static let shared = UserData()
+    
+    private init() {}
+
+    var firstName = ""
+    var lastName = ""
+    var email = ""
+    var dateOfBirth: Date = .now
+    var urlImage = ""
+    var passport = ""
+    var country = ""
+    
+    func saveInfo(user: UserModel) {
+        firstName = user.firstName
+        lastName =  user.lastName
+        email = user.email
+        dateOfBirth = user.dateOfBirth
+        urlImage = user.urlImage
+        passport = user.passport
+        country = user.country
+    }
+    
+    func getInfo() -> UserModel {
+        UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, urlImage: urlImage, passport: passport, country: country)
+    }
+    
+    func firstLastName() -> String {
+        return "\(firstName) \(lastName)"
+    }
+}
 
 final class TabBarViewModel: ObservableObject {
     
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
     private var uid = UserDefaults.standard.string(forKey: "uid")
-    private var cancellable = Set<AnyCancellable>()
-    @Published var dataUser: UserModel = UserModel(firstName: "", lastName: "", email: "", dateOfBirth: .now, urlImage: "", passport: "", country: "")
-    @Published var profileVM = ProfileViewModel()
-    @Published var homeVM = HomeViewModel()
-    
-    init() {
-        $dataUser
-            .sink { item in
-                self.profileVM.dataUser = item
-                self.homeVM.dataUser = item
-            }
-            .store(in: &cancellable)
-    }
     
     func getUserData() {
         Task {
             do {
                 let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
-                await MainActor.run {
-                    dataUser = UserModel(firstName: data.firstName, lastName: data.lastName, email: data.email, dateOfBirth: data.dateOfBirth, urlImage: data.urlImage, passport: data.passport, country: data.country)
-                }
+                UserData.shared.saveInfo(user: data)
             } catch {
                 print ("error")
             }

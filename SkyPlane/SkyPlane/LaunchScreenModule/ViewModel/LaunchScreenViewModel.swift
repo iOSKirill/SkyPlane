@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+//MARK: - Enum AppCondition -
 enum AppCondition: String {
     case onboardingView
     case createAccountView
@@ -29,6 +30,7 @@ final class LaunchScreenViewModel: ObservableObject {
         }
     }
     
+    //MARK: - Loading circle
     func loadingCircle() {
         self.value = 2
         self.isLoading = true

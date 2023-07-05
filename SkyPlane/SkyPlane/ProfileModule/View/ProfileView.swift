@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct ProfileView: View {
     
     //MARK: - Property -
-    @ObservedObject var vm: ProfileViewModel
+    @StateObject var vm = ProfileViewModel()
     
     var headerProfile: some View {
         ZStack {
@@ -21,17 +21,17 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity, maxHeight: 130)
             
             HStack {
-                WebImage(url: URL(string: vm.dataUser.urlImage))
+                WebImage(url: URL(string: vm.userInfo.urlImage))
                     .resizable()
                     .frame(width: 80, height: 80)
                     .mask(Circle())
                     .padding(.leading, 20)
                 
                 VStack(alignment: .leading,spacing: 8) {
-                    Text(vm.dataUser.firstLastName())
+                    Text(vm.userInfo.firstLastName())
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(Color(.whiteBlack))
-                    Text(vm.dataUser.email)
+                    Text(vm.userInfo.email)
                         .font(.system(size: 18, weight: .regular))
                         .foregroundColor(Color(.whiteBlack))
                 }
@@ -65,7 +65,7 @@ struct ProfileView: View {
                 VStack {
                     headerProfile
                     VStack {
-                        CustomProfileButton(view: EditProfileView(vm: vm.editProfileVM), nameItem: "Edit Profile", imageItem: .editProfile)
+                        CustomProfileButton(view: EditProfileView(), nameItem: "Edit Profile", imageItem: .editProfile)
                         CustomProfileButton(view: MyTicketsView(), nameItem: "My Tickets", imageItem: .ticketProfile)
                         CustomProfileButton(view: PrivacyPoliceView(), nameItem: "Privacy Policy", imageItem: .privacyPolicyProfile)
                         CustomProfileButton(view: TermsConditionsView(), nameItem: "Terms & Conditions", imageItem: .termsProfile)
@@ -76,7 +76,6 @@ struct ProfileView: View {
                 }
             }
             .navigationBarTitle(Text("My Profile"), displayMode: .inline)
-           
         }
     }
 }

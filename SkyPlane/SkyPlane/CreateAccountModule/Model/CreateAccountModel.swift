@@ -16,8 +16,4 @@ struct UserModel: Codable {
     var urlImage: String
     var passport: String
     var country: String
-    
-    func firstLastName() -> String {
-        return "\(firstName) \(lastName)"
-    }
 }
