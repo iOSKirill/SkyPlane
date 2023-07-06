@@ -22,4 +22,8 @@ struct CurrenWeatherModel: Identifiable, Encodable {
         desctiption = data.weather.first?.description ?? ""
         day = data.dt
     }
+    
+    func returnIcon() -> String {
+        "https://openweathermap.org/img/wn/\(icon).png"
+    }
 }

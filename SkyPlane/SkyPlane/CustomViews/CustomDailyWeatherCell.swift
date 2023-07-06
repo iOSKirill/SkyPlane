@@ -17,7 +17,7 @@ struct CustomDailyWeatherCell: View {
                 .foregroundColor(Color(.textBlackWhiteColor))
                 .padding(.leading, 16)
             Spacer()
-            WebImage(url: URL(string: "https://openweathermap.org/img/wn/\(daily.icon).png"))
+            WebImage(url: URL(string: daily.returnIcon()))
                 .padding(.trailing, 50)
             Text("\(daily.tempMax.customInt())°")
                 .font(.system(size: 18, weight: .medium))

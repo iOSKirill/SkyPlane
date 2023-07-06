@@ -20,4 +20,8 @@ struct DailyWeatherModel: Identifiable, Encodable {
         icon = data.weather.first?.icon ?? ""
         day = data.dt.dateFormatter(dateFormat: .daily)
     }
+    
+    func returnIcon() -> String {
+        "https://openweathermap.org/img/wn/\(icon).png"
+    }
 }

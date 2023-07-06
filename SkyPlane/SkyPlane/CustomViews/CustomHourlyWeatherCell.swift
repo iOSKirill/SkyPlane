@@ -16,7 +16,7 @@ struct CustomHourlyWeatherCell: View {
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(Color(.textBlackWhiteColor))
                 .padding(.top, 5)
-            WebImage(url: URL(string: "https://openweathermap.org/img/wn/\(hourly.icon).png"))
+            WebImage(url: URL(string: hourly.returnIcon()))
             Text("\(hourly.temp.customInt())°C")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(Color(.textBlackWhiteColor))

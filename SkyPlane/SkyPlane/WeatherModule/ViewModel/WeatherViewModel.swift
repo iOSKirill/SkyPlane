@@ -22,6 +22,7 @@ final class WeatherViewModel: ObservableObject {
     @Published var hourlyWeather: [CurrenWeatherModel] = []
     @Published var dailyWeather: [DailyWeatherModel] = []
     @Published var nameSearchCity: String = ""
+    
     var nameCity: String = ""
     
     //MARK: - Get weather data by city name -
