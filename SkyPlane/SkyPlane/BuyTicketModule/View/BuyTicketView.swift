@@ -236,6 +236,6 @@ struct BuyTicketView: View {
 
 struct BuyTicketView_Previews: PreviewProvider {
     static var previews: some View {
-        BuyTicketView(vm: BuyTicketViewModel(buyTicketInfo: .init(data: .init(origin: "", destination: "", originAirport: "", destinationAirport: "", price: 0, airline: "", flightNumber: "", departureAt: "", returnAt: "", transfers: 0, returnTransfers: 0, duration: 0, durationTo: 0, link: ""))))
+        BuyTicketView(vm: BuyTicketViewModel(buyTicketInfo: .init(data: .init())))
     }
 }

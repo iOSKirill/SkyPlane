@@ -36,4 +36,39 @@ struct DateTicket: Codable, Hashable {
         case duration, link
         case durationTo = "duration_to"
     }
+    
+    init() {
+        self.origin = ""
+        self.destination = ""
+        self.originAirport = ""
+        self.destinationAirport = ""
+        self.price = 0
+        self.airline = ""
+        self.flightNumber = ""
+        self.departureAt = ""
+        self.returnAt = ""
+        self.transfers = 0
+        self.returnTransfers = 0
+        self.duration = 0
+        self.durationTo = 0
+        self.link = ""
+    }
+    
+       init(origin: String, destination: String, originAirport: String, destinationAirport: String, price: Int, airline: String, flightNumber: String, departureAt: String, returnAt: String, transfers: Int, returnTransfers: Int, duration: Int, durationTo: Int, link: String) {
+           self.origin = origin
+           self.destination = destination
+           self.originAirport = originAirport
+           self.destinationAirport = destinationAirport
+           self.price = price
+           self.airline = airline
+           self.flightNumber = flightNumber
+           self.departureAt = departureAt
+           self.returnAt = returnAt
+           self.transfers = transfers
+           self.returnTransfers = returnTransfers
+           self.duration = duration
+           self.durationTo = durationTo
+           self.link = link
+       }
+
 }

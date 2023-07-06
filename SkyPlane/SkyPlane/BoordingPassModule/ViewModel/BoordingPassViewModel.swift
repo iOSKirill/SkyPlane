@@ -17,7 +17,7 @@ final class BoordingPassViewModel: ObservableObject {
     @Published var isShowingMailView = false
 
     init() {
-        buyTicketInfo = TicketsFoundModel(data: DateTicket(origin: "", destination: "", originAirport: "", destinationAirport: "", price: 0, airline: "", flightNumber: "", departureAt: "", returnAt: "", transfers: 0, returnTransfers: 0, duration: 0, durationTo: 0, link: ""))
+        buyTicketInfo = TicketsFoundModel(data: DateTicket())
     }
     
     var imageURL: String {
