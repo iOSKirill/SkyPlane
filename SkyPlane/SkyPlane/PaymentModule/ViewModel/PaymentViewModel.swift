@@ -56,14 +56,14 @@ final class PaymentViewModel: ObservableObject {
         Task {
             do {
                 guard let uid = uid else { return }
+                guard !cardNumber.isEmpty, !cardHolderName.isEmpty, !cvv.isEmpty else { return await MainActor.run { self.errorText = "Fill in the card data" } }
+                guard cardNumber.count == 16, cvv.count == 3 else { return await MainActor.run { self.errorText = "Invalid format" } }
                 switch classFlight {
                 case .economy:
                     buyTicketInfo.price = buyTicketInfo.price
                 case .business:
                     buyTicketInfo.price *= 2
                 }
-                guard !cardNumber.isEmpty, !cardHolderName.isEmpty, !cvv.isEmpty else { return await MainActor.run { self.errorText = "Fill in the card data" } }
-                guard cardNumber.count == 16, cvv.count == 3 else { return await MainActor.run { self.errorText = "Invalid format" } }
                 try await firebaseManager.saveTicket(uid: uid, origin: buyTicketInfo.origin, destination: buyTicketInfo.destination, price: buyTicketInfo.price, flightNumber: buyTicketInfo.flightNumber, departureDate: buyTicketInfo.departureDate.formatSaveTicket(), returnDate: buyTicketInfo.returnDate.formatSaveTicket(), duration: buyTicketInfo.duration, icon: buyTicketInfo.icon)
                 await MainActor.run {
                     self.isPresented.toggle()

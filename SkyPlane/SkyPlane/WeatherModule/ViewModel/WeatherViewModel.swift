@@ -22,6 +22,7 @@ final class WeatherViewModel: ObservableObject {
     @Published var hourlyWeather: [CurrenWeatherModel] = []
     @Published var dailyWeather: [DailyWeatherModel] = []
     @Published var nameSearchCity: String = ""
+    @Published var isLoading: Bool = true
     
     var nameCity: String = ""
     
@@ -45,6 +46,7 @@ final class WeatherViewModel: ObservableObject {
                 self.dailyWeather = mappedDaily
                 self.nameCity = cityName
                 self.nameSearchCity = ""
+                self.isLoading = false
             }
         }
     }
