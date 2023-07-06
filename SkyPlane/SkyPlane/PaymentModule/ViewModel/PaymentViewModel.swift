@@ -48,6 +48,10 @@ final class PaymentViewModel: ObservableObject {
             .store(in: &cancellable)
     }
     
+    deinit {
+        cancellable.removeAll()
+    }
+    
     func saveTicket() {
         Task {
             do {

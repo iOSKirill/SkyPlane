@@ -40,6 +40,10 @@ final class EditProfileViewModel: ObservableObject {
             }
             .store(in: &cancellable)
     }
+    
+    deinit {
+        cancellable.removeAll()
+    }
 
     func updateUserData() {
         Task {

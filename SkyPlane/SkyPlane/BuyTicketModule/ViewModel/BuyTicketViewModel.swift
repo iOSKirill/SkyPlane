@@ -36,4 +36,7 @@ final class BuyTicketViewModel: ObservableObject {
             .store(in: &cancellable)
     }
     
+    deinit {
+        cancellable.removeAll()
+    }
 }

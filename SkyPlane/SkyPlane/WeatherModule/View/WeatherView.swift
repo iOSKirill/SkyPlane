@@ -49,7 +49,7 @@ struct WeatherView: View {
                             .font(.system(size: 18, weight: .medium))
                             .foregroundColor(Color(.textBlackWhiteColor))
                     }
-                    
+
                     VStack {
                         HStack {
                             Text("Today")

@@ -75,6 +75,10 @@ final class HomeViewModel: ObservableObject {
             .store(in: &cancellable)
     }
     
+    deinit {
+        cancellable.removeAll()
+    }
+    
     //Date picker
     @Published var selectedDateDeparture = Date()
     @Published var selectedDateReturn = Date()
