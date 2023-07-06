@@ -24,4 +24,8 @@ struct DailyWeatherModel: Identifiable, Encodable {
     func returnIcon() -> String {
         "https://openweathermap.org/img/wn/\(icon).png"
     }
+    
+    func maxMinTemp() -> String {
+        "Max.: \(tempMax.customInt())°, min.: \(tempMin.customInt())°"
+    }
 }

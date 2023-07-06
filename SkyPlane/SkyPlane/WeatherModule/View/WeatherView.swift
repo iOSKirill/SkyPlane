@@ -45,10 +45,9 @@ struct WeatherView: View {
                         Text(vm.currentWeather?.desctiption ?? "")
                             .font(.system(size: 18, weight: .medium))
                             .foregroundColor(Color(.textBlackWhiteColor))
-                        Text("Max.: \(vm.dailyWeather.first?.tempMax.customInt() ?? 0)°, min.: \(vm.dailyWeather.first?.tempMin.customInt() ?? 0)°")
+                        Text(vm.dailyWeather.first?.maxMinTemp() ?? "")
                             .font(.system(size: 18, weight: .medium))
                             .foregroundColor(Color(.textBlackWhiteColor))
-                        
                     }
                     
                     VStack {
