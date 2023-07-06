@@ -120,7 +120,6 @@ struct WeatherView: View {
             }
             .task {
                 vm.getWeatherDataByCityName(cityName: "Minsk")
-                print(vm.userLatitude)
             }
         }
     }

@@ -131,14 +131,7 @@ struct TicketsFoundView: View {
             }
             filterFligth
             ScrollView {
-                if vm.flightInfo.count > 0 {
-                    flightInfo
-                } else {
-                    Text("There are no tickets in this direction!")
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(Color(.textBlackWhiteColor))
-                        .multilineTextAlignment(.center)
-                }
+             flightInfo
             }
             .buttonStyle(.plain)
             .listStyle(.plain)
@@ -149,8 +142,16 @@ struct TicketsFoundView: View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
             VStack {
-
-                content
+                if vm.flightInfo.count > 0 {
+                    content
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .foregroundColor(.blue)
+                        .padding()
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                }
             }
         }
         .navigationBarBackButtonHidden(true)

@@ -28,6 +28,7 @@ enum ShowHomeScreen: String, Identifiable {
     }
 }
 
+
 final class HomeViewModel: ObservableObject {
     
     //MARK: - Property -
@@ -101,6 +102,7 @@ final class HomeViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
+                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else { return await MainActor.run { self.errorText = "Fill in the search data" } }
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
@@ -125,6 +127,7 @@ final class HomeViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
+                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else { return await MainActor.run { self.errorText = "Fill in the search data" } }
                 let newDate =  Calendar.current.date(byAdding: .day, value: 1, to: selectedDateDeparture)
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }

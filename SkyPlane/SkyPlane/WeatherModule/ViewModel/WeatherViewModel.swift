@@ -46,6 +46,7 @@ final class WeatherViewModel: ObservableObject {
                 self.dailyWeather = mappedDaily
                 self.nameCity = cityName
                 self.nameSearchCity = ""
+                self.isLoading = false
             }
         }
     }
