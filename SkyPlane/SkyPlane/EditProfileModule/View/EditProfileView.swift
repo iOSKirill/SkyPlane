@@ -23,7 +23,6 @@ struct EditProfileView: View {
     var buttonBack: some View {
         Button {
             dismiss()
-            
         } label: {
             Image(systemName: "arrow.backward")
                 .foregroundColor(Color(.textBlackWhiteColor))

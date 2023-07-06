@@ -150,7 +150,10 @@ struct HomeView: View {
                             CustomPassengerAndClassTextField(isPresented: $vm.showHomeScreen, passengerValue: vm.passenger, classFlightValue: vm.classFlight, textFieldValue: "Enter passenger", textSection: "Passenger and class")
                                 .padding(.horizontal, 16)
                             
+                            if !vm.originNameCity.isEmpty && !vm.destinationNameCity.isEmpty
+                            {
                                 searchButton
+                            }
                         }
                         .frame(maxWidth: .infinity, maxHeight: 500)
                         .background(Color(.ticketBackgroundColor))

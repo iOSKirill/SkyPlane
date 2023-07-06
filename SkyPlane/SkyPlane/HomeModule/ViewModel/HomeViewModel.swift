@@ -60,6 +60,11 @@ final class HomeViewModel: ObservableObject {
         $ticketFoundInfo
             .sink { item in
                 self.ticketsFoundVM.flightInfo = item
+                if item.isEmpty {
+                    print("ERROR ARRAY")
+                } else {
+                    print(item)
+                }
             }
             .store(in: &cancellable)
         
@@ -110,7 +115,6 @@ final class HomeViewModel: ObservableObject {
                 let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: selectedDateReturn))
                 let mappedData = flightInfo.data
                     .map { TicketsFoundModel(data: $0) }
-                
                 await MainActor.run {
                     self.ticketFoundInfo = mappedData
                 }
@@ -139,6 +143,7 @@ final class HomeViewModel: ObservableObject {
 
                 await MainActor.run {
                     self.ticketFoundInfo = mappedData
+                    print(self.ticketFoundInfo)
                 }
             } catch {
                 await MainActor.run {
