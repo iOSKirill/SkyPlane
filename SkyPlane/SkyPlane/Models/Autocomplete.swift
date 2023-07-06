@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Foundation
+
 //MARK: - Autocomplete -
 struct Autocomplete: Codable {
     let type: String?
@@ -15,7 +17,7 @@ struct Autocomplete: Codable {
     let coordinates: Coordinates?
     let indexStrings: [String]?
     let weight: Int?
-    let cases, countryCases, mainAirportName: String?
+    let mainAirportName: String?
 
     enum CodingKeys: String, CodingKey {
         case type, code, name
@@ -24,8 +26,7 @@ struct Autocomplete: Codable {
         case stateCode = "state_code"
         case coordinates
         case indexStrings = "index_strings"
-        case weight, cases
-        case countryCases = "country_cases"
+        case weight
         case mainAirportName = "main_airport_name"
     }
 }

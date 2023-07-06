@@ -48,7 +48,7 @@ struct CustomPopularTicketCell: View {
                 
                 HStack {
 
-                    Text(popularFlightInfo.departureDate)
+                    Text("\(popularFlightInfo.departureDate)")
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.leading, 32)

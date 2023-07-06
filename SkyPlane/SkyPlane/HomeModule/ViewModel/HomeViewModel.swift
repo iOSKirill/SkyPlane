@@ -161,6 +161,7 @@ final class HomeViewModel: ObservableObject {
                 let codeByCityName = try await alamofireProvider.getCodeByCityName(cityName: cityName)
                 guard let codeNameCity = codeByCityName.first?.code else { return }
                 let popularFlightInfo = try await alamofireProvider.getPopularFlightsByCityName(cityName: codeNameCity)
+                print(popularFlightInfo)
                 let mappedData = popularFlightInfo.data?.values
                     .map { PopularFlightInfoModel(data: $0) }
                     .sorted(by: { $0.price < $1.price }) ?? []
@@ -170,6 +171,7 @@ final class HomeViewModel: ObservableObject {
                 }
             } catch {
                 print("Error get popular flight info")
+                print(error)
             }
         }
     }

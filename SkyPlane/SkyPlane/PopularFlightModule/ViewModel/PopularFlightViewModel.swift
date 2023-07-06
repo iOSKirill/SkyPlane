@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 final class PopularFlightViewModel: ObservableObject {
     
     //MARK: - Property -
