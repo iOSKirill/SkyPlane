@@ -129,7 +129,7 @@ struct EditProfileView: View {
                 ScrollView(showsIndicators: false) {
                     CustomProfileTextField(bindingValue: $vm.userInfo.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
                     CustomProfileTextField(bindingValue: $vm.userInfo.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
-                    CustomProfileTextField(bindingValue: $vm.userInfo.email, textSection: "E-mail", textFieldValue: "Enter your e-mail")
+                    CustomEmailTextField(textSection: "E-mail")
                     CustomProfileTextField(bindingValue: $vm.userInfo.passport, textSection: "Passport", textFieldValue: "Enter your passport")
                     CustomProfileTextField(bindingValue: $vm.userInfo.country, textSection: "Country", textFieldValue: "Enter your country")
                     datePicker
