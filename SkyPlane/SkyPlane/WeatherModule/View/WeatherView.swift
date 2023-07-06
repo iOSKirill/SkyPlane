@@ -19,7 +19,7 @@ struct WeatherView: View {
             
             Group {
                 if vm.isLoading {
-                    ProgressView() // Значок загрузки
+                    ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .foregroundColor(.blue)
                         .padding()
