@@ -23,6 +23,7 @@ final class PaymentViewModel: ObservableObject {
     @Published var buyTicketInfo: TicketsFoundModel
     @Published var classFlight: ClassFlight = .economy
     @Published var isAlert: Bool = false
+    @Published var isPresentedCancel: Bool = false
     @Published var errorText = "" {
         didSet {
             isAlert = true
@@ -58,6 +59,8 @@ final class PaymentViewModel: ObservableObject {
                 guard let uid = uid else { return }
                 guard !cardNumber.isEmpty, !cardHolderName.isEmpty, !cvv.isEmpty else { return await MainActor.run { self.errorText = "Fill in the card data" } }
                 guard cardNumber.count == 16, cvv.count == 3 else { return await MainActor.run { self.errorText = "Invalid format" } }
+                guard cardNumber.isValidCardNumber() else { return await MainActor.run { self.errorText = "Invalid card number" } }
+                guard cvv.isValidCvvNumber() else { return await MainActor.run { self.errorText = "Invalid cvv number" } }
                 switch classFlight {
                 case .economy:
                     buyTicketInfo.price = buyTicketInfo.price

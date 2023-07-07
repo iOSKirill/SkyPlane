@@ -13,6 +13,7 @@ struct PaymentView: View {
     //MARK: - Property -
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = PaymentViewModel()
+    @FocusState private var textIsFocused: Bool
     
     var buttonBack: some View {
         Button {
@@ -161,7 +162,7 @@ struct PaymentView: View {
     }
     var cancelButton: some View {
         Button {
-            dismiss()
+            vm.isPresentedCancel.toggle()
         } label: {
             Text("Cancel")
                 .font(.system(size: 18, weight: .medium, design: .default))
@@ -175,6 +176,9 @@ struct PaymentView: View {
                 .foregroundColor(Color(.textBlackWhiteColor))
                 .cornerRadius(16)
         }
+        .fullScreenCover(isPresented: $vm.isPresentedCancel) {
+            TabBarView()
+        }
     }
     
     var body: some View {
@@ -186,10 +190,15 @@ struct PaymentView: View {
                         .padding(.top, 16)
                     VStack(alignment: .leading) {
                         CustomProfileTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000 0000 0000 0000")
+                            .keyboardType(.numberPad)
+                            .focused($textIsFocused)
 
                         CustomProfileTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
                         HStack {
                             CustomProfileTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
+                                .keyboardType(.numberPad)
+                                .focused($textIsFocused)
+                            
                             datePicker
                         }
                         Image(.cards)
@@ -209,6 +218,9 @@ struct PaymentView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(vm.errorText)
+        }
+        .onTapGesture {
+            textIsFocused = false
         }
     }
 }

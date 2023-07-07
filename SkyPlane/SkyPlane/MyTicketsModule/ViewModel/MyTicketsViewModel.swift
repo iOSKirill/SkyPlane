@@ -13,6 +13,7 @@ final class MyTicketsViewModel: ObservableObject {
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
     private var uid = UserDefaults.standard.string(forKey: "uid")
     @Published var tickets: [TicketsFoundModel] = []
+    @Published var isLoading: Bool = true
     
     //MARK: - Get tickets DB -
     func getTicktes() {
@@ -22,6 +23,7 @@ final class MyTicketsViewModel: ObservableObject {
                 let arrayTickets = try await firebaseManager.getTicketsDB(id: uid ?? "")
                    await MainActor.run {
                        self.tickets = arrayTickets
+                       self.isLoading = false
                    }
             } catch {
                 await MainActor.run {

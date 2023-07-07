@@ -44,12 +44,28 @@ struct MyTicketsView: View {
             Color(.homeBackgroundColor).ignoresSafeArea()
             header
             
-            ScrollView(showsIndicators: false) {
-                ForEach(vm.tickets) { i in
-                    CustomTicketsFoundCell(ticketsFound: i, originFullName: "", destinationFullName: "")
+            if vm.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .foregroundColor(.blue)
+                    .padding()
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+            } else {
+                if vm.tickets.count > 0 {
+                    ScrollView(showsIndicators: false) {
+                        ForEach(vm.tickets) { i in
+                            CustomMyTicketTicketCell(ticketsFoundModel: i)
+                        }
+                    }
+                    .padding(.top, 30)
+                } else {
+                    VStack {
+                        Text("There are no tickets purchased")
+                            .font(.system(size: 22, weight: .medium, design: .default))
+                    }
                 }
             }
-            .padding(.top, 30)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)

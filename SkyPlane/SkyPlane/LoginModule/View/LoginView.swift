@@ -140,6 +140,7 @@ struct LoginView: View {
             }
             .padding(.top, 16)
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
         .navigationTitle("Login")

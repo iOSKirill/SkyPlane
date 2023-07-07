@@ -49,14 +49,15 @@ final class EditProfileViewModel: ObservableObject {
         Task {
             do {
                 guard !userInfo.firstName.isEmpty, !userInfo.lastName.isEmpty, !userInfo.passport.isEmpty, !userInfo.country.isEmpty else { return await MainActor.run { self.errorText = "Fill in the user data" } }
-                guard userInfo.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
                 let userImage = try await firebaseManager.createUserImageDataDB(imageAccount: userInfo.urlImage, id: uid ?? "")
                 await MainActor.run {
                     self.userInfo.urlImage = userImage.absoluteString
                 }
+                guard userInfo.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
                 try await firebaseManager.createUserDataDB(firstName: userInfo.firstName, lastName: userInfo.lastName, email: userInfo.email, dateOfBirth: userInfo.dateOfBirth, uid: uid ?? "", urlImage: userInfo.urlImage, passport: userInfo.passport, country: userInfo.country)
                 let data = userInfo.getInfo()
                 userInfo.saveInfo(user: data)
+                userInfo.getInfo()
             } catch {
                 await MainActor.run {
                     errorText = error.localizedDescription

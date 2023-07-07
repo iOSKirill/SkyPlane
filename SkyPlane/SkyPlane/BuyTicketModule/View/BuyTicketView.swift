@@ -181,25 +181,6 @@ struct BuyTicketView: View {
                 .padding(.horizontal, 16)
         }
     }
-    var cancelButton: some View {
-        Button {
-            dismiss()
-        } label: {
-            Text("Cancel")
-                .font(.system(size: 18, weight: .medium, design: .default))
-                .frame(height: 55)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(Color(.basicColor))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color(.basicColor), lineWidth: 2)
-                }
-                .foregroundColor(Color(.textBlackWhiteColor))
-                .cornerRadius(16)
-                .padding(.horizontal, 16)
-        }
-        .padding(.bottom, 8)
-    }
     
     var nameSection: some View {
         HStack {
@@ -221,7 +202,7 @@ struct BuyTicketView: View {
                 nameSection
                 classFlight
                 confirmButton
-                cancelButton
+                    .padding(.bottom, 10)
             }
             .scrollIndicators(.never)
             .frame(width: UIScreen.main.bounds.width)

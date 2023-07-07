@@ -60,5 +60,17 @@ extension String {
           return passportNumberTest.evaluate(with: self)
       }
 
+    
+    func isValidCardNumber() -> Bool {
+          let passportNumberRegex = "[0-9]{16}$"
+          let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
+          return passportNumberTest.evaluate(with: self)
+      }
+    
+    func isValidCvvNumber() -> Bool {
+          let passportNumberRegex = "[0-9]{3}$"
+          let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
+          return passportNumberTest.evaluate(with: self)
+      }
 }
 

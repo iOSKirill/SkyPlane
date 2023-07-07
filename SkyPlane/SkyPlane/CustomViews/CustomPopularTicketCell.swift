@@ -84,4 +84,78 @@ struct CustomPopularTicketCell: View {
     }
 }
 
+struct CustomMyTicketTicketCell: View {
+    //MARK: - Property -
+    var ticketsFoundModel: TicketsFoundModel
+    
+    var body: some View {
+        ZStack {
+            Image(.ticketBackground)
+                .resizable()
+            VStack(spacing: 8) {
+                HStack {
+                    Text(ticketsFoundModel.origin)
+                        .font(.system(size: 22, weight: .bold))
+                        .padding(.leading, 32)
+                        .foregroundColor(Color(.textSilverWhite))
+                    Spacer()
+                    Image(.logoOnTicket)
+                    Spacer()
+                    Text(ticketsFoundModel.destination)
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.trailing, 32)
+                }
+                .padding(.top, 32)
+                
+                HStack {
+                    Text("DEPARTURE")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .padding(.leading, 32)
+                    Spacer()
+                    Text("FLIGHT NUMBER")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .padding(.trailing, 32)
+                }
+                .padding(.top, 32)
+                
+                HStack {
+
+                    Text("\(ticketsFoundModel.departureDate)")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.leading, 32)
+                    Spacer()
+                    Text("\(ticketsFoundModel.flightNumber)")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.trailing, 32)
+                }
+                .padding(.bottom, 32)
+                
+                HStack {
+                    Text("------------------------------------------")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .frame(maxWidth: .infinity)
+                }
+                .padding(.top, 16)
+                
+                HStack {
+                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(ticketsFoundModel.icon).png"))
+                        .padding(.leading, 32)
+                    Spacer()
+                    Text("\(ticketsFoundModel.price)")
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.trailing, 32)
+                }
+            }
+        }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+    }
+}
 

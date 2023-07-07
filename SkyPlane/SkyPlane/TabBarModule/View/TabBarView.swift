@@ -68,6 +68,7 @@ struct TabBarView: View {
                 tabBarButtons
             }
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .task {
             vm.getUserData()
         }
