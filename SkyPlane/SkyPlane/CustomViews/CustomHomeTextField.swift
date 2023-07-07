@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomHomeTextField: View {
+    
     //MARK: - Property -
     @Binding var bindingValue: String
     var textSection: String
@@ -38,4 +39,3 @@ struct CustomHomeTextField: View {
         }
     }
 }
-

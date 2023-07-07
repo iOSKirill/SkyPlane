@@ -19,16 +19,6 @@ enum DatePickerShow {
     case departureAndReturnDatePicker
 }
 
-enum ShowHomeScreen: String, Identifiable {
-    case ticketsFoundView
-    case passengerAndClassView
-    
-    var id: String {
-        return self.rawValue
-    }
-}
-
-
 final class HomeViewModel: ObservableObject {
     
     //MARK: - Property -
@@ -40,7 +30,6 @@ final class HomeViewModel: ObservableObject {
     @Published var ticketsFoundVM = TicketsFoundViewModel()
     @Published var popularFlightInfo: [PopularFlightInfoModel] = []
     @Published var ticketFoundInfo: [TicketsFoundModel] = []
-    @Published var showHomeScreen: ShowHomeScreen?
     @Published var userInfo = UserData.shared
     @Published var calendarId: Int = 0
     @Published var isAlert: Bool = false

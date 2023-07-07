@@ -14,6 +14,7 @@ struct CustomProfileButton<Destination: View>: View  {
     var nameItem: String
     var imageItem: AssetsImage
     
+    //MARK: - Body -
     var body: some View {
         NavigationLink(destination: view) {
             VStack {

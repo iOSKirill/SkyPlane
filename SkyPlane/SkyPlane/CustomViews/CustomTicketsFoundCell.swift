@@ -16,10 +16,12 @@ struct CustomTicketsFoundCell: View {
     var originFullName: String
     var destinationFullName: String
     
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Image(.ticketBackground)
                 .resizable()
+            
             VStack(spacing: 8) {
                 HStack {
                     Text(ticketsFound.origin)
@@ -40,7 +42,6 @@ struct CustomTicketsFoundCell: View {
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
                 }
-                
                 
                 HStack {
                     Text(originFullName)

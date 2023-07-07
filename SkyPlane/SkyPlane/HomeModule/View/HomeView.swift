@@ -39,12 +39,12 @@ struct HomeView: View {
         HStack {
             switch vm.datePickerShow {
             case .departureDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure", calendarId: $vm.calendarId)
+                CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.horizontal, 16)
             case .departureAndReturnDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure", calendarId: $vm.calendarId)
+                CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.leading, 16)
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return", calendarId: $vm.calendarId)
+                CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return")
                     .padding(.trailing, 16)
             }
         }
@@ -147,7 +147,7 @@ struct HomeView: View {
                             originDestination
                             departureAndReturnDatePicker
                             
-                            CustomPassengerAndClassTextField(isPresented: $vm.showHomeScreen, passengerValue: vm.passenger, classFlightValue: vm.classFlight, textFieldValue: "Enter passenger", textSection: "Passenger and class")
+                            CustomPassengerAndClassTextField(passengerValue: vm.passenger, classFlightValue: vm.classFlight, textFieldValue: "Enter passenger", textSection: "Passenger and class")
                                 .padding(.horizontal, 16)
                             
                             if !vm.originNameCity.isEmpty && !vm.destinationNameCity.isEmpty

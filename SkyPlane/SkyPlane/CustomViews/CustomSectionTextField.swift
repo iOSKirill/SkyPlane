@@ -39,4 +39,3 @@ struct CustomSectionTextField: View {
         .listRowBackground(Color.clear)
     }
 }
-

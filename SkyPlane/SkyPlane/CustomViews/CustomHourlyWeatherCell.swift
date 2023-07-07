@@ -9,7 +9,11 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CustomHourlyWeatherCell: View {
+    
+    //MARK: - Property -
     var hourly: CurrenWeatherModel
+    
+    //MARK: - Body -
     var body: some View {
         VStack {
             Text("\(hourly.time)")

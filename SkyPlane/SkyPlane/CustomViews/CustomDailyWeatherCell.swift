@@ -9,7 +9,11 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CustomDailyWeatherCell: View {
+    
+    //MARK: - Property -
     var daily: DailyWeatherModel
+    
+    //MARK: - Body -
     var body: some View {
         HStack(alignment: .center) {
             Text("\(daily.day)")
@@ -29,4 +33,3 @@ struct CustomDailyWeatherCell: View {
         }
     }
 }
-
