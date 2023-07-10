@@ -47,15 +47,18 @@ struct ProfileView: View {
         Button {
             vm.logout()
         } label: {
-            Text("Logout")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(Color(.blackColor))
-                .padding(16)
-                .frame(maxWidth: .infinity)
-                .background(Color(.basicColor))
-                .cornerRadius(16)
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
+            HStack {
+                Image(.logout)
+                Text("Logout")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(Color(.blackColor))
+                    .padding(.vertical, 16)
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(.basicColor))
+            .cornerRadius(16)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
     }
     

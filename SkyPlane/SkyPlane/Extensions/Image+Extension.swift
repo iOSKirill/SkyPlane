@@ -52,6 +52,7 @@ enum AssetsImage: String {
     case ticketBoording = "ticketBoording"
     case barcode = "barcode"
     case map = "map"
+    case logout = "logout"
 }
 
 //MARK: - Extension Image -
