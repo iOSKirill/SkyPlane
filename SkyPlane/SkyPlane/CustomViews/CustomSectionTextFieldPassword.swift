@@ -62,7 +62,5 @@ struct CustomSectionTextFieldPassword: View {
                 .padding(.vertical, 4)
             secureTextField
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
 }

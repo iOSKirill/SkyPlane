@@ -9,11 +9,13 @@ import Foundation
 import SwiftUI
 import Combine
 
+//MARK: - Enum Class select flight -
 enum ClassFlight: String {
     case economy = "Economy Class"
     case business = "Business Class"
 }
 
+//MARK: - Enum DatePicket show view -
 enum DatePickerShow {
     case departureDatePicker
     case departureAndReturnDatePicker
@@ -31,14 +33,27 @@ final class HomeViewModel: ObservableObject {
     @Published var popularFlightInfo: [PopularFlightInfoModel] = []
     @Published var ticketFoundInfo: [TicketsFoundModel] = []
     @Published var userInfo = UserData.shared
-    @Published var calendarId: Int = 0
+    @Published var isLoading: Bool = true
+    
+    //Date picker
+    @Published var selectedDateDeparture = Date()
+    @Published var selectedDateReturn = Date()
+    @Published var datePickerShow: DatePickerShow = .departureDatePicker
+    
+    //TextField
+    @Published var originNameCity: String = ""
+    @Published var destinationNameCity: String = ""
+    @Published var passenger: String = "1 Adults"
+    @Published var classFlight: ClassFlight = .economy
+    
     @Published var isAlert: Bool = false
+    @Published var calendarId: Int = 0
     @Published var errorText = "" {
         didSet {
             isAlert = true
         }
     }
-    
+
     init() {
         $popularFlightInfo
             .sink { item in
@@ -49,11 +64,6 @@ final class HomeViewModel: ObservableObject {
         $ticketFoundInfo
             .sink { item in
                 self.ticketsFoundVM.flightInfo = item
-                if item.isEmpty {
-                    print("ERROR ARRAY")
-                } else {
-                    print(item)
-                }
             }
             .store(in: &cancellable)
         
@@ -74,34 +84,21 @@ final class HomeViewModel: ObservableObject {
         cancellable.removeAll()
     }
     
-    //Date picker
-    @Published var selectedDateDeparture = Date()
-    @Published var selectedDateReturn = Date()
-    @Published var datePickerShow: DatePickerShow = .departureDatePicker
-    
-    //TextField
-    @Published var originNameCity: String = ""
-    @Published var destinationNameCity: String = ""
-    @Published var passenger: String = "1 Adults"
-    @Published var classFlight: ClassFlight = .economy
-    
-    let dateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
-    
     //MARK: - Get flight info round trip -
     func getFlightInfoRoundTrip() {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else { return await MainActor.run { self.errorText = "Fill in the search data" } }
+                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else {
+                    return await MainActor.run {
+                        self.errorText = "Fill in the search data"
+                    }
+                }
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
-                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: selectedDateReturn))
+                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: selectedDateDeparture.dateFormatSearchTickets(), returnDate: selectedDateReturn.dateFormatSearchTickets())
                 let mappedData = flightInfo.data
                     .map { TicketsFoundModel(data: $0) }
                 await MainActor.run {
@@ -120,19 +117,21 @@ final class HomeViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else { return await MainActor.run { self.errorText = "Fill in the search data" } }
+                guard !originNameCity.isEmpty, !destinationNameCity.isEmpty else {
+                    return await MainActor.run {
+                        self.errorText = "Fill in the search data"
+                    }
+                }
                 let newDate =  Calendar.current.date(byAdding: .day, value: 1, to: selectedDateDeparture)
                 let originCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: originNameCity)
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
-                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: dateFormat.string(from: selectedDateDeparture), returnDate: dateFormat.string(from: newDate ?? .now))
+                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: selectedDateDeparture.dateFormatSearchTickets(), returnDate: newDate?.dateFormatSearchTickets() ?? "")
                 let mappedData = flightInfo.data
                     .map { TicketsFoundModel(data: $0) }
-
                 await MainActor.run {
                     self.ticketFoundInfo = mappedData
-                    print(self.ticketFoundInfo)
                 }
             } catch {
                 await MainActor.run {
@@ -150,17 +149,15 @@ final class HomeViewModel: ObservableObject {
                 let codeByCityName = try await alamofireProvider.getCodeByCityName(cityName: cityName)
                 guard let codeNameCity = codeByCityName.first?.code else { return }
                 let popularFlightInfo = try await alamofireProvider.getPopularFlightsByCityName(cityName: codeNameCity)
-                print(popularFlightInfo)
                 let mappedData = popularFlightInfo.data?.values
                     .map { PopularFlightInfoModel(data: $0) }
                     .sorted(by: { $0.price < $1.price }) ?? []
-
                 await MainActor.run {
                     self.popularFlightInfo = mappedData
+                    self.isLoading = false
                 }
             } catch {
-                print("Error get popular flight info")
-                print(error)
+                self.errorText = error.localizedDescription
             }
         }
     }

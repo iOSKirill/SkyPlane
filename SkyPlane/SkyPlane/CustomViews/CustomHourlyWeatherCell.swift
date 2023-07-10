@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct CustomHourlyWeatherCell: View {
     
     //MARK: - Property -
-    var hourly: CurrenWeatherModel
+    var hourly: CurrentWeatherModel
     
     //MARK: - Body -
     var body: some View {

@@ -8,6 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+//MARK: - Enum screen profile -
 enum ScreenProfile {
     case profile
     case buyTicket
@@ -20,6 +21,7 @@ struct EditProfileView: View {
     @StateObject var vm = EditProfileViewModel()
     @State var currentScreen: ScreenProfile = .profile
     
+    //MARK: - Button back -
     var buttonBack: some View {
         Button {
             dismiss()
@@ -34,6 +36,7 @@ struct EditProfileView: View {
         }
     }
     
+    //MARK: - Image account -
     var imageAccount: some View {
         ZStack(alignment: .bottomTrailing) {
             WebImage(url: URL(string: vm.userInfo.urlImage))
@@ -53,6 +56,7 @@ struct EditProfileView: View {
         .padding(.bottom, 32)
     }
     
+    //MARK: - Date picker date of birth-
     var datePicker: some View {
         ZStack(alignment: .leading) {
             HStack {
@@ -87,6 +91,7 @@ struct EditProfileView: View {
         }
     }
     
+    //MARK: - Update button -
     var updateButton: some View {
         Button {
             vm.updateUserData()
@@ -101,6 +106,7 @@ struct EditProfileView: View {
         }
     }
     
+    //MARK: - Skip button -
     var skipButton: some View {
         NavigationLink {
                 PaymentView(vm: vm.paymentVM)
@@ -119,6 +125,7 @@ struct EditProfileView: View {
         }
     }
     
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()

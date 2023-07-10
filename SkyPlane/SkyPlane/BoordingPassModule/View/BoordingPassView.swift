@@ -14,6 +14,7 @@ struct BoordingPassView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = BoordingPassViewModel()
     
+    //MARK: - Button back -
     var buttonBack: some View {
         Button {
             dismiss()
@@ -28,6 +29,7 @@ struct BoordingPassView: View {
         }
     }
     
+    //MARK: - Header -
     var header: some View {
         VStack(spacing: 8) {
             ZStack {
@@ -40,6 +42,7 @@ struct BoordingPassView: View {
         }
     }
     
+    //MARK: - Send by email button -
     var sendByEmailButton: some View {
         Button {
            
@@ -54,6 +57,8 @@ struct BoordingPassView: View {
         }
         .padding(.horizontal, 16)
     }
+    
+    //MARK: - Back to home button -
     var backHomeView: some View {
         Button {
             vm.isPresented.toggle()
@@ -72,6 +77,7 @@ struct BoordingPassView: View {
         }
     }
     
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
@@ -82,6 +88,7 @@ struct BoordingPassView: View {
                 ZStack {
                     Image(.ticketBoording)
                         .resizable()
+                    
                     VStack(spacing: 8) {
                         
                         WebImage(url: URL(string: vm.imageURL))
@@ -120,7 +127,6 @@ struct BoordingPassView: View {
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(Color(.textSilverWhite))
                                     .padding(.top, 1)
-                                
                                 Text("TERMIAl")
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
@@ -129,7 +135,6 @@ struct BoordingPassView: View {
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(Color(.textSilverWhite))
                                     .padding(.top, 1)
-                                
                                 Text("DEPATURE")
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
@@ -141,6 +146,7 @@ struct BoordingPassView: View {
                             }
                             .padding(.leading, 32)
                             Spacer()
+                            
                             VStack(alignment: .trailing) {
                                 Text("SEAT NUMBER")
                                     .font(.system(size: 14, weight: .regular))
@@ -194,12 +200,9 @@ struct BoordingPassView: View {
                             }
                         }
                         .padding(.bottom, 50)
-                        
                     }
                 }
                 .padding(.horizontal, 22)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
                 sendByEmailButton
                 backHomeView
             }

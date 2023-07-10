@@ -46,7 +46,7 @@ final class LoginViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
-                    errorText = error.localizedDescription
+                    self.errorText = error.localizedDescription
                 }
             }
         }

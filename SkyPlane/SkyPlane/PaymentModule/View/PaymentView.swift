@@ -15,6 +15,7 @@ struct PaymentView: View {
     @StateObject var vm = PaymentViewModel()
     @FocusState private var textIsFocused: Bool
     
+    //MARK: - Button back -
     var buttonBack: some View {
         Button {
             dismiss()
@@ -29,10 +30,12 @@ struct PaymentView: View {
         }
     }
     
+    //MARK: - Ticket info -
     var ticket: some View {
         ZStack {
             Image(.ticketBackground)
                 .resizable()
+            
             VStack(spacing: 8) {
                 HStack {
                     Text(vm.buyTicketInfo.origin)
@@ -107,10 +110,10 @@ struct PaymentView: View {
             }
         }
         .padding(.horizontal, 22)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
+        .padding(.top, 16)
     }
     
+    //MARK: - DatePicker expiry date card -
     var datePicker: some View {
         ZStack(alignment: .leading) {
             HStack {
@@ -144,6 +147,7 @@ struct PaymentView: View {
         }
     }
     
+    //MARK: - Confirm button -
     var confirmButton: some View {
         Button {
             vm.saveTicket()
@@ -160,6 +164,8 @@ struct PaymentView: View {
             BoordingPassView(vm: vm.boordingPassVM)
         }
     }
+    
+    //MARK: - Cancel button -
     var cancelButton: some View {
         Button {
             vm.isPresentedCancel.toggle()
@@ -181,24 +187,23 @@ struct PaymentView: View {
         }
     }
     
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
             ScrollView(showsIndicators: false) {
                 VStack {
                     ticket
-                        .padding(.top, 16)
+                    
                     VStack(alignment: .leading) {
                         CustomProfileTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000 0000 0000 0000")
                             .keyboardType(.numberPad)
                             .focused($textIsFocused)
-
                         CustomProfileTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
                         HStack {
                             CustomProfileTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
                                 .keyboardType(.numberPad)
                                 .focused($textIsFocused)
-                            
                             datePicker
                         }
                         Image(.cards)

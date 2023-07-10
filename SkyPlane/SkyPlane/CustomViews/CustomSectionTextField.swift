@@ -35,7 +35,5 @@ struct CustomSectionTextField: View {
                 .cornerRadius(16)
                 .autocapitalization(.none)
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
 }

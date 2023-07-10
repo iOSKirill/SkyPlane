@@ -30,6 +30,7 @@ struct BuyTicketView: View {
         }
     }
     
+    //MARK: - Ticket info -
     var ticket: some View {
             ZStack() {
                 Image(.buyTicketBackground)
@@ -66,7 +67,6 @@ struct BuyTicketView: View {
                             .padding(.trailing, 32)
                     }
                     .padding(.horizontal, 16)
-                    
                     
                     HStack {
                         Text(vm.buyTicketInfo.origin)
@@ -133,10 +133,9 @@ struct BuyTicketView: View {
                 }
                 .frame(maxHeight: 320)
             }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
     }
     
+    //MARK: - Header view -
     var headerPlanet: some View {
         VStack(spacing: 8) {
             ZStack {
@@ -149,6 +148,7 @@ struct BuyTicketView: View {
         }
     }
     
+    //MARK: - Select class flight -
     var classFlight: some View {
         ScrollView(.horizontal) {
             HStack {
@@ -162,11 +162,10 @@ struct BuyTicketView: View {
         }
         .scrollIndicators(.never)
         .frame(height: 250)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.bottom, 16)
     }
     
+    //MARK: - Confirm button -
     var confirmButton: some View {
         NavigationLink {
             EditProfileView(vm: vm.editProfileVM, currentScreen: .buyTicket)
@@ -182,6 +181,7 @@ struct BuyTicketView: View {
         }
     }
     
+    //MARK: - Name section -
     var nameSection: some View {
         HStack {
             Text("Select Your Class")
@@ -192,6 +192,7 @@ struct BuyTicketView: View {
         }
     }
     
+    //MARK: - Body -
     var body: some View {
         ZStack(alignment: .top) {
             Color(.homeBackgroundColor).ignoresSafeArea()
@@ -206,7 +207,6 @@ struct BuyTicketView: View {
             }
             .scrollIndicators(.never)
             .frame(width: UIScreen.main.bounds.width)
-            .listStyle(.plain)
             .buttonStyle(.plain)
         }
         .navigationBarBackButtonHidden(true)

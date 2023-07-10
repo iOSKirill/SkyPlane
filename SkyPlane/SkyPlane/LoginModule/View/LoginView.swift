@@ -49,8 +49,6 @@ struct LoginView: View {
                         .padding()
                 }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.bottom, 16)
     }
     
@@ -131,7 +129,6 @@ struct LoginView: View {
                     CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
                     CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                 }
-                .listStyle(.plain)
                 .scrollDisabled(true)
                 
                 loginButton

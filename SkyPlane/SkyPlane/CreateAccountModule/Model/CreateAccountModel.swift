@@ -7,7 +7,6 @@
 
 import Foundation
 
-//MARK: - User model -
 struct UserModel: Codable {
     var firstName: String
     var lastName: String

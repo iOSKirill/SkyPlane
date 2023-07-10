@@ -10,8 +10,8 @@ import SwiftUI
 struct TabBarView: View {
     
     //MARK: - Property -
-    @State var selectedIndex: Int = 2
     @StateObject var vm = TabBarViewModel()
+    @State var selectedIndex: Int = 2
     
     //MARK: - Tabar buttons -
     var tabBarButtons: some View {

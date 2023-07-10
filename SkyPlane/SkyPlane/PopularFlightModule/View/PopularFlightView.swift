@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-
 import Combine
+
 struct PopularFlightView: View {
     
     //MARK: - Property -
@@ -29,23 +29,22 @@ struct PopularFlightView: View {
         }
     }
     
-    var popularTickets: some View { 
-        //Popular tickets
+    //MARK: - Popular tickets -
+    var popularTickets: some View {
         ForEach(vm.popularFlightInfo) { i in
             CustomPopularTicketCell(popularFlightInfo: i)
         }
         .padding(.top, 16)
     } 
 
+    //MARK: - Content -
     var content: some View {
         List {
             popularTickets
         }
         .buttonStyle(.plain)
-        .listStyle(.plain)
     }
 
-    
     //MARK: - Body -
     var body: some View {
         ZStack {

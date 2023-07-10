@@ -12,18 +12,12 @@ final class WeatherViewModel: ObservableObject {
     
     //MARK: - Property -
     private var alamofireProvider: AlamofireProviderProtocol = AlamofireProvider()
-    private var locationManager = LocationManager()
-    
-       var userLatitude: String {
-           return "\(locationManager.description)"
-       }
     @Published var isPresented = false
-    @Published var currentWeather: CurrenWeatherModel?
-    @Published var hourlyWeather: [CurrenWeatherModel] = []
+    @Published var currentWeather: CurrentWeatherModel?
+    @Published var hourlyWeather: [CurrentWeatherModel] = []
     @Published var dailyWeather: [DailyWeatherModel] = []
     @Published var nameSearchCity: String = ""
     @Published var isLoading: Bool = true
-    
     var nameCity: String = ""
     
     //MARK: - Get weather data by city name -
@@ -35,9 +29,9 @@ final class WeatherViewModel: ObservableObject {
                 return print("Error city name")
             }
             let weatherDataByCoordinates = try await alamofireProvider.getWeatherForCityCoordinates(lat: lat, lon: lon)
-            let mappedCurrent = CurrenWeatherModel(data: weatherDataByCoordinates.current)
+            let mappedCurrent = CurrentWeatherModel(data: weatherDataByCoordinates.current)
             let mappedHourly = weatherDataByCoordinates.hourly
-                .map { CurrenWeatherModel(data: $0) }
+                .map { CurrentWeatherModel(data: $0) }
             let mappedDaily = weatherDataByCoordinates.daily
                 .map { DailyWeatherModel(data: $0) }
             await MainActor.run {
@@ -49,51 +43,5 @@ final class WeatherViewModel: ObservableObject {
                 self.isLoading = false
             }
         }
-    }
-}
-
-import CoreLocation
-import Combine
-
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-
-    private let locationManager = CLLocationManager()
-    @Published var locationStatus: CLAuthorizationStatus?
-    @Published var lastLocation: CLLocation?
-
-    override init() {
-        super.init()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-
-   
-    
-    var statusString: String {
-        guard let status = locationStatus else {
-            return "unknown"
-        }
-        
-        switch status {
-        case .notDetermined: return "notDetermined"
-        case .authorizedWhenInUse: return "authorizedWhenInUse"
-        case .authorizedAlways: return "authorizedAlways"
-        case .restricted: return "restricted"
-        case .denied: return "denied"
-        default: return "unknown"
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        locationStatus = status
-        print(#function, statusString)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        lastLocation = location
-        print(#function, location)
     }
 }

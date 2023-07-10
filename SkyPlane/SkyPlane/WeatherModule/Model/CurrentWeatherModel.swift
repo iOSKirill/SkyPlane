@@ -1,5 +1,5 @@
 //
-//  CurrenWeatherModel.swift
+//  CurrentWeatherModel.swift
 //  SkyPlane
 //
 //  Created by Kirill Manuilenko on 5.07.23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurrenWeatherModel: Identifiable, Encodable {
+struct CurrentWeatherModel: Identifiable, Encodable {
     var id = UUID()
     var temp: Double
     var icon: String

@@ -28,18 +28,17 @@ struct TicketsFoundView: View {
         }
     }
     
+    //MARK: - Flight ticket info -
     var flightInfo: some View {
         ForEach(vm.flightInfo) { i in
             NavigationLink(destination: BuyTicketView(vm: BuyTicketViewModel(buyTicketInfo: i) )) {
                 CustomTicketsFoundCell(ticketsFound: i, originFullName: vm.originNameCity, destinationFullName: vm.destinationNameCity)
             }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.top, 16)
-    
     }
     
+    //MARK: - Filter button -
     var filterFligth: some View {
         HStack {
             Button {
@@ -104,6 +103,7 @@ struct TicketsFoundView: View {
         .padding(.top, 16)
     }
 
+    //MARK: - Content -
     var content: some View {
         VStack {
             ZStack(alignment: .bottom) {
@@ -134,10 +134,10 @@ struct TicketsFoundView: View {
              flightInfo
             }
             .buttonStyle(.plain)
-            .listStyle(.plain)
         }
     }
     
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()

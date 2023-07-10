@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - Singleton user data -
 class UserData {
     static let shared = UserData()
     
@@ -41,16 +42,18 @@ class UserData {
 
 final class TabBarViewModel: ObservableObject {
     
+    //MARK: - Property -
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
     private var uid = UserDefaults.standard.string(forKey: "uid")
     
+    //MARK: - Get user data and a singleton entry -
     func getUserData() {
         Task {
             do {
                 let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
                 UserData.shared.saveInfo(user: data)
             } catch {
-                print ("error")
+                print(error)
             }
         }
     }

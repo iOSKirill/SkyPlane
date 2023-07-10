@@ -44,6 +44,12 @@ final class CreateAccountViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
+                
+                guard firstNameText.isValidFirstAndLastName() && lastNameText.isValidFirstAndLastName() else {
+                    return await MainActor.run {
+                        self.errorText = "Invalid firs or last name"
+                    }
+                }
                 guard passwordText == passwordConfirmText else { return self.errorText = "Erorr password"}
                 let userInfo = try await firebaseManager.signUpWithEmail(email: emailText, password: passwordText)
                 if userInfo.email != nil {

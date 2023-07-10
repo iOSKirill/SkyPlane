@@ -23,6 +23,13 @@ final class LaunchScreenViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var value = 1
     
+    let gradient = AngularGradient(
+        gradient: Gradient(colors: [Color.white.opacity(0.3),
+                                    Color.white.opacity(1)]),
+        center: .center,
+        startAngle: .degrees(360),
+        endAngle: .degrees(0))
+    
     //MARK: - Methods -
     func nextOnboardingView() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

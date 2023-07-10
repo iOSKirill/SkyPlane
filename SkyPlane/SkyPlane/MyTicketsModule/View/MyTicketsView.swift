@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyTicketsView: View {
+    
     //MARK: - Property -
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = MyTicketsViewModel()
@@ -27,6 +28,7 @@ struct MyTicketsView: View {
         }
     }
     
+    //MARK: - Header view -
     var header: some View {
         VStack(spacing: 8) {
             ZStack {
@@ -39,6 +41,7 @@ struct MyTicketsView: View {
         }
     }
     
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()

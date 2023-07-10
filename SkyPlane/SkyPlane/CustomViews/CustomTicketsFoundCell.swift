@@ -100,8 +100,6 @@ struct CustomTicketsFoundCell: View {
             }
         }
         .padding(.horizontal, 22)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
 }
 

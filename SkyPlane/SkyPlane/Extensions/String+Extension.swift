@@ -42,6 +42,7 @@ extension String {
         return outputDateString
     }
     
+    //MARK: - Formatter cerrency -
     func formatCurrency() -> String {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true
@@ -54,23 +55,32 @@ extension String {
         return formattedValue
     }
     
+    //MARK: - Valid passport -
     func isValidPassportNumber() -> Bool {
-          let passportNumberRegex = "^[A-Za-z]{2}[0-9]{7}$"
-          let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
-          return passportNumberTest.evaluate(with: self)
-      }
+        let passportNumberRegex = "^[A-Za-z]{2}[0-9]{7}$"
+        let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
+        return passportNumberTest.evaluate(with: self)
+    }
 
-    
+    //MARK: - Valid card number -
     func isValidCardNumber() -> Bool {
-          let passportNumberRegex = "[0-9]{16}$"
-          let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
-          return passportNumberTest.evaluate(with: self)
-      }
+        let cardNumberRegex = "[0-9]{16}$"
+        let cardNumberTest = NSPredicate(format: "SELF MATCHES %@", cardNumberRegex)
+        return cardNumberTest.evaluate(with: self)
+    }
     
+    //MARK: - Valid cvv number -
     func isValidCvvNumber() -> Bool {
-          let passportNumberRegex = "[0-9]{3}$"
-          let passportNumberTest = NSPredicate(format: "SELF MATCHES %@", passportNumberRegex)
-          return passportNumberTest.evaluate(with: self)
-      }
+        let cvvNumberRegex = "[0-9]{3}$"
+        let cvvNumberTest = NSPredicate(format: "SELF MATCHES %@", cvvNumberRegex)
+        return cvvNumberTest.evaluate(with: self)
+    }
+    
+    //MARK: - Valid fist and last name registration -
+    func isValidFirstAndLastName() -> Bool {
+        let fistAndLastRegex = "^[A-Za-z]+$"
+        let firstAndLastTest = NSPredicate(format: "SELF MATCHES %@", fistAndLastRegex)
+        return firstAndLastTest.evaluate(with: self)
+    }
 }
 

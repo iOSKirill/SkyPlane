@@ -93,7 +93,5 @@ struct CustomSelectClass: View {
         .cornerRadius(16)
         .padding(.horizontal, 16)
         .frame(width: UIScreen.main.bounds.width)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
 }

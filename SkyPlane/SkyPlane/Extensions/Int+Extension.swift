@@ -7,11 +7,13 @@
 
 import Foundation
 
+//MARK: - Date formats -
 enum DateFormats: String {
     case hourly = "HH"
     case daily = "EEEE"
     case monthDay = "MMM, d"
 }
+
 extension Int {
     
     //MARK: - Formatter price ticket -

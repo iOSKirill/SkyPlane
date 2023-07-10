@@ -70,5 +70,4 @@ struct DateTicket: Codable, Hashable {
            self.durationTo = durationTo
            self.link = link
        }
-
 }

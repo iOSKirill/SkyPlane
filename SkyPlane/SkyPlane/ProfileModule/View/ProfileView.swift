@@ -13,6 +13,7 @@ struct ProfileView: View {
     //MARK: - Property -
     @StateObject var vm = ProfileViewModel()
     
+    //MARK: - Header view -
     var headerProfile: some View {
         ZStack {
             Image(.headerProfile)
@@ -41,6 +42,7 @@ struct ProfileView: View {
         }
     }
     
+    //MARK: - Logout button -
     var logout: some View {
         Button {
             vm.logout()
@@ -57,6 +59,7 @@ struct ProfileView: View {
         }
     }
     
+    //MARK: - Body - 
     var body: some View {
         NavigationView {
             ZStack {

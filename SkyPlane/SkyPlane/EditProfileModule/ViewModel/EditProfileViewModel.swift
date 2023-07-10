@@ -45,6 +45,7 @@ final class EditProfileViewModel: ObservableObject {
         cancellable.removeAll()
     }
 
+    //MARK: - Update user info DB -
     func updateUserData() {
         Task {
             do {
@@ -57,7 +58,6 @@ final class EditProfileViewModel: ObservableObject {
                 try await firebaseManager.createUserDataDB(firstName: userInfo.firstName, lastName: userInfo.lastName, email: userInfo.email, dateOfBirth: userInfo.dateOfBirth, uid: uid ?? "", urlImage: userInfo.urlImage, passport: userInfo.passport, country: userInfo.country)
                 let data = userInfo.getInfo()
                 userInfo.saveInfo(user: data)
-                userInfo.getInfo()
             } catch {
                 await MainActor.run {
                     errorText = error.localizedDescription

@@ -18,10 +18,10 @@ protocol FirebaseManagerProtocol {
     func getUserDataDB(id: String) async throws -> UserModel
     func signUpWithEmail(email: String, password: String) async throws -> User
     func signInWithEmail(email: String, password: String) async throws -> User
-    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
     func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL
-    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws
     func getTicketsDB(id: String) async throws -> [TicketsFoundModel]
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -31,16 +31,13 @@ class FirebaseManager: FirebaseManagerProtocol {
     
     //MARK: - SingIn with Googl -
     func singInWithGoogle() async throws -> User {
-        
         guard let clientID = FirebaseApp.app()?.options.clientID else { fatalError("error") }
-        
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
         
         guard let windowScene =  await UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window =  await windowScene.windows.first,
               let rootViewController =  await window.rootViewController else { fatalError("error") }
-        
         do {
             let signIn = try await  GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
             let user = signIn.user
@@ -81,7 +78,13 @@ class FirebaseManager: FirebaseManagerProtocol {
     
     //MARK: - Create user data DB -
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws {
-        let users  = UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, urlImage: urlImage, passport: passport, country: country)
+        let users  = UserModel(firstName: firstName,
+                               lastName: lastName,
+                               email: email,
+                               dateOfBirth: dateOfBirth,
+                               urlImage: urlImage,
+                               passport: passport,
+                               country: country)
         do {
            try db.collection("Users").document(uid).setData(from: users)
         } catch {
@@ -92,11 +95,9 @@ class FirebaseManager: FirebaseManagerProtocol {
     //MARK: - Create user image data db -
     func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL {
         let ref = Storage.storage().reference().child("images").child(id)
-            
         guard let fileURL = URL(string: imageAccount) else {
             fatalError("Invalid URL")
         }
-        
         do {
             print (fileURL)
             let imageData = try Data(contentsOf: fileURL)
@@ -106,14 +107,11 @@ class FirebaseManager: FirebaseManagerProtocol {
             
             let metadata = StorageMetadata()
             metadata.contentType = "images/jpeg"
-            
             ref.putData(imageData, metadata: metadata)
-        
+
             let downloadURLTask = try await ref.downloadURL()
-            
             let db = Firestore.firestore()
             try await db.collection("Users").document(id).updateData(["urlImage": downloadURLTask.absoluteString])
-            
             return downloadURLTask
         } catch {
             throw error
@@ -123,7 +121,20 @@ class FirebaseManager: FirebaseManagerProtocol {
     //MARK: - Create user data DB -
     func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws {
         do {
-            let ticket  = TicketsFoundModel(data: DateTicket(origin: origin, destination: destination, originAirport: "", destinationAirport: "", price: price, airline: icon, flightNumber: flightNumber, departureAt: departureDate, returnAt: returnDate, transfers: 0, returnTransfers: 0, duration: Int(duration) ?? 0, durationTo: 0, link: ""))
+            let ticket  = TicketsFoundModel(data: DateTicket(origin: origin,
+                                                           destination: destination,
+                                                           originAirport: "",
+                                                           destinationAirport: "",
+                                                           price: price,
+                                                           airline: icon,
+                                                           flightNumber: flightNumber,
+                                                           departureAt: departureDate,
+                                                           returnAt: returnDate,
+                                                           transfers: 0,
+                                                           returnTransfers: 0,
+                                                           duration: Int(duration) ?? 0,
+                                                           durationTo: 0,
+                                                           link: ""))
             try db.collection("Users").document(uid).collection("Tickets").document(ticket.id.uuidString).setData(from: ticket)
         } catch {
             print("Error add User")

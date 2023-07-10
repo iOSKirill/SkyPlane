@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+//MARK: - Enum filter flight -
 enum FilterFlight: String {
     case priceSorted = "price"
     case routeSorted = "route"
@@ -31,7 +32,6 @@ final class TicketsFoundViewModel: ObservableObject {
                 let flightInfo = try await alamofireProvider.getFilterFlightInfo(origin: filterInfo.origin, destination: filterInfo.destination, departureDate: filterInfo.departureDate.formatFilterTicket(), returnDate: filterInfo.returnDate.formatFilterTicket(), direct: direct, sorting: sorting.rawValue)
                 let mappedData = flightInfo.data
                     .map { TicketsFoundModel(data: $0) }
-                
                 await MainActor.run {
                     self.flightInfo = mappedData
                 }

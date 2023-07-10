@@ -81,7 +81,5 @@ struct CustomPopularTicketCell: View {
                 }
             }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
 }

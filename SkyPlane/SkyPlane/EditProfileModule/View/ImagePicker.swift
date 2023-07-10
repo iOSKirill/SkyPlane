@@ -19,14 +19,11 @@ struct ImagePicker: UIViewControllerRepresentable {
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        
         let imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = false
         imagePicker.sourceType = sourceType
         imagePicker.delegate = context.coordinator
-        
         return imagePicker
-        
     }
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
@@ -34,7 +31,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-     
         private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
         private var uid = UserDefaults.standard.string(forKey: "uid")
         private var parent: ImagePicker
@@ -44,15 +40,12 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-     
             var selectedImage = UIImage()
-                                
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 selectedImage = image
             }
             
             if picker.sourceType == UIImagePickerController.SourceType.camera {
-                
                 let imgName = "\(UUID().uuidString).jpeg"
                 let documentDirectory = NSTemporaryDirectory()
                 let localPath = documentDirectory.appending(imgName)
@@ -68,7 +61,6 @@ struct ImagePicker: UIViewControllerRepresentable {
             } else if let selectedImageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
                 parent.selectedImageUrl = selectedImageUrl.absoluteString
             }
-                        
             parent.dismiss()
         }
     }
@@ -76,5 +68,4 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
 }

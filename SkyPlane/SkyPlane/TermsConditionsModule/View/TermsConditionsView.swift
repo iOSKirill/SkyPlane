@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct TermsConditionsView: View {
+    
     //MARK: - Property -
     @Environment(\.dismiss) var dismiss
     
+    //MARK: - Button back -
     var buttonBack: some View {
         Button {
             dismiss()
@@ -25,6 +27,7 @@ struct TermsConditionsView: View {
         }
     }
     
+    //MARK: - Body - 
     var body: some View {
         ZStack {
             Color(.homeBackgroundColor).ignoresSafeArea()
