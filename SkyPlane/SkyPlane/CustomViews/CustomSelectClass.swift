@@ -22,7 +22,7 @@ struct CustomSelectClass: View {
                 .padding(.leading, 16)
                 .foregroundColor(Color(.textBlackWhiteColor))
             
-            Text("----------------------------------------------")
+            Text("---------------------------------------------")
                 .font(.system(size: 16, weight: .regular))
                 .foregroundColor(Color(.textTicketColor))
                 .frame(maxWidth: .infinity)
@@ -87,7 +87,12 @@ struct CustomSelectClass: View {
         Button {
             selectClass = selectClassItem
         } label: {
-            labelSelectClassButton
+            if selectClassItem == .economy {
+                labelSelectClassButton
+                Image(.arrowProfile)
+            } else {
+                labelSelectClassButton
+            }
         }
         .background(Color(.ticketBackgroundColor))
         .cornerRadius(16)

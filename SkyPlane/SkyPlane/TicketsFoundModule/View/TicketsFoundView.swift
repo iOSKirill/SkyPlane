@@ -130,7 +130,7 @@ struct TicketsFoundView: View {
                     .padding(.bottom, 16)
             }
             filterFligth
-            ScrollView {
+            ScrollView(showsIndicators: false) {
              flightInfo
             }
             .buttonStyle(.plain)

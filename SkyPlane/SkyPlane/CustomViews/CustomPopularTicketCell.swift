@@ -73,6 +73,7 @@ struct CustomPopularTicketCell: View {
                 HStack {
                     WebImage(url: URL(string: "https://pics.avs.io/100/50/\(popularFlightInfo.icon).png"))
                         .padding(.leading, 32)
+                        .padding(.bottom, 10)
                     Spacer()
                     Text("\(popularFlightInfo.price)")
                         .font(.system(size: 22, weight: .bold))

@@ -159,7 +159,7 @@ struct BuyTicketView: View {
                                   selectClassItem: .business,
                                   buyTicketModel: .init(classFlight: .business))
             }
-        }
+        } 
         .scrollIndicators(.never)
         .frame(height: 250)
         .padding(.bottom, 16)
