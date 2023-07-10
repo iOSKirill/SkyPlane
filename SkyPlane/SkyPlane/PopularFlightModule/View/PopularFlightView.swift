@@ -39,10 +39,11 @@ struct PopularFlightView: View {
 
     //MARK: - Content -
     var content: some View {
-        List {
+        ScrollView(showsIndicators: false) {
             popularTickets
         }
         .buttonStyle(.plain)
+        .padding(.horizontal, 16)
     }
 
     //MARK: - Body -

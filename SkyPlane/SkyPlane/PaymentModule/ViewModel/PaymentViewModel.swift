@@ -59,8 +59,8 @@ final class PaymentViewModel: ObservableObject {
             do {
                 guard let uid = uid else { return }
                 guard !cardNumber.isEmpty, !cardHolderName.isEmpty, !cvv.isEmpty else { return await MainActor.run { self.errorText = "Fill in the card data" } }
-                guard cardNumber.count == 16, cvv.count == 3 else { return await MainActor.run { self.errorText = "Invalid format" } }
-                guard cardNumber.isValidCardNumber() else { return await MainActor.run { self.errorText = "Invalid card number" } }
+                guard cardNumber.count == 19, cvv.count == 3 else { return await MainActor.run { self.errorText = "Invalid format" } }
+                guard cardHolderName.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid card holder name" } }
                 guard cvv.isValidCvvNumber() else { return await MainActor.run { self.errorText = "Invalid cvv number" } }
                 switch classFlight {
                 case .economy:
@@ -77,4 +77,5 @@ final class PaymentViewModel: ObservableObject {
             }
         }
     }
+
 }

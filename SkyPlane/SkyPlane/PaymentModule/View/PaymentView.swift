@@ -107,6 +107,7 @@ struct PaymentView: View {
                             .padding(.trailing, 32)
                     }
                 }
+                .padding(.bottom, 10)
             }
         }
         .padding(.horizontal, 22)
@@ -196,12 +197,12 @@ struct PaymentView: View {
                     ticket
                     
                     VStack(alignment: .leading) {
-                        CustomProfileTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000 0000 0000 0000")
+                        CustomProfileCardNumberTextField(bindingValue: $vm.cardNumber, textSection: "Card Number", textFieldValue: "0000-0000-0000-0000")
                             .keyboardType(.numberPad)
                             .focused($textIsFocused)
-                        CustomProfileTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
+                        CustomProfileСardHolderNameTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
                         HStack {
-                            CustomProfileTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
+                            CustomProfileСvvNumberTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
                                 .keyboardType(.numberPad)
                                 .focused($textIsFocused)
                             datePicker

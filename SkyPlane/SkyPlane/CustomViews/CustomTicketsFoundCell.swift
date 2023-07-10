@@ -97,6 +97,7 @@ struct CustomTicketsFoundCell: View {
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
                 }
+                .padding(.bottom, 10)
             }
         }
         .padding(.horizontal, 22)

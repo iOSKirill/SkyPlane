@@ -62,13 +62,6 @@ extension String {
         return passportNumberTest.evaluate(with: self)
     }
 
-    //MARK: - Valid card number -
-    func isValidCardNumber() -> Bool {
-        let cardNumberRegex = "[0-9]{16}$"
-        let cardNumberTest = NSPredicate(format: "SELF MATCHES %@", cardNumberRegex)
-        return cardNumberTest.evaluate(with: self)
-    }
-    
     //MARK: - Valid cvv number -
     func isValidCvvNumber() -> Bool {
         let cvvNumberRegex = "[0-9]{3}$"
