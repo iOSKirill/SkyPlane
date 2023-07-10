@@ -1,20 +1,17 @@
 //
-//  CustomTicketsFoundCell.swift
+//  CustomMyTickets.swift
 //  SkyPlane
 //
-//  Created by Kirill Manuilenko on 28.06.23.
+//  Created by Kirill Manuilenko on 10.07.23.
 //
 
 import SwiftUI
-import SDWebImage
 import SDWebImageSwiftUI
 
-struct CustomTicketsFoundCell: View {
+struct CustomMyTicketsCell: View {
     
     //MARK: - Property -
     var ticketsFound: TicketsFoundModel
-    var originFullName: String
-    var destinationFullName: String
     
     //MARK: - Body -
     var body: some View {
@@ -44,18 +41,6 @@ struct CustomTicketsFoundCell: View {
                 }
                 
                 HStack {
-                    Text(originFullName)
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(Color(.textSilverWhite))
-                        .padding(.leading, 32)
-                    Spacer()
-                    Text(destinationFullName)
-                        .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(Color(.textSilverWhite))
-                        .padding(.trailing, 32)
-                }
-                
-                HStack {
                     Text("DEPARTURE")
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textTicketColor))
@@ -69,7 +54,7 @@ struct CustomTicketsFoundCell: View {
                 .padding(.top, 8)
                 
                 HStack {
-                    Text(ticketsFound.departureDate)
+                    Text(ticketsFound.departureDate.formatDateTicket())
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.leading, 32)
@@ -103,4 +88,3 @@ struct CustomTicketsFoundCell: View {
         .padding(.horizontal, 22)
     }
 }
-

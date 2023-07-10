@@ -91,6 +91,7 @@
 		6CA457A72A53195400ADAACD /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA457A62A53195400ADAACD /* PaymentViewModel.swift */; };
 		6CA9174E2A44B910009A2E02 /* CustomPopularTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9174D2A44B910009A2E02 /* CustomPopularTicketCell.swift */; };
 		6CA9677C2A54847D00A866E3 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9677B2A54847D00A866E3 /* TabBarViewModel.swift */; };
+		6CAA201C2A5C22FA0030AD9D /* CustomMyTickets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAA201B2A5C22FA0030AD9D /* CustomMyTickets.swift */; };
 		6CAFA7832A33B0BB0014BF71 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */; };
 		6CAFA7852A33B31B0014BF71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */; };
 		6CB11C8A2A4DFFFA0071CB57 /* CustomSelectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB11C892A4DFFFA0071CB57 /* CustomSelectClass.swift */; };
@@ -169,6 +170,7 @@
 		6CA457A62A53195400ADAACD /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		6CA9174D2A44B910009A2E02 /* CustomPopularTicketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopularTicketCell.swift; sourceTree = "<group>"; };
 		6CA9677B2A54847D00A866E3 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		6CAA201B2A5C22FA0030AD9D /* CustomMyTickets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMyTickets.swift; sourceTree = "<group>"; };
 		6CAFA7822A33B0BB0014BF71 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		6CAFA7842A33B31A0014BF71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CB11C892A4DFFFA0071CB57 /* CustomSelectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectClass.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				6C2091602A582B040072633D /* CustomProfileEmailTextField.swift */,
 				6C89E2B72A5597A200184823 /* CustomHourlyWeatherCell.swift */,
 				6C89E2BE2A55C15800184823 /* CustomDailyWeatherCell.swift */,
+				6CAA201B2A5C22FA0030AD9D /* CustomMyTickets.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -963,6 +966,7 @@
 				6C97EA012A4CAA89001C550E /* BuyTicketViewModel.swift in Sources */,
 				6CA9677C2A54847D00A866E3 /* TabBarViewModel.swift in Sources */,
 				6C56652B2A323678002BFBDB /* LaunchScreenView.swift in Sources */,
+				6CAA201C2A5C22FA0030AD9D /* CustomMyTickets.swift in Sources */,
 				6C5056F92A374A2900D11302 /* CreateAccountModel.swift in Sources */,
 				6C876DAF2A39F4E10087C137 /* WeatherView.swift in Sources */,
 				6CD874DE2A533EB000EE64EE /* BoordingPassView.swift in Sources */,

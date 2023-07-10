@@ -21,7 +21,7 @@ protocol FirebaseManagerProtocol {
     func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL
     func getTicketsDB(id: String) async throws -> [TicketsFoundModel]
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
-    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: Int, icon: String) async throws
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -119,22 +119,16 @@ class FirebaseManager: FirebaseManagerProtocol {
     }
     
     //MARK: - Create user data DB -
-    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: String, icon: String) async throws {
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: Int, icon: String) async throws {
         do {
-            let ticket  = TicketsFoundModel(data: DateTicket(origin: origin,
-                                                           destination: destination,
-                                                           originAirport: "",
-                                                           destinationAirport: "",
-                                                           price: price,
-                                                           airline: icon,
-                                                           flightNumber: flightNumber,
-                                                           departureAt: departureDate,
-                                                           returnAt: returnDate,
-                                                           transfers: 0,
-                                                           returnTransfers: 0,
-                                                           duration: Int(duration) ?? 0,
-                                                           durationTo: 0,
-                                                           link: ""))
+            let ticket  = TicketsFoundModel(origin: origin,
+                                            destination: destination,
+                                            departureDate: departureDate,
+                                            returnDate: returnDate,
+                                            flightNumber: flightNumber,
+                                            price: price,
+                                            icon: icon,
+                                            duration: duration)
             try db.collection("Users").document(uid).collection("Tickets").document(ticket.id.uuidString).setData(from: ticket)
         } catch {
             print("Error add User")

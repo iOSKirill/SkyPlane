@@ -32,7 +32,7 @@ final class CreateAccountViewModel: ObservableObject {
     func singInWithGoogle() {
         Task { [weak self] in
             guard let self = self else { return }
-            let user = try await firebaseManager.singInWithGoogle()
+            let _ = try await firebaseManager.singInWithGoogle()
             await MainActor.run {
                 self.appCondition = .homeView
             }

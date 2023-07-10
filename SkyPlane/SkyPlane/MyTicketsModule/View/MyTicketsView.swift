@@ -58,7 +58,7 @@ struct MyTicketsView: View {
                 if vm.tickets.count > 0 {
                     ScrollView(showsIndicators: false) {
                         ForEach(vm.tickets) { i in
-                            CustomTicketsFoundCell(ticketsFound: i, originFullName: "", destinationFullName: "")
+                            CustomMyTicketsCell(ticketsFound: i)
                         }
                     }
                     .padding(.top, 30)

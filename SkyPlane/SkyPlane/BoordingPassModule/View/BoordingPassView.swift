@@ -102,7 +102,7 @@ struct BoordingPassView: View {
                             Spacer()
                             VStack {
                                 Image(.logoOnTicket)
-                                Text(vm.buyTicketInfo.duration)
+                                Text(vm.buyTicketInfo.duration.formatDuration())
                                     .font(.system(size: 16, weight: .regular))
                                     .foregroundColor(Color(.durationColor))
                             }

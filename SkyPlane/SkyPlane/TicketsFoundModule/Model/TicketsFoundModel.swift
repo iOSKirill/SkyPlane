@@ -16,7 +16,7 @@ struct TicketsFoundModel: Identifiable, Encodable, Decodable {
     var flightNumber: String
     var price: Int
     var icon: String
-    var duration: String 
+    var duration: Int
     
     init(data: DateTicket) {
         origin = data.origin ?? ""
@@ -26,6 +26,17 @@ struct TicketsFoundModel: Identifiable, Encodable, Decodable {
         flightNumber = data.flightNumber ?? ""
         price = data.price ?? 0
         icon = data.airline ?? ""
-        duration = data.durationTo?.formatDuration() ?? ""
+        duration = data.durationTo ?? 0
+    }
+    
+    init(origin: String, destination: String, departureDate: String, returnDate: String, flightNumber: String, price: Int, icon: String, duration: Int) {
+        self.origin = origin
+        self.destination = destination
+        self.departureDate = departureDate
+        self.returnDate = returnDate
+        self.flightNumber = flightNumber
+        self.price = price
+        self.icon = icon
+        self.duration = duration
     }
 }

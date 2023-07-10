@@ -69,6 +69,7 @@ final class PaymentViewModel: ObservableObject {
                     buyTicketInfo.price *= 2
                 }
                 try await firebaseManager.saveTicket(uid: uid, origin: buyTicketInfo.origin, destination: buyTicketInfo.destination, price: buyTicketInfo.price, flightNumber: buyTicketInfo.flightNumber, departureDate: buyTicketInfo.departureDate.formatSaveTicket(), returnDate: buyTicketInfo.returnDate.formatSaveTicket(), duration: buyTicketInfo.duration, icon: buyTicketInfo.icon)
+                print(buyTicketInfo.duration)
                 await MainActor.run {
                     self.isPresented.toggle()
                 }
