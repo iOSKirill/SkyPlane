@@ -109,7 +109,7 @@ struct EditProfileView: View {
     //MARK: - Skip button -
     var skipButton: some View {
         NavigationLink {
-                PaymentView(vm: vm.paymentVM)
+            PaymentView(vm: vm.paymentVM)
         } label: {
             Text("Skip")
                 .font(.system(size: 18, weight: .medium, design: .default))
@@ -125,6 +125,25 @@ struct EditProfileView: View {
         }
     }
     
+    //MARK: - Skip button error -
+    var skipButtonError: some View {
+        Button {
+            vm.errorText = "Please fill in the passport and country information"
+        } label: {
+            Text("Skip")
+                .font(.system(size: 18, weight: .medium, design: .default))
+                .frame(height: 55)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(Color(.basicColor))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color(.basicColor), lineWidth: 2)
+                }
+                .foregroundColor(Color(.textBlackWhiteColor))
+                .cornerRadius(16)
+        }
+    }
+        
     //MARK: - Body -
     var body: some View {
         ZStack {
@@ -144,7 +163,11 @@ struct EditProfileView: View {
                         updateButton
                     case .buyTicket:
                         updateButton
-                        skipButton
+                        if !vm.userInfo.passport.isEmpty, !vm.userInfo.country.isEmpty {
+                            skipButton
+                        } else {
+                            skipButtonError
+                        }
                     }
                 }
                 Spacer()
