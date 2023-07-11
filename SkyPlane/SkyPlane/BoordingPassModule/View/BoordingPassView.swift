@@ -45,7 +45,7 @@ struct BoordingPassView: View {
     //MARK: - Send by email button -
     var sendByEmailButton: some View {
         Button {
-           
+            
         } label: {
             Text("Send by email")
                 .font(.system(size: 18, weight: .medium))

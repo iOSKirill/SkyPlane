@@ -14,13 +14,12 @@ final class BoordingPassViewModel: ObservableObject {
     @Published var classFlight: ClassFlight = .economy
     @Published var isPresented: Bool = false
     @Published var userInfo = UserData.shared
-    @Published var isShowingMailView = false
-
+    
     init() {
         buyTicketInfo = TicketsFoundModel(data: DateTicket())
     }
     
     var imageURL: String {
-           return "https://pics.avs.io/100/50/\(buyTicketInfo.icon).png"
+        return "https://pics.avs.io/100/50/\(buyTicketInfo.icon).png"
     }
 }

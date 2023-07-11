@@ -161,4 +161,11 @@ final class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    //MARK: - Change search textField -
+    func changeSearchTextField() {
+        let nameCity = originNameCity
+        originNameCity = destinationNameCity
+        destinationNameCity = nameCity
+    }
 }

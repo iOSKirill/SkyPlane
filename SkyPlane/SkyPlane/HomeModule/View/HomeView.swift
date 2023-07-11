@@ -21,16 +21,21 @@ struct HomeView: View {
                 CustomHomeTextField(bindingValue: $vm.destinationNameCity, textSection: "To", textFieldValue: "Enter your destination")
                     .padding(.horizontal, 16)
             }
-            Circle()
-                .foregroundColor(Color(.basicColor))
-                .frame(maxWidth: 60, maxHeight: 60)
-                .overlay {
-                    Image(.arrowsHome)
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                }
-                .padding(.trailing, 42)
+            
+            Button {
+                vm.changSearchTextField()
+            } label: {
+                Circle()
+                    .foregroundColor(Color(.basicColor))
+                    .frame(maxWidth: 60, maxHeight: 60)
+                    .overlay {
+                        Image(.arrowsHome)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                    }
+                    .padding(.trailing, 42)
+            }
         }
     }
     
