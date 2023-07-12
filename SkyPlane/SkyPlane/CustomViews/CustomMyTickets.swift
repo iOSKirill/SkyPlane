@@ -28,9 +28,15 @@ struct CustomMyTicketsCell: View {
                     Spacer()
                     VStack {
                         Image(.logoOnTicket)
-                        Text(ticketsFound.duration.formatDuration())
-                            .font(.system(size: 16, weight: .regular))
-                            .foregroundColor(Color(.durationColor))
+                        if ticketsFound.duration > 0 {
+                            Text(ticketsFound.duration.formatDuration())
+                                .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color(.durationColor))
+                        } else {
+                            Text("")
+                                .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color(.durationColor))
+                        }
                     }
                     .padding(.top, 20)
                     Spacer()

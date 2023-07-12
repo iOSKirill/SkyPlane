@@ -75,7 +75,7 @@ struct CustomPopularTicketCell: View {
                         .padding(.leading, 32)
                         .padding(.bottom, 10)
                     Spacer()
-                    Text("\(popularFlightInfo.price)")
+                    Text(popularFlightInfo.price.formatCurrency())
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)

@@ -55,9 +55,11 @@ struct BuyTicketView: View {
                         Spacer()
                         VStack {
                             Image(.logoOnTicket)
-                            Text(vm.buyTicketInfo.duration.formatDuration())
-                                .font(.system(size: 16, weight: .regular))
-                                .foregroundColor(Color(.durationColor))
+                            if vm.buyTicketInfo.duration > 0 {
+                                Text(vm.buyTicketInfo.duration.formatDuration())
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(Color(.durationColor))
+                            } 
                         }
                         .padding(.top, 20)
                         Spacer()

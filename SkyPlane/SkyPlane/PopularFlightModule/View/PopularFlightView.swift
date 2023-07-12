@@ -32,15 +32,17 @@ struct PopularFlightView: View {
     //MARK: - Popular tickets -
     var popularTickets: some View {
         ForEach(vm.popularFlightInfo) { i in
-            CustomPopularTicketCell(popularFlightInfo: i)
+            NavigationLink(destination: BuyTicketView(vm: BuyTicketViewModel(buyTicketInfo: TicketsFoundModel(origin: i.origin, destination: i.destination, departureDate: i.departureDate, returnDate: "", flightNumber: String(i.flightNumber), price: i.price, icon: i.icon, duration: 0)) )) {
+                CustomPopularTicketCell(popularFlightInfo: i)
+            }
         }
-        .padding(.top, 16)
     } 
 
     //MARK: - Content -
     var content: some View {
         ScrollView(showsIndicators: false) {
             popularTickets
+                .padding(.top, 16)
         }
         .buttonStyle(.plain)
         .padding(.horizontal, 16)
