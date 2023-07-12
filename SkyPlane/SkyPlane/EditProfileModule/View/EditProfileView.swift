@@ -104,6 +104,10 @@ struct EditProfileView: View {
                 .background(Color(.basicColor))
                 .cornerRadius(16)
         }
+        .alert(isPresented: $vm.updateAlert) {
+            Alert(title: Text("Update"), message: Text("Data successfully updated!"), dismissButton: .default(Text("OK")))
+        }
+
     }
     
     //MARK: - Skip button -

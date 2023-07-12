@@ -20,6 +20,7 @@ final class EditProfileViewModel: ObservableObject {
     @Published var userInfo = UserData.shared
     @Published var isPresented = false
     @Published var isAlert: Bool = false
+    @Published var updateAlert: Bool = false
     @Published var errorText = "" {
         didSet {
             isAlert = true
@@ -58,6 +59,9 @@ final class EditProfileViewModel: ObservableObject {
                 try await firebaseManager.createUserDataDB(firstName: userInfo.firstName, lastName: userInfo.lastName, email: userInfo.email, dateOfBirth: userInfo.dateOfBirth, uid: uid ?? "", urlImage: userInfo.urlImage, passport: userInfo.passport, country: userInfo.country)
                 let data = userInfo.getInfo()
                 userInfo.saveInfo(user: data)
+                await MainActor.run {
+                    updateAlert = true
+                }
             } catch {
                 await MainActor.run {
                     errorText = error.localizedDescription
