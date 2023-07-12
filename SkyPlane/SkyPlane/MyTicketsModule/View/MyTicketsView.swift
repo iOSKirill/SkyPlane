@@ -56,11 +56,14 @@ struct MyTicketsView: View {
                     .shadow(radius: 5)
             } else {
                 if vm.tickets.count > 0 {
-                    ScrollView(showsIndicators: false) {
+                    List {
                         ForEach(vm.tickets) { i in
                             CustomMyTicketsCell(ticketsFound: i)
+                        }  .onDelete { index in
+                            vm.removeMyTicket(indexRemove: index)
                         }
                     }
+                    .listStyle(.plain)
                     .padding(.top, 30)
                 } else {
                     VStack {

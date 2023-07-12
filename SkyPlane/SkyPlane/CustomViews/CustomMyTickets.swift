@@ -91,6 +91,7 @@ struct CustomMyTicketsCell: View {
                 .padding(.bottom, 10)
             }
         }
-        .padding(.horizontal, 22)
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
     }
 }

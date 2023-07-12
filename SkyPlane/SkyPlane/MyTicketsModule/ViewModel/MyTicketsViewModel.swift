@@ -27,7 +27,22 @@ final class MyTicketsViewModel: ObservableObject {
                    }
             } catch {
                 await MainActor.run {
-                    
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    //MARK: Remove my ticket -
+    func removeMyTicket(indexRemove: IndexSet) {
+        Task { [weak self] in
+            guard let self = self else { return }
+            do {
+                guard let index = indexRemove.first else { return }
+                try await firebaseManager.deleteMyTickets(ticket: tickets[index], id: uid ?? "")
+            } catch {
+                await MainActor.run {
+                    print(error)
                 }
             }
         }

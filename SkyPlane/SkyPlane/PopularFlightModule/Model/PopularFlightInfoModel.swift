@@ -16,8 +16,6 @@ struct PopularFlightInfoModel: Identifiable {
     var flightNumber: Int
     var price: Int
     var icon: String
-    var fullOrigin: String
-    var fullDestination: String
     
     init(data: Datum) {
         origin = data.origin ?? ""

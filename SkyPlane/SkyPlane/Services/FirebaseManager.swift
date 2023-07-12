@@ -22,6 +22,7 @@ protocol FirebaseManagerProtocol {
     func getTicketsDB(id: String) async throws -> [TicketsFoundModel]
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
     func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: Int, icon: String) async throws
+    func deleteMyTickets(ticket: TicketsFoundModel, id: String) async throws
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -133,5 +134,10 @@ class FirebaseManager: FirebaseManagerProtocol {
         } catch {
             print("Error add User")
         }
+    }
+    
+    //MARK: - Delete ticket fron DB -
+    func deleteMyTickets(ticket: TicketsFoundModel, id: String) async throws {
+        try await db.collection("Users").document(id).collection("Tickets").document(ticket.id.uuidString).delete()
     }
 }
