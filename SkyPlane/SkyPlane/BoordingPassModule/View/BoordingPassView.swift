@@ -42,10 +42,29 @@ struct BoordingPassView: View {
         }
     }
     
+    //MARK: - Download ticket in photoAlbum-
+    var downloadTicketButton: some View {
+        Button {
+            vm.saveViewTicket()
+        } label: {
+            Text("Download ticket")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(.blackColor))
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(Color(.basicColor))
+                .cornerRadius(16)
+        }
+        .alert(isPresented: $vm.isImageSaved) {
+            Alert(title: Text("Success"), message: Text("Your ticket has been successfully saved in the photo album!"), dismissButton: .default(Text("OK")))
+        }
+        .padding(.horizontal, 16)
+    }
+    
     //MARK: - Send by email button -
     var sendByEmailButton: some View {
         Button {
-            
+            vm.isShowingMailView.toggle()
         } label: {
             Text("Send by email")
                 .font(.system(size: 18, weight: .medium))
@@ -54,6 +73,9 @@ struct BoordingPassView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color(.basicColor))
                 .cornerRadius(16)
+        }
+        .sheet(isPresented: $vm.isShowingMailView) {
+            MailView(result: self.$vm.isShowingMailView, buyTicketInfo: vm.buyTicketInfo, classFlight: ClassFlight(rawValue: vm.classFlight.rawValue) ?? .economy)
         }
         .padding(.horizontal, 16)
     }
@@ -71,10 +93,10 @@ struct BoordingPassView: View {
                 .background(.clear)
                 .cornerRadius(16)
         }
-        .padding(.horizontal, 16)
         .fullScreenCover(isPresented: $vm.isPresented) {
             TabBarView()
         }
+        .padding(.horizontal, 16)
     }
     
     //MARK: - Body -
@@ -84,7 +106,7 @@ struct BoordingPassView: View {
             
             header
             
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 ZStack {
                     Image(.ticketBoording)
                         .resizable()
@@ -126,7 +148,7 @@ struct BoordingPassView: View {
                         
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("DEPARTURE")
+                                Text("FIO")
                                     .font(.system(size: 14, weight: .regular))
                                     .foregroundColor(Color(.textTicketColor))
                                 Text(vm.userInfo.firstLastName())
@@ -209,6 +231,7 @@ struct BoordingPassView: View {
                     }
                 }
                 .padding(.horizontal, 22)
+                downloadTicketButton
                 sendByEmailButton
                 backHomeView
             }

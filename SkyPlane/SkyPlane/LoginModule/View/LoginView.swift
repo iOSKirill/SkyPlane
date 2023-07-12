@@ -124,12 +124,13 @@ struct LoginView: View {
             Color(.backgroundColor).ignoresSafeArea()
             
             VStack {
-                List {
+                ScrollView {
                     headerText
                     CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
                     CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                 }
                 .scrollDisabled(true)
+                .padding(.horizontal, 16)
                 
                 loginButton
                 divider
