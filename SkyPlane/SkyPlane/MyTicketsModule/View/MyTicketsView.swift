@@ -67,9 +67,16 @@ struct MyTicketsView: View {
                     .padding(.top, 30)
                 } else {
                     VStack {
-                        Text("There are no tickets purchased")
-                            .font(.system(size: 22, weight: .medium, design: .default))
+                        Image(.myTicketError)
+                        Text("You don't have any registered tickets")
+                            .font(.system(size: 22, weight: .bold, design: .default))
+                            .multilineTextAlignment(.center)
+                        Text("Tickets are automatically saved to favorites after it's purchase.")
+                            .font(.system(size: 20, weight: .regular, design: .default))
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 10)
                     }
+                    .padding(.horizontal, 10)
                 }
             }
         }
