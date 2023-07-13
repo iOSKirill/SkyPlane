@@ -55,6 +55,12 @@ final class EditProfileViewModel: ObservableObject {
                 await MainActor.run {
                     self.userInfo.urlImage = userImage.absoluteString
                 }
+                guard userInfo.firstName.isValidFirstAndLastName(), userInfo.lastName.isValidFirstAndLastName() else {
+                    return await MainActor.run {
+                        self.errorText = "Invalid first of last name"
+                    }
+                }
+                guard userInfo.country.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid country" } }
                 guard userInfo.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
                 try await firebaseManager.createUserDataDB(firstName: userInfo.firstName, lastName: userInfo.lastName, email: userInfo.email, dateOfBirth: userInfo.dateOfBirth, uid: uid ?? "", urlImage: userInfo.urlImage, passport: userInfo.passport, country: userInfo.country)
                 let data = userInfo.getInfo()

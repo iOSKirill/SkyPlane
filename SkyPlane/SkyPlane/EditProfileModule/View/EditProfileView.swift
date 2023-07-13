@@ -127,6 +127,7 @@ struct EditProfileView: View {
                 .foregroundColor(Color(.textBlackWhiteColor))
                 .cornerRadius(16)
         }
+        .padding(.bottom, 16)
     }
     
     //MARK: - Skip button error -

@@ -37,7 +37,7 @@ extension String {
         inputDateFormatter.dateFormat = "MMM dd, HH:mm"
         let date = inputDateFormatter.date(from: self) ?? Date()
         let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        outputDateFormatter.dateFormat = "2023-MM-dd'T'HH:mm:ssZ"
         let outputDateString = outputDateFormatter.string(from: date)
         return outputDateString
     }

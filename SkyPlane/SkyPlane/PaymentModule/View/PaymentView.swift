@@ -192,6 +192,7 @@ struct PaymentView: View {
         .fullScreenCover(isPresented: $vm.isPresentedCancel) {
             TabBarView()
         }
+        .padding(.bottom, 16)
     }
     
     //MARK: - Body -

@@ -97,6 +97,7 @@ struct BoordingPassView: View {
             TabBarView()
         }
         .padding(.horizontal, 16)
+        .padding(.bottom, 16)
     }
     
     //MARK: - Body -

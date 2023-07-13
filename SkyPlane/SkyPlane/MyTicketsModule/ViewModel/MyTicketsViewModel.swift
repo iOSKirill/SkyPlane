@@ -7,6 +7,13 @@
 
 import Foundation
 
+//MARK: - Enum fiter my tickets -
+enum FilterMyTickets: String {
+    case all = "All"
+    case pastTrip = "Past Trip"
+    case upcomingTrip = "Upcoming Trip"
+}
+
 final class MyTicketsViewModel: ObservableObject {
     
     //MARK: - Property -
@@ -14,13 +21,50 @@ final class MyTicketsViewModel: ObservableObject {
     private var uid = UserDefaults.standard.string(forKey: "uid")
     @Published var tickets: [TicketsFoundModel] = []
     @Published var isLoading: Bool = true
+    @Published var filter: FilterMyTickets = .all
     
-    //MARK: - Get tickets DB -
-    func getTicktes() {
+    //MARK: - Get tickets all DB -
+    func getAllTicktes() {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                let arrayTickets = try await firebaseManager.getTicketsDB(id: uid ?? "")
+                let arrayTickets = try await firebaseManager.getTicketsAllDB(id: uid ?? "")
+                   await MainActor.run {
+                       self.tickets = arrayTickets
+                       self.isLoading = false
+                   }
+            } catch {
+                await MainActor.run {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    //MARK: - Get tickets past trip DB -
+    func getPastTripTicktes() {
+        Task { [weak self] in
+            guard let self = self else { return }
+            do {
+                let arrayTickets = try await firebaseManager.getTicketsPastTripDB(id: uid ?? "")
+                   await MainActor.run {
+                       self.tickets = arrayTickets
+                       self.isLoading = false
+                   }
+            } catch {
+                await MainActor.run {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    //MARK: - Get tickets upcoming trip DB -
+    func getUpcomingTripTicktes() {
+        Task { [weak self] in
+            guard let self = self else { return }
+            do {
+                let arrayTickets = try await firebaseManager.getTicketsUpcomingTripDB(id: uid ?? "")
                    await MainActor.run {
                        self.tickets = arrayTickets
                        self.isLoading = false
