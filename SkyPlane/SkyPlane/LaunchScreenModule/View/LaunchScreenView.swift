@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Network
 
 struct LaunchScreenView: View {
     
@@ -45,10 +46,25 @@ struct LaunchScreenView: View {
             Color(.basicColor).ignoresSafeArea()
             
             VStack {
-                Spacer()
-                logo
-                Spacer()
-                loadingCircle
+                if vm.isOnline {
+                    Spacer()
+                    logo
+                    Spacer()
+                    loadingCircle
+                } else {
+                    VStack {
+                        Image(.internet)
+                        Text("Check your internet connection")
+                            .font(.system(size: 22, weight: .bold, design: .default))
+                            .multilineTextAlignment(.center)
+                        Text("At the moment there is no Internet connection or it is not stable.")
+                            .font(.system(size: 20, weight: .regular, design: .default))
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 10)
+                    }
+                    .padding(.horizontal, 16)
+                    .frame(maxHeight: .infinity)
+                }
             }
         }
         .fullScreenCover(isPresented: $vm.isPresented) {
@@ -63,7 +79,10 @@ struct LaunchScreenView: View {
                 OnboardingView()
             }
         }
-        .onAppear(perform: vm.nextOnboardingView)
+        .onAppear() {
+            vm.checkInternetAccess()
+            vm.nextOnboardingView()
+        }
     }
 }
 

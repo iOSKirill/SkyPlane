@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Network
 
 //MARK: - Enum AppCondition -
 enum AppCondition: String {
@@ -21,6 +22,7 @@ final class LaunchScreenViewModel: ObservableObject {
     @AppStorage("appCondition") var appCondition: AppCondition?
     @Published var isPresented = false
     @Published var isLoading = false
+    @Published var isOnline = true
     @Published var value = 1
     
     let gradient = AngularGradient(
@@ -33,7 +35,9 @@ final class LaunchScreenViewModel: ObservableObject {
     //MARK: - Methods -
     func nextOnboardingView() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.isPresented = true
+            if self.isOnline {
+                self.isPresented = true
+            }
         }
     }
     
@@ -41,5 +45,17 @@ final class LaunchScreenViewModel: ObservableObject {
     func loadingCircle() {
         self.value = 2
         self.isLoading = true
+    }
+    
+    //MARK: - Check internet access -
+    func checkInternetAccess() {
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "InternetConnectionMonitor")
+        monitor.start(queue: queue)
+        monitor.pathUpdateHandler = { path in
+            DispatchQueue.main.async {
+                self.isOnline = path.status == .satisfied
+            }
+        }
     }
 }
