@@ -24,6 +24,7 @@ struct ProfileView: View {
             HStack {
                 WebImage(url: URL(string: vm.userInfo.urlImage))
                     .resizable()
+                    .scaledToFill()
                     .frame(width: 80, height: 80)
                     .mask(Circle())
                     .padding(.leading, 20)

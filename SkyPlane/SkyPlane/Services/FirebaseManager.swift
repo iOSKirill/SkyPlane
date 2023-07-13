@@ -18,7 +18,6 @@ protocol FirebaseManagerProtocol {
     func getUserDataDB(id: String) async throws -> UserModel
     func signUpWithEmail(email: String, password: String) async throws -> User
     func signInWithEmail(email: String, password: String) async throws -> User
-    func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL
     func getTicketsAllDB(id: String) async throws -> [TicketsFoundModel]
     func getTicketsPastTripDB(id: String) async throws -> [TicketsFoundModel]
     func getTicketsUpcomingTripDB(id: String) async throws -> [TicketsFoundModel] 
@@ -110,32 +109,6 @@ class FirebaseManager: FirebaseManagerProtocol {
            try db.collection("Users").document(uid).setData(from: users)
         } catch {
             print("Error add User")
-        }
-    }
-    
-    //MARK: - Create user image data db -
-    func createUserImageDataDB(imageAccount: String, id: String) async throws -> URL {
-        let ref = Storage.storage().reference().child("images").child(id)
-        guard let fileURL = URL(string: imageAccount) else {
-            fatalError("Invalid URL")
-        }
-        do {
-            print (fileURL)
-            let imageData = try Data(contentsOf: fileURL)
-            guard let imageData = UIImage(data: imageData)?.jpegData(compressionQuality: 0.8) else {
-                fatalError("Invalid image data")
-            }
-            
-            let metadata = StorageMetadata()
-            metadata.contentType = "images/jpeg"
-            ref.putData(imageData, metadata: metadata)
-
-            let downloadURLTask = try await ref.downloadURL()
-            let db = Firestore.firestore()
-            try await db.collection("Users").document(id).updateData(["urlImage": downloadURLTask.absoluteString])
-            return downloadURLTask
-        } catch {
-            throw error
         }
     }
     

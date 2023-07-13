@@ -44,12 +44,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 selectedImage = image
             }
-            
             if picker.sourceType == UIImagePickerController.SourceType.camera {
-                let imgName = "\(UUID().uuidString).jpeg"
+                let imgName = "image.jpeg"
                 let documentDirectory = NSTemporaryDirectory()
                 let localPath = documentDirectory.appending(imgName)
-                
                 if let data = selectedImage.jpegData(compressionQuality: 0.3) {
                     do {
                         try data.write(to: URL(fileURLWithPath: localPath))

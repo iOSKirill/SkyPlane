@@ -41,6 +41,7 @@ struct EditProfileView: View {
         ZStack(alignment: .bottomTrailing) {
             WebImage(url: URL(string: vm.userInfo.urlImage))
                 .resizable()
+                .scaledToFill()
                 .frame(width: 100, height: 100)
                 .mask(Circle())
             Button {
@@ -166,6 +167,7 @@ struct EditProfileView: View {
                     switch currentScreen {
                     case .profile:
                         updateButton
+                            .padding(.bottom, 16)
                     case .buyTicket:
                         updateButton
                         if !vm.userInfo.passport.isEmpty, !vm.userInfo.country.isEmpty {
