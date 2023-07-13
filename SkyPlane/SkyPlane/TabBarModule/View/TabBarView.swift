@@ -74,7 +74,6 @@ struct TabBarView: View {
         }
         .onAppear {
             vm.requestPhotoPermissions()
-
         }
         .alert(isPresented: $vm.showPhotoPermissionAlert) {
             Alert(

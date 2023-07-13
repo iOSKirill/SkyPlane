@@ -60,7 +60,7 @@ struct HomeView: View {
             case .departureAndReturnDatePicker:
                 CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.leading, 16)
-                CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return")
+                CustomDatePickerReturnTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateReturn, departureDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Return")
                     .padding(.trailing, 16)
             }
         }

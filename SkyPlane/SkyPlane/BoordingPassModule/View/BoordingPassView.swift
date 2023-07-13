@@ -100,6 +100,127 @@ struct BoordingPassView: View {
         .padding(.bottom, 16)
     }
     
+    var ticketInfo: some View {
+        VStack(spacing: 8) {
+            
+            WebImage(url: URL(string: vm.imageURL))
+                .padding(.top, 50)
+            
+            HStack {
+                Text(vm.buyTicketInfo.origin)
+                    .font(.system(size: 22, weight: .bold))
+                    .padding(.leading, 32)
+                    .foregroundColor(Color(.textSilverWhite))
+                Spacer()
+                VStack {
+                    Image(.logoOnTicket)
+                    if vm.buyTicketInfo.duration > 0 {
+                        Text(vm.buyTicketInfo.duration.formatDuration())
+                            .font(.system(size: 16, weight: .regular))
+                            .foregroundColor(Color(.durationColor))
+                    } else {
+                        Text("")
+                            .font(.system(size: 16, weight: .regular))
+                            .foregroundColor(Color(.durationColor))
+                    }
+                }
+                .padding(.top, 20)
+                Spacer()
+                Text(vm.buyTicketInfo.destination)
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundColor(Color(.textSilverWhite))
+                    .padding(.trailing, 32)
+            }
+            
+             Divider()
+                .padding(.horizontal, 32)
+                .padding(.top, 16)
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("FIO")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                    Text(vm.userInfo.firstLastName())
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.top, 1)
+                    Text("TERMIAl")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .padding(.top, 1)
+                    Text("5")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.top, 1)
+                    Text("DEPATURE")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .padding(.top, 1)
+                    Text(vm.buyTicketInfo.departureDate)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.top, 1)
+                }
+                .padding(.leading, 32)
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    Text("SEAT NUMBER")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                    Text("B2")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.top, 1)
+                    
+                    Text("CLASS")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .padding(.top, 1)
+                    Text(vm.classFlight.rawValue)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.top, 1)
+                    
+                    Text("PASSPORT ID")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(Color(.textTicketColor))
+                        .padding(.top, 1)
+                    Text(vm.userInfo.passport)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.textSilverWhite))
+                        .padding(.top, 1)
+                }
+                .padding(.trailing, 32)
+            }
+            .padding(.top, 8)
+            
+            Spacer()
+            
+            HStack {
+                Text("-------------------------------------")
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(Color(.textTicketColor))
+                    .frame(maxWidth: .infinity)
+            }
+            .padding(.top,1)
+            
+            HStack {
+                VStack {
+                    Text("SCAN THIS BARCODE")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(.basicColor))
+                        .padding(.top, 1)
+                    Image(.barcode)
+                        .resizable()
+                        .frame(width: 250, height: 80)
+                }
+            }
+            .padding(.bottom, 50)
+        }
+    }
+    
     //MARK: - Body -
     var body: some View {
         ZStack {
@@ -111,125 +232,8 @@ struct BoordingPassView: View {
                 ZStack {
                     Image(.ticketBoording)
                         .resizable()
-                    
-                    VStack(spacing: 8) {
-                        
-                        WebImage(url: URL(string: vm.imageURL))
-                            .padding(.top, 50)
-                        
-                        HStack {
-                            Text(vm.buyTicketInfo.origin)
-                                .font(.system(size: 22, weight: .bold))
-                                .padding(.leading, 32)
-                                .foregroundColor(Color(.textSilverWhite))
-                            Spacer()
-                            VStack {
-                                Image(.logoOnTicket)
-                                if vm.buyTicketInfo.duration > 0 {
-                                    Text(vm.buyTicketInfo.duration.formatDuration())
-                                        .font(.system(size: 16, weight: .regular))
-                                        .foregroundColor(Color(.durationColor))
-                                } else {
-                                    Text("")
-                                        .font(.system(size: 16, weight: .regular))
-                                        .foregroundColor(Color(.durationColor))
-                                }
-                            }
-                            .padding(.top, 20)
-                            Spacer()
-                            Text(vm.buyTicketInfo.destination)
-                                .font(.system(size: 22, weight: .bold))
-                                .foregroundColor(Color(.textSilverWhite))
-                                .padding(.trailing, 32)
-                        }
-                        
-                         Divider()
-                            .padding(.horizontal, 32)
-                            .padding(.top, 16)
-                        
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("FIO")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color(.textTicketColor))
-                                Text(vm.userInfo.firstLastName())
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.textSilverWhite))
-                                    .padding(.top, 1)
-                                Text("TERMIAl")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color(.textTicketColor))
-                                    .padding(.top, 1)
-                                Text("5")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.textSilverWhite))
-                                    .padding(.top, 1)
-                                Text("DEPATURE")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color(.textTicketColor))
-                                    .padding(.top, 1)
-                                Text(vm.buyTicketInfo.departureDate)
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.textSilverWhite))
-                                    .padding(.top, 1)
-                            }
-                            .padding(.leading, 32)
-                            Spacer()
-                            
-                            VStack(alignment: .trailing) {
-                                Text("SEAT NUMBER")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color(.textTicketColor))
-                                Text("B2")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.textSilverWhite))
-                                    .padding(.top, 1)
-                                
-                                Text("CLASS")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color(.textTicketColor))
-                                    .padding(.top, 1)
-                                Text(vm.classFlight.rawValue)
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.textSilverWhite))
-                                    .padding(.top, 1)
-                                
-                                Text("PASSPORT ID")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .foregroundColor(Color(.textTicketColor))
-                                    .padding(.top, 1)
-                                Text(vm.userInfo.passport)
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.textSilverWhite))
-                                    .padding(.top, 1)
-                            }
-                            .padding(.trailing, 32)
-                        }
-                        .padding(.top, 8)
-                        
-                        Spacer()
-                        
-                        HStack {
-                            Text("-------------------------------------")
-                                .font(.system(size: 16, weight: .regular))
-                                .foregroundColor(Color(.textTicketColor))
-                                .frame(maxWidth: .infinity)
-                        }
-                        .padding(.top,1)
-                        
-                        HStack {
-                            VStack {
-                                Text("SCAN THIS BARCODE")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(Color(.basicColor))
-                                    .padding(.top, 1)
-                                Image(.barcode)
-                                    .resizable()
-                                    .frame(width: 250, height: 80)
-                            }
-                        }
-                        .padding(.bottom, 50)
-                    }
+                    ticketInfo
+                  
                 }
                 .padding(.horizontal, 22)
                 downloadTicketButton
