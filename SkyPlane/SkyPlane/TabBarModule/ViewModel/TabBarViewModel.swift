@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Photos
+import UIKit
 
 //MARK: - Singleton user data -
 class UserData {
@@ -45,6 +47,7 @@ final class TabBarViewModel: ObservableObject {
     //MARK: - Property -
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
     private var uid = UserDefaults.standard.string(forKey: "uid")
+    @Published var showPhotoPermissionAlert: Bool = false
     
     //MARK: - Get user data and a singleton entry -
     func getUserData() {
@@ -57,4 +60,19 @@ final class TabBarViewModel: ObservableObject {
             }
         }
     }
+    
+    //MARK: - Request photo permissions -
+    func requestPhotoPermissions() {
+        PHPhotoLibrary.requestAuthorization { status in
+            if status != .authorized {
+                self.showPhotoPermissionAlert = true
+            }
+        }
+    }
+      
+    //MARK: - Open app settings -
+    func openAppSettings() {
+       guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+       UIApplication.shared.open(settingsURL)
+   }
 }

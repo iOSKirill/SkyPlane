@@ -72,6 +72,18 @@ struct TabBarView: View {
         .task {
             vm.getUserData()
         }
+        .onAppear {
+            vm.requestPhotoPermissions()
+
+        }
+        .alert(isPresented: $vm.showPhotoPermissionAlert) {
+            Alert(
+                title: Text("Permission Required"),
+                message: Text("Please grant access to your photo library in Settings."),
+                primaryButton: .default(Text("Settings"), action: { vm.openAppSettings() }),
+                secondaryButton: .cancel()
+            )
+        }
     }
 }
 
