@@ -8,31 +8,22 @@
 import SwiftUI
 
 struct CustomPassengerAndClassTextField: View {
+    
     //MARK: - Property -
-    @Binding var isPresented: ShowHomeScreen?
     var passengerValue: String
     var classFlightValue: ClassFlight
     var textFieldValue: String
     var textSection: String
     
-    let dateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        return formatter
-    }()
-    
+    //MARK: - Body -
     var body: some View {
         ZStack(alignment: .leading) {
-            Button() {
-                isPresented = .passengerAndClassView
-            } label: {
-                HStack {
-                    Text("\(passengerValue), \(classFlightValue.rawValue)")
-                        .font(.system(size: 16, weight: .medium, design: .default))
-                        .frame(maxHeight: 60)
-                        .padding(.leading, 16)
-                    Spacer()
-                }
+            HStack {
+                Text("\(passengerValue), \(classFlightValue.rawValue)")
+                    .font(.system(size: 16, weight: .medium, design: .default))
+                    .frame(maxHeight: 60)
+                    .padding(.leading, 16)
+                Spacer()
             }
             .frame(maxWidth: .infinity)
             .overlay {

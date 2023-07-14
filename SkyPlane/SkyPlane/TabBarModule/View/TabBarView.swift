@@ -10,12 +10,13 @@ import SwiftUI
 struct TabBarView: View {
     
     //MARK: - Property -
+    @StateObject var vm = TabBarViewModel()
     @State var selectedIndex: Int = 2
     
     //MARK: - Tabar buttons -
     var tabBarButtons: some View {
         HStack {
-            CustomButtonOnTabBar(selectedIndex: $selectedIndex, index: 0, image: .searchTabBar)
+            CustomButtonOnTabBar(selectedIndex: $selectedIndex, index: 0, image: .map)
             Spacer(minLength: 12)
             CustomButtonOnTabBar(selectedIndex: $selectedIndex, index: 1, image: .ticketTabBar)
             Spacer(minLength: 12)
@@ -50,15 +51,15 @@ struct TabBarView: View {
         VStack(spacing: 0) {
             switch selectedIndex {
             case 0:
-                CreateAccountView()
+                MapView()
             case 1:
-                OnboardingView()
+                MyTicketsView()
             case 2:
                 HomeView()
             case 3:
                 WeatherView()
             case 4:
-                LoginView()
+                ProfileView()
             default:
                 Text("View")
             }
@@ -66,6 +67,18 @@ struct TabBarView: View {
             ZStack() {
                 tabBarButtons
             }
+        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        .task {
+            vm.getUserData()
+        }
+        .alert(isPresented: $vm.showPhotoPermissionAlert) {
+            Alert(
+                title: Text("Permission Required"),
+                message: Text("Please grant access to your photo library in Settings."),
+                primaryButton: .default(Text("Settings"), action: { vm.openAppSettings() }),
+                secondaryButton: .cancel()
+            )
         }
     }
 }

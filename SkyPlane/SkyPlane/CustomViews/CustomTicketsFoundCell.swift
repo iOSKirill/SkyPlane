@@ -1,44 +1,55 @@
 //
-//  CustomTicketCell.swift
+//  CustomTicketsFoundCell.swift
 //  SkyPlane
 //
-//  Created by Kirill Manuilenko on 22.06.23.
+//  Created by Kirill Manuilenko on 28.06.23.
 //
 
 import SwiftUI
 import SDWebImage
 import SDWebImageSwiftUI
 
-struct CustomTicketCell: View {
-    //MARK: - Property -
-    var popularFlightInfo: PopularFlightInfoModel
+struct CustomTicketsFoundCell: View {
     
+    //MARK: - Property -
+    var ticketsFound: TicketsFoundModel
+    var originFullName: String
+    var destinationFullName: String
+    
+    //MARK: - Body -
     var body: some View {
         ZStack {
             Image(.ticketBackground)
                 .resizable()
+            
             VStack(spacing: 8) {
                 HStack {
-                    Text(popularFlightInfo.origin)
+                    Text(ticketsFound.origin)
                         .font(.system(size: 22, weight: .bold))
                         .padding(.leading, 32)
                         .foregroundColor(Color(.textSilverWhite))
                     Spacer()
-                    Image(.logoOnTicket)
+                    VStack {
+                        Image(.logoOnTicket)
+                        Text(ticketsFound.duration.formatDuration())
+                            .font(.system(size: 16, weight: .regular))
+                            .foregroundColor(Color(.durationColor))
+                    }
+                    .padding(.top, 20)
                     Spacer()
-                    Text(popularFlightInfo.destination)
+                    Text(ticketsFound.destination)
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
                 }
                 
                 HStack {
-                    Text("Minsk")
+                    Text(originFullName)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.leading, 32)
                     Spacer()
-                    Text("Moscow")
+                    Text(destinationFullName)
                         .font(.system(size: 18, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
@@ -58,13 +69,12 @@ struct CustomTicketCell: View {
                 .padding(.top, 8)
                 
                 HStack {
-
-                    Text(popularFlightInfo.departureDate)
+                    Text(ticketsFound.departureDate)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.leading, 32)
                     Spacer()
-                    Text("\(popularFlightInfo.flightNumber)")
+                    Text(ticketsFound.flightNumber)
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
@@ -79,19 +89,18 @@ struct CustomTicketCell: View {
                 .padding(.top, 16)
                 
                 HStack {
-                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(popularFlightInfo.icon).png"))
+                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(ticketsFound.icon).png"))
                         .padding(.leading, 32)
                     Spacer()
-                    Text(popularFlightInfo.price)
+                    Text(ticketsFound.price.formatCurrency())
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(.textSilverWhite))
                         .padding(.trailing, 32)
                 }
+                .padding(.bottom, 10)
             }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
+        .padding(.horizontal, 22)
     }
 }
-
 

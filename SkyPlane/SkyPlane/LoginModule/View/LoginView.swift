@@ -49,8 +49,6 @@ struct LoginView: View {
                         .padding()
                 }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.bottom, 16)
     }
     
@@ -126,13 +124,13 @@ struct LoginView: View {
             Color(.backgroundColor).ignoresSafeArea()
             
             VStack {
-                List {
+                ScrollView {
                     headerText
                     CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
                     CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                 }
-                .listStyle(.plain)
                 .scrollDisabled(true)
+                .padding(.horizontal, 16)
                 
                 loginButton
                 divider
@@ -140,9 +138,15 @@ struct LoginView: View {
             }
             .padding(.top, 16)
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: buttonBack)
         .navigationTitle("Login")
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
+        }
     }
 }
 

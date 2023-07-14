@@ -21,14 +21,30 @@ final class CreateAccountViewModel: ObservableObject {
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var passwordConfirmText: String = ""
+    @Published var isAlert: Bool = false
+    @Published var errorText = "" {
+        didSet {
+            isAlert = true
+        }
+    }
     
     //MARK: - Sing In with Google -
     func singInWithGoogle() {
         Task { [weak self] in
             guard let self = self else { return }
-            let user = try await firebaseManager.singInWithGoogle()
-            await MainActor.run {
-                self.appCondition = .homeView
+            do {
+                let googleData = try await firebaseManager.singInWithGoogle()
+                if googleData.isEmailVerified {
+                    UserDefaults.standard.set(googleData.uid.description, forKey: "uid")
+                    try await firebaseManager.createUserDataDB(firstName: "", lastName: "", email: googleData.email ?? "", dateOfBirth: .now, uid: googleData.uid, urlImage: "https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg", passport: "", country: "")
+                    await MainActor.run {
+                        self.appCondition = .homeView
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorText = error.localizedDescription
+                }
             }
         }
     }
@@ -36,18 +52,31 @@ final class CreateAccountViewModel: ObservableObject {
     //MARK: - Create User DB -
     func createUser() {
         Task { [weak self] in
-            guard let self = self, passwordText == passwordConfirmText else { return print("Password")}
-            let userInfo = try await firebaseManager.signUpWithEmail(email: emailText, password: passwordText)
-            if userInfo.email != nil {
-            
-                //Save uid in UserDefaults
-                UserDefaults.standard.set(userInfo.uid.description, forKey: "uid")
+            guard let self = self else { return }
+            do {
                 
-                //Create user data in db
-                try await firebaseManager.createUserDataDB(firstName: firstNameText, lastName: lastNameText, email: emailText, dateOfBirth: .now, gender: "", uid: userInfo.uid, urlImage: "")
-                
+                guard firstNameText.isValidFirstAndLastName() && lastNameText.isValidFirstAndLastName() else {
+                    return await MainActor.run {
+                        self.errorText = "Invalid firs or last name"
+                    }
+                }
+                guard passwordText == passwordConfirmText else { return self.errorText = "Erorr password"}
+                let userInfo = try await firebaseManager.signUpWithEmail(email: emailText, password: passwordText)
+                if userInfo.email != nil {
+                    
+                    //Save uid in UserDefaults
+                    UserDefaults.standard.set(userInfo.uid.description, forKey: "uid")
+                    
+                    //Create user data in db
+                    try await firebaseManager.createUserDataDB(firstName: firstNameText, lastName: lastNameText, email: emailText, dateOfBirth: .now, uid: userInfo.uid, urlImage: "https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg", passport: "", country: "")
+                    
+                    await MainActor.run {
+                        self.isPresentedLogin = true
+                    }
+                }
+            } catch {
                 await MainActor.run {
-                    self.isPresentedLogin = true
+                    self.errorText = error.localizedDescription
                 }
             }
         }

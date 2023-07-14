@@ -21,16 +21,32 @@ struct HomeView: View {
                 CustomHomeTextField(bindingValue: $vm.destinationNameCity, textSection: "To", textFieldValue: "Enter your destination")
                     .padding(.horizontal, 16)
             }
-            Circle()
-                .foregroundColor(Color(.basicColor))
-                .frame(maxWidth: 60, maxHeight: 60)
-                .overlay {
-                    Image(.arrowsHome)
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
+            ZStack {
+                Circle()
+                    .foregroundColor(Color(.basicColor))
+                    .frame(maxWidth: 60, maxHeight: 60)
+                    .overlay {
+                        Image(.arrowsHome)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                    }
+                    .padding(.trailing, 42)
+                Button {
+                    vm.changeSearchTextField()
+                } label: {
+                    Circle()
+                        .foregroundColor(Color(.basicColor))
+                        .frame(maxWidth: 60, maxHeight: 60)
+                        .overlay {
+                            Image(.arrowsHome)
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                        }
+                        .padding(.trailing, 42)
                 }
-                .padding(.trailing, 42)
+            }
         }
     }
     
@@ -39,12 +55,12 @@ struct HomeView: View {
         HStack {
             switch vm.datePickerShow {
             case .departureDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
+                CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.horizontal, 16)
             case .departureAndReturnDatePicker:
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
+                CustomDatePickerTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Departure")
                     .padding(.leading, 16)
-                CustomDatePickerTextField(selectedDate: $vm.selectedDateReturn, showDatePicker: $vm.datePickerShow, textSection: "Return")
+                CustomDatePickerReturnTextField(calendarId: $vm.calendarId, selectedDate: $vm.selectedDateReturn, departureDate: $vm.selectedDateDeparture, showDatePicker: $vm.datePickerShow, textSection: "Return")
                     .padding(.trailing, 16)
             }
         }
@@ -52,14 +68,14 @@ struct HomeView: View {
     
     //MARK: - Search button -
     var searchButton: some View {
-        Button {
+        NavigationLink(destination: TicketsFoundView(vm: vm.ticketsFoundVM).onAppear {
             switch vm.datePickerShow {
             case .departureAndReturnDatePicker:
                 vm.getFlightInfoRoundTrip()
             case .departureDatePicker:
                 vm.getFlightInfoOneWay()
             }
-        } label: {
+        }) {
             Text("Search")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(Color(.blackColor))
@@ -71,9 +87,10 @@ struct HomeView: View {
                 .padding(.bottom, 16)
         }
     }
+    
+    //MARK: - Chang type flight -
     var changeTypeFlight: some View {
         HStack {
-            
             Button {
                 vm.datePickerShow = .departureDatePicker
             } label: {
@@ -90,7 +107,6 @@ struct HomeView: View {
                     .foregroundColor(vm.datePickerShow == .departureDatePicker ? .black : Color(.textBlackWhiteColor))
                     .cornerRadius(15)
             }
-            
             Button {
                 vm.datePickerShow = .departureAndReturnDatePicker
             } label: {
@@ -108,8 +124,42 @@ struct HomeView: View {
                     .cornerRadius(15)
             }
             
-        }.padding(.top, 16)
-            .padding(.horizontal, 16)
+        }
+        .padding(.top, 16)
+        .padding(.horizontal, 16)
+    }
+    
+    //MARK: - Header view -
+    var header: some View {
+        VStack {
+            ZStack {
+                Image(.headerScreen)
+                    .resizable()
+                    .ignoresSafeArea()
+                    .frame(maxWidth: .infinity, maxHeight: 250)
+            }
+            Spacer()
+        }
+    }
+    
+    var searchView: some View {
+        VStack {
+            changeTypeFlight
+            originDestination
+            departureAndReturnDatePicker
+            
+            CustomPassengerAndClassTextField(passengerValue: vm.passenger, classFlightValue: vm.classFlight, textFieldValue: "Enter passenger", textSection: "Passenger and class")
+                .padding(.horizontal, 16)
+            
+            if !vm.originNameCity.isEmpty && !vm.destinationNameCity.isEmpty
+            {
+                searchButton
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: 500)
+        .background(Color(.ticketBackgroundColor))
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 10)
     }
 
     //MARK: - Body -
@@ -117,20 +167,12 @@ struct HomeView: View {
         NavigationView {
             ZStack {
                 Color(.homeBackgroundColor).ignoresSafeArea()
-                
-                VStack {
-                    ZStack {
-                        Image(.headerScreen)
-                            .resizable()
-                            .ignoresSafeArea()
-                            .frame(maxWidth: .infinity, maxHeight: 250)
-                    }
-                    Spacer()
-                }
+                 
+                header
                 VStack(alignment: .leading, spacing: 0) {
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Hello 👋")
+                        Text("Hello \(vm.userInfo.firstName) 👋")
                             .font(.system(size: 22, weight: .regular))
                             .foregroundColor(Color(.backgroundColor))
                             .padding(.horizontal, 16)
@@ -141,81 +183,57 @@ struct HomeView: View {
                     }
                     .padding(.vertical, 22)
                     
-                    List {
-                        VStack {
-                            changeTypeFlight
-                            originDestination
-                            departureAndReturnDatePicker
-                            
-                            CustomPassengerAndClassTextField(isPresented: $vm.showHomeScreen, passengerValue: vm.passenger, classFlightValue: vm.classFlight, textFieldValue: "Enter passenger", textSection: "Passenger and class")
-                                .padding(.horizontal, 16)
-                            
-                            searchButton
-                        }
-                        .fullScreenCover(item: $vm.showHomeScreen) { screen in
-                            switch screen {
-                            case .ticketsFoundView:
-                                TicketsFoundView()
-                            case .passengerAndClassView:
-                                CreateAccountView()
-                            }
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: 500)
-                        .background(Color(.ticketBackgroundColor))
-                        .cornerRadius(16)
-                        .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 10)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
+                    ScrollView(showsIndicators: false) {
+                        searchView
                         
                         HStack {
                             Text("Popular Flights")
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(Color(.textBlackWhiteColor))
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.clear)
                             Spacer()
                        
-                            ZStack {
-                                NavigationLink {
-                                    PopularFlightView(vm: vm.popularFlightVM)
-                                } label: {
-                                    Text("View All")
-                                        .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(Color(.textTicketColor))
-                                }
-                                .opacity(0)
+                            NavigationLink {
+                                PopularFlightView(vm: vm.popularFlightVM)
+                            } label: {
                                 Text("View All")
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(Color(.textTicketColor))
-                                    .padding(.leading, 130)
                             }
-
-
                         }
                         .padding(.top, 16)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
                         .buttonStyle(.plain)
-                        
-                        //Popular tickets
-                        ForEach(vm.popularFlightInfo.prefix(2)) { i in
-                            CustomTicketCell(popularFlightInfo: i)
+                        if vm.isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .foregroundColor(.blue)
+                                .padding()
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        } else {
+                            ForEach(vm.popularFlightInfo.prefix(2)) { i in
+                                CustomPopularTicketCell(popularFlightInfo: i)
+                            }
+                            .padding(.bottom, 8)
                         }
                     }
+                    .padding(.horizontal, 16)
                     .buttonStyle(.plain)
                 }
-                .listStyle(.plain)
-                
             }
             .task {
-                vm.getPopularFlightInfo(cityName: "Paris")
+                vm.getPopularFlightInfo(cityName: "Minsk")
             }
+        }
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(vm: HomeViewModel())
     }
 }

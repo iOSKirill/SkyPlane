@@ -7,6 +7,13 @@
 
 import Foundation
 
+//MARK: - Date formats -
+enum DateFormats: String {
+    case hourly = "HH"
+    case daily = "EEEE"
+    case monthDay = "MMM, d"
+}
+
 extension Int {
     
     //MARK: - Formatter price ticket -
@@ -17,5 +24,24 @@ extension Int {
         formatter.locale = Locale.current
         let formattedValue = formatter.string(from: NSNumber(value: self)) ?? ""
         return formattedValue
+    }
+    
+    //MARK: - Formatter duration ticket -
+    func formatDuration() -> String {
+        let hours = self / 60
+        let remainingMinutes = self % 60
+        let formattedString = String(format: "%dh/%dm", hours, remainingMinutes)
+        return formattedString
+    }
+    
+    //MARK: - Formatter date weather -
+    func dateFormatter(dateFormat: DateFormats) -> String {
+        let time = TimeInterval(self)
+        let date = Date(timeIntervalSince1970: time)
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "GMT")
+        formatter.dateFormat = dateFormat.rawValue
+        let strDate = formatter.string(from: date)
+        return strDate
     }
 }

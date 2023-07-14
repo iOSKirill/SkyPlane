@@ -15,9 +15,13 @@ import GoogleSignIn
 //MARK: - Protocol Firebase -
 protocol FirebaseManagerProtocol {
     func singInWithGoogle() async throws -> User
+    func getUserDataDB(id: String) async throws -> UserModel
     func signUpWithEmail(email: String, password: String) async throws -> User
     func signInWithEmail(email: String, password: String) async throws -> User
-    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws
+    func getTicketsDB(id: String) async throws -> [TicketsFoundModel]
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: Int, icon: String) async throws
+    func deleteMyTickets(ticket: TicketsFoundModel, id: String) async throws
 }
 
 class FirebaseManager: FirebaseManagerProtocol {
@@ -27,16 +31,13 @@ class FirebaseManager: FirebaseManagerProtocol {
     
     //MARK: - SingIn with Googl -
     func singInWithGoogle() async throws -> User {
-        
         guard let clientID = FirebaseApp.app()?.options.clientID else { fatalError("error") }
-        
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
         
         guard let windowScene =  await UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window =  await windowScene.windows.first,
               let rootViewController =  await window.rootViewController else { fatalError("error") }
-        
         do {
             let signIn = try await  GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
             let user = signIn.user
@@ -62,13 +63,54 @@ class FirebaseManager: FirebaseManagerProtocol {
         try await Auth.auth().signIn(withEmail: email, password: password).user
     }
     
+    //MARK: - Get user data DB -
+    func getUserDataDB(id: String) async throws -> UserModel  {
+         try await db.collection("Users").document(id).getDocument(as: UserModel.self)
+    }
+    
+    //MARK: - Get tickets DB -
+    func getTicketsDB(id: String) async throws -> [TicketsFoundModel]  {
+        var array: [TicketsFoundModel] = []
+        let tickets = try await db.collection("Users").document(id).collection("Tickets").getDocuments()
+        array = try tickets.documents.map {try $0.data (as: TicketsFoundModel.self) }
+        return array
+    }
+    
     //MARK: - Create user data DB -
-    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, gender: String, uid: String, urlImage: String) async throws {
-        let users  = UserModel(firstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, gender: gender,  urlImage: urlImage)
+    func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws {
+        let users  = UserModel(firstName: firstName,
+                               lastName: lastName,
+                               email: email,
+                               dateOfBirth: dateOfBirth,
+                               urlImage: urlImage,
+                               passport: passport,
+                               country: country)
         do {
            try db.collection("Users").document(uid).setData(from: users)
         } catch {
             print("Error add User")
         }
+    }
+    
+    //MARK: - Create user data DB -
+    func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: Int, icon: String) async throws {
+        do {
+            let ticket  = TicketsFoundModel(origin: origin,
+                                            destination: destination,
+                                            departureDate: departureDate,
+                                            returnDate: returnDate,
+                                            flightNumber: flightNumber,
+                                            price: price,
+                                            icon: icon,
+                                            duration: duration)
+            try db.collection("Users").document(uid).collection("Tickets").document(ticket.id.uuidString).setData(from: ticket)
+        } catch {
+            print("Error add User")
+        }
+    }
+    
+    //MARK: - Delete ticket from DB -
+    func deleteMyTickets(ticket: TicketsFoundModel, id: String) async throws {
+        try await db.collection("Users").document(id).collection("Tickets").document(ticket.id.uuidString).delete()
     }
 }

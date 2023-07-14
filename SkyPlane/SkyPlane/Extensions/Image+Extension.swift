@@ -31,6 +31,30 @@ enum AssetsImage: String {
     case headerScreen = "headerScreen"
     case ticketBackground = "ticketBackground"
     case logoOnTicket = "logoOnTicket"
+    case headerTicketsFound = "headerTicketsFound"
+    case buyTicketBackground = "buyTicketBackground"
+    case headerPlanet = "headerPlanet"
+    
+    case cabinBag = "cabinBag"
+    case calendarClass = "calendarClass"
+    case mealClass = "mealClass"
+    case dollarClass = "dollarClass"
+    
+    case headerProfile = "headerProfile"
+    case ticketProfile = "ticketProfile"
+    case editProfile = "editProfile"
+    case privacyPolicyProfile = "privacyPolicyProfile"
+    case termsProfile = "termsProfile"
+    case arrowProfile = "arrowProfile"
+    case changeImage = "changeImage"
+    case cards = "cards"
+    case headerBookingPass = "headerBookingPass"
+    case ticketBoording = "ticketBoording"
+    case barcode = "barcode"
+    case map = "map"
+    case logout = "logout"
+    case myTicketError = "myTicketError"
+    case internet = "internet"
 }
 
 //MARK: - Extension Image -

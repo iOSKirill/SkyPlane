@@ -12,6 +12,7 @@ struct CreateAccountView: View {
     //MARK: - Property -
     @StateObject var vm = CreateAccountViewModel()
     
+    //MARK: - Header text -
     var headerText: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -33,16 +34,13 @@ struct CreateAccountView: View {
                         .padding()
                 }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.bottom, 16)
     }
     
     //MARK: - Create account button -
     var createAccountButton: some View {
         Button {
-//            vm.createUser()
-            vm.isPresentedLogin = true
+            vm.createUser()
         } label: {
             Text("Create account")
                 .font(.system(size: 18, weight: .medium))
@@ -56,8 +54,6 @@ struct CreateAccountView: View {
         .fullScreenCover(isPresented: $vm.isPresentedLogin) {
             LoginView()
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.top, 32)
     }
     
@@ -73,14 +69,13 @@ struct CreateAccountView: View {
                 .font(.system(size: 14, weight: .regular, design: .default))
                 .padding()
                 .fixedSize(horizontal: true, vertical: false)
+            
             VStack {
                 Divider()
                     .frame(maxWidth: .infinity, maxHeight: 1)
                     .background(Color(.textSilverWhite))
             }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
         .padding(.bottom, -10)
     }
     
@@ -107,8 +102,6 @@ struct CreateAccountView: View {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.textSilverWhite), lineWidth: 1))
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
     
     //MARK: - Present login view -
@@ -136,25 +129,29 @@ struct CreateAccountView: View {
             ZStack {
                 Color(.backgroundColor).ignoresSafeArea()
                 VStack {
-                    List {
+                    ScrollView(showsIndicators: false) {
                         headerText
                         CustomSectionTextField(bindingValue: $vm.firstNameText, textSection: "First Name", textFieldValue: "Enter your first name")
                         CustomSectionTextField(bindingValue: $vm.lastNameText, textSection: "Last Name", textFieldValue: "Enter your last name")
                         CustomSectionTextField(bindingValue: $vm.emailText, textSection: "E-mail", textFieldValue: "Enter your email")
                         CustomSectionTextFieldPassword(bindingValue: $vm.passwordText, secureValue: $vm.isSecurePassword, textSection: "Password", textFieldValue: "Enter your password")
                         CustomSectionTextFieldPassword(bindingValue: $vm.passwordConfirmText, secureValue: $vm.isSecureConfirmPassword, textSection: "Confirm Password", textFieldValue: "Confirm your password")
-
                             createAccountButton
                             divider
                             loginWithGoogleButton
+                            .padding(.bottom, 10)
                     }
-                    .listStyle(.plain)
+                    .padding(.horizontal, 16)
                     .padding(.top, 1)
                     presentLoginViewButton
                 }
-                
             }
             .navigationBarTitle(Text("Registration"), displayMode: .inline)
+        }
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
         }
     }
 }

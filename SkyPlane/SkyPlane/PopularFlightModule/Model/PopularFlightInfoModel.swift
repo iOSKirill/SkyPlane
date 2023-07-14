@@ -8,12 +8,13 @@
 import Foundation
 
 struct PopularFlightInfoModel: Identifiable {
+    private var alamofireProvider: AlamofireProviderProtocol = AlamofireProvider()
     var id = UUID()
     var origin: String
     var destination: String
     var departureDate: String
     var flightNumber: Int
-    var price: String
+    var price: Int
     var icon: String
     
     init(data: Datum) {
@@ -21,8 +22,12 @@ struct PopularFlightInfoModel: Identifiable {
         destination = data.destination ?? ""
         departureDate = data.departureAt?.formatDateTicket() ?? ""
         flightNumber = data.flightNumber ?? 0
-        price = data.price?.formatCurrency() ?? ""
+        price = data.price ?? 0
         icon = data.airline ?? ""
+    }
+    
+    func iconFlight() -> String {
+        return "https://pics.avs.io/100/50/\(icon).png"
     }
 }
 

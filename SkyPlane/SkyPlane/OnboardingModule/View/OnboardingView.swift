@@ -30,8 +30,8 @@ struct OnboardingView: View {
         }
     }
     
-    //MARK: - TablViw onboarding -
-    var tablView: some View {
+    //MARK: - TabelView onboarding -
+    var tabelView: some View {
         TabView(selection: $vm.currentStep) {
             ForEach(vm.onboardingSteps, id: \.id) { item in
                 VStack {
@@ -109,7 +109,7 @@ struct OnboardingView: View {
             
             VStack {
                 skipButton
-                tablView
+                tabelView
                 pageControl
                 nextButton
             }

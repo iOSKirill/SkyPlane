@@ -7,12 +7,12 @@
 
 import Foundation
 
-//MARK: - User model -
 struct UserModel: Codable {
-    let firstName: String
-    let lastName: String
-    let email: String
-    let dateOfBirth: Date
-    let gender: String
-    let urlImage: String
+    var firstName: String
+    var lastName: String
+    var email: String
+    var dateOfBirth: Date
+    var urlImage: String
+    var passport: String
+    var country: String
 }

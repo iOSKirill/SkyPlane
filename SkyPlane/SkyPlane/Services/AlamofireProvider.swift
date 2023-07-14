@@ -15,6 +15,7 @@ enum Units: String {
     case imperial = "Имперский"
 }
 
+//MARK: - Api type -
 enum ApiType {
     case apiWeather
     case apiAviasales
@@ -33,12 +34,13 @@ enum ApiType {
 protocol AlamofireProviderProtocol {
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel]
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel
-    func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight
     func getCodeByCityName(cityName: String) async throws -> [Autocomplete]
+    func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo
+    func getFilterFlightInfo(origin: String, destination: String, departureDate: String, returnDate: String, direct: Bool, sorting: String) async throws -> FlightInfo
 }
 
-//MARK: - Class -
+
 class AlamofireProvider: AlamofireProviderProtocol {
     
     //MARK: - Property -
@@ -46,14 +48,12 @@ class AlamofireProvider: AlamofireProviderProtocol {
     private let currency = Locale.current.currency?.identifier ?? "usd"
     private let units: Units = .metric
     
-    //MARK: - Method -
-    
-    //Generic request
+    //MARK: - Generic request -
     private func makeRequest<T: Decodable>(url: String, parameters: [String: String], encoding: ParameterEncoder = URLEncodedFormParameterEncoder.default) async throws -> T {
         return try await AF.request(url, method: .get, parameters: parameters, encoder: encoding).serializingDecodable(T.self).value
     }
 
-    //Getting Coordinates by city name
+    //MARK: - Getting Coordinates by city name -
     func getCoordinatesByName(nameCity: String) async throws -> [CoordinateModel] {
         let parameters = addParams(apiType: .apiWeather, queryItems: ["q": nameCity,
                                                        "limit" : "1",
@@ -61,7 +61,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
         return try await makeRequest(url: Constants.getCodingURL, parameters: parameters)
     }
     
-    //Getting Weather by coordinates
+    //MARK: - Getting Weather by coordinates -
     func getWeatherForCityCoordinates(lat: Double, lon: Double) async throws -> WeatherModel {
         let parameters = addParams(apiType: .apiWeather, queryItems: ["lat" : lat.description,
                                                        "lon" : lon.description,
@@ -71,7 +71,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
         return try await makeRequest(url: Constants.weatherURL, parameters: parameters)
     }
     
-    //Getting all info from ticket
+    //MARK: - Getting all info from ticket -
     func getFlightsInfo(origin: String, destination: String, departureDate: String, returnDate: String) async throws -> FlightInfo {
         let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin" : origin,
                                                          "destination" : destination,
@@ -84,7 +84,20 @@ class AlamofireProvider: AlamofireProviderProtocol {
         return try await makeRequest(url: Constants.getFlightsInfo, parameters: parameters)
     }
     
-    //Getting popular flight by city name
+    //MARK: - Getting filter flight info -
+    func getFilterFlightInfo(origin: String, destination: String, departureDate: String, returnDate: String, direct: Bool, sorting: String) async throws -> FlightInfo {
+        let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin" : origin,
+                                                         "destination" : destination,
+                                                         "departure_at" : departureDate,
+                                                         "return_at" : returnDate,
+                                                         "currency" : currency,
+                                                         "sorting" : sorting,
+                                                         "direct" : "\(direct)",
+                                                         "limit" : "1000"])
+        return try await makeRequest(url: Constants.getFlightsInfo, parameters: parameters)
+    }
+    
+    //MARK: - Getting popular flight by city name -
     func getPopularFlightsByCityName(cityName: String) async throws -> PopularFlight {
         let parameters = addParams(apiType: .apiAviasales, queryItems: ["origin": cityName,
                                                          "currency" : currency,
@@ -92,7 +105,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
         return try await makeRequest(url: Constants.getPopularFlightsByCityName, parameters: parameters)
     }
     
-    //Getting code by city name
+    //MARK: - Getting code by city name -
     func getCodeByCityName(cityName: String) async throws -> [Autocomplete] {
         let parameters = addParams(apiType: .apiAviasales, queryItems: ["locale" : language,
                                                                         "types[]" : "city" ,
@@ -100,7 +113,7 @@ class AlamofireProvider: AlamofireProviderProtocol {
         return try await makeRequest(url: Constants.autocompleteURL, parameters: parameters)
     }
     
-    //Parameters
+    //MARK: - Parameters -
     private func addParams(apiType: ApiType, queryItems: [String: String]) -> [String: String] {
         var params: [String: String] = queryItems
         if let apiKey = apiType.apiKey {

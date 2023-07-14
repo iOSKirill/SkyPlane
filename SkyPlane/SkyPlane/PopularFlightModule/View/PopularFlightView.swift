@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-
 import Combine
+
 struct PopularFlightView: View {
     
     //MARK: - Property -
@@ -29,23 +29,25 @@ struct PopularFlightView: View {
         }
     }
     
-    var popularTickets: some View { 
-        //Popular tickets
+    //MARK: - Popular tickets -
+    var popularTickets: some View {
         ForEach(vm.popularFlightInfo) { i in
-            CustomTicketCell(popularFlightInfo: i)
+            NavigationLink(destination: BuyTicketView(vm: BuyTicketViewModel(buyTicketInfo: TicketsFoundModel(origin: i.origin, destination: i.destination, departureDate: i.departureDate, returnDate: "", flightNumber: String(i.flightNumber), price: i.price, icon: i.icon, duration: 0)) )) {
+                CustomPopularTicketCell(popularFlightInfo: i)
+            }
         }
-        .padding(.top, 16)
     } 
 
+    //MARK: - Content -
     var content: some View {
-        List {
+        ScrollView(showsIndicators: false) {
             popularTickets
+                .padding(.top, 16)
         }
         .buttonStyle(.plain)
-        .listStyle(.plain)
+        .padding(.horizontal, 16)
     }
 
-    
     //MARK: - Body -
     var body: some View {
         ZStack {
