@@ -80,7 +80,7 @@ struct CustomMyTicketsCell: View {
                 .padding(.top, 16)
                 
                 HStack {
-                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(ticketsFound.icon).png"))
+                    WebImage(url: URL(string: ticketsFound.iconFlight()))
                         .padding(.leading, 32)
                     Spacer()
                     Text(ticketsFound.price.formatCurrency())

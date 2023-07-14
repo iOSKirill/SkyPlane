@@ -71,7 +71,7 @@ struct CustomPopularTicketCell: View {
                 .padding(.top, 16)
                 
                 HStack {
-                    WebImage(url: URL(string: "https://pics.avs.io/100/50/\(popularFlightInfo.icon).png"))
+                    WebImage(url: URL(string: popularFlightInfo.iconFlight()))
                         .padding(.leading, 32)
                         .padding(.bottom, 10)
                     Spacer()

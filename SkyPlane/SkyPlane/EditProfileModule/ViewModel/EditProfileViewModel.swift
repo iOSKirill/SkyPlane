@@ -59,7 +59,6 @@ final class EditProfileViewModel: ObservableObject {
                 guard userInfo.country.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid country" } }
                 guard userInfo.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
                 try await firebaseManager.createUserDataDB(firstName: userInfo.firstName, lastName: userInfo.lastName, email: userInfo.email, dateOfBirth: userInfo.dateOfBirth, uid: uid ?? "", urlImage: userInfo.urlImage, passport: userInfo.passport, country: userInfo.country)
-             
                 await MainActor.run {
                     updateAlert = true
                 }

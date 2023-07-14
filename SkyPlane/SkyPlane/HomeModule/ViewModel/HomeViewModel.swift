@@ -98,7 +98,7 @@ final class HomeViewModel: ObservableObject {
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
-                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: selectedDateDeparture.dateFormatSearchTickets(), returnDate: selectedDateReturn.dateFormatSearchTickets())
+                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: selectedDateDeparture.dateFormat(.yyyyMMDD), returnDate: selectedDateReturn.dateFormat(.yyyyMMDD))
                 let mappedData = flightInfo.data
                     .map { TicketsFoundModel(data: $0) }
                 await MainActor.run {
@@ -127,7 +127,7 @@ final class HomeViewModel: ObservableObject {
                 guard let codeOriginNameCity = originCodeByCityName.first?.code else { return }
                 let destinationCodeByCityName = try await alamofireProvider.getCodeByCityName(cityName: destinationNameCity)
                 guard let codeDestinationNameCity = destinationCodeByCityName.first?.code else { return }
-                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: selectedDateDeparture.dateFormatSearchTickets(), returnDate: newDate?.dateFormatSearchTickets() ?? "")
+                let flightInfo = try await alamofireProvider.getFlightsInfo(origin: codeOriginNameCity, destination: codeDestinationNameCity, departureDate: selectedDateDeparture.dateFormat(.yyyyMMDD), returnDate: newDate?.dateFormat(.yyyyMMDD) ?? "")
                 let mappedData = flightInfo.data
                     .map { TicketsFoundModel(data: $0) }
                 await MainActor.run {

@@ -25,5 +25,9 @@ struct PopularFlightInfoModel: Identifiable {
         price = data.price ?? 0
         icon = data.airline ?? ""
     }
+    
+    func iconFlight() -> String {
+        return "https://pics.avs.io/100/50/\(icon).png"
+    }
 }
 

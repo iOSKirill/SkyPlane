@@ -82,9 +82,7 @@ struct MailView: UIViewControllerRepresentable {
         return mailComposeViewController
     }
     
-    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
         @Binding var result: Bool

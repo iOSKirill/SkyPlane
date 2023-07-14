@@ -79,7 +79,7 @@ struct LaunchScreenView: View {
                 OnboardingView()
             }
         }
-        .onAppear() {
+        .task {
             vm.checkInternetAccess()
             vm.nextOnboardingView()
         }

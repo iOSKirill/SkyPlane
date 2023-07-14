@@ -55,6 +55,7 @@ final class TabBarViewModel: ObservableObject {
             do {
                 let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
                 UserData.shared.saveInfo(user: data)
+                requestPhotoPermissions()
             } catch {
                 print(error)
             }
@@ -64,8 +65,8 @@ final class TabBarViewModel: ObservableObject {
     //MARK: - Request photo permissions -
     func requestPhotoPermissions() {
         PHPhotoLibrary.requestAuthorization { status in
-            if status != .authorized {
-                self.showPhotoPermissionAlert = true
+            DispatchQueue.main.async {
+                self.showPhotoPermissionAlert = status != .authorized
             }
         }
     }

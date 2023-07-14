@@ -72,9 +72,6 @@ struct TabBarView: View {
         .task {
             vm.getUserData()
         }
-        .onAppear {
-            vm.requestPhotoPermissions()
-        }
         .alert(isPresented: $vm.showPhotoPermissionAlert) {
             Alert(
                 title: Text("Permission Required"),

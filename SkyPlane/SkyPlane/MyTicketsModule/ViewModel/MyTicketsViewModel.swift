@@ -28,10 +28,11 @@ final class MyTicketsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                let arrayTickets = try await firebaseManager.getTicketsAllDB(id: uid ?? "")
+                let arrayTickets = try await firebaseManager.getTicketsDB(id: uid ?? "")
                    await MainActor.run {
                        self.tickets = arrayTickets
                        self.isLoading = false
+                       self.filter = .all
                    }
             } catch {
                 await MainActor.run {
@@ -46,10 +47,11 @@ final class MyTicketsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                let arrayTickets = try await firebaseManager.getTicketsPastTripDB(id: uid ?? "")
+                let arrayTickets = try await firebaseManager.getTicketsDB(id: uid ?? "")
                    await MainActor.run {
-                       self.tickets = arrayTickets
+                       self.tickets = arrayTickets.filter { $0.departureDate < Date.now.description }
                        self.isLoading = false
+                       self.filter = .pastTrip
                    }
             } catch {
                 await MainActor.run {
@@ -64,10 +66,11 @@ final class MyTicketsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                let arrayTickets = try await firebaseManager.getTicketsUpcomingTripDB(id: uid ?? "")
+                let arrayTickets = try await firebaseManager.getTicketsDB(id: uid ?? "")
                    await MainActor.run {
-                       self.tickets = arrayTickets
+                       self.tickets = arrayTickets.filter { $0.departureDate > Date.now.description }
                        self.isLoading = false
+                       self.filter = .upcomingTrip
                    }
             } catch {
                 await MainActor.run {

@@ -21,7 +21,7 @@ struct CustomDatePickerTextField: View {
             Image(.datePicker)
             .padding(.leading, 16)
    
-            Text("\(selectedDate.dateFormat())")
+            Text("\(selectedDate.dateFormat(.ddMMYYYY))")
                 .font(.system(size: 16, weight: .medium, design: .default))
                 .frame(height: 60)
                 .overlay {
@@ -73,7 +73,7 @@ struct CustomDatePickerReturnTextField: View {
             Image(.datePicker)
             .padding(.leading, 16)
    
-            Text("\(selectedDate.dateFormat())")
+            Text("\(selectedDate.dateFormat(.ddMMYYYY))")
                 .font(.system(size: 16, weight: .medium, design: .default))
                 .frame(height: 60)
                 .overlay {

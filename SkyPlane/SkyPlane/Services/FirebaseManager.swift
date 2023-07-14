@@ -18,9 +18,7 @@ protocol FirebaseManagerProtocol {
     func getUserDataDB(id: String) async throws -> UserModel
     func signUpWithEmail(email: String, password: String) async throws -> User
     func signInWithEmail(email: String, password: String) async throws -> User
-    func getTicketsAllDB(id: String) async throws -> [TicketsFoundModel]
-    func getTicketsPastTripDB(id: String) async throws -> [TicketsFoundModel]
-    func getTicketsUpcomingTripDB(id: String) async throws -> [TicketsFoundModel] 
+    func getTicketsDB(id: String) async throws -> [TicketsFoundModel]
     func createUserDataDB(firstName: String, lastName: String, email: String, dateOfBirth: Date, uid: String, urlImage: String, passport: String, country: String) async throws
     func saveTicket(uid: String, origin: String, destination: String, price: Int, flightNumber: String, departureDate: String, returnDate: String, duration: Int, icon: String) async throws
     func deleteMyTickets(ticket: TicketsFoundModel, id: String) async throws
@@ -70,30 +68,12 @@ class FirebaseManager: FirebaseManagerProtocol {
          try await db.collection("Users").document(id).getDocument(as: UserModel.self)
     }
     
-    //MARK: - Get tickets all DB -
-    func getTicketsAllDB(id: String) async throws -> [TicketsFoundModel]  {
+    //MARK: - Get tickets DB -
+    func getTicketsDB(id: String) async throws -> [TicketsFoundModel]  {
         var array: [TicketsFoundModel] = []
         let tickets = try await db.collection("Users").document(id).collection("Tickets").getDocuments()
         array = try tickets.documents.map {try $0.data (as: TicketsFoundModel.self) }
         return array
-    }
-    
-    //MARK: - Get tickets pasr trip DB -
-    func getTicketsPastTripDB(id: String) async throws -> [TicketsFoundModel] {
-        var array: [TicketsFoundModel] = []
-        let tickets = try await db.collection("Users").document(id).collection("Tickets").getDocuments()
-        array = try tickets.documents.map {try $0.data (as: TicketsFoundModel.self) }
-        let filteredTickets = array.filter { $0.departureDate < Date.now.description }
-        return filteredTickets
-    }
-    
-    //MARK: - Get tickets upcoming trip  DB -
-    func getTicketsUpcomingTripDB(id: String) async throws -> [TicketsFoundModel] {
-        var array: [TicketsFoundModel] = []
-        let tickets = try await db.collection("Users").document(id).collection("Tickets").getDocuments()
-        array = try tickets.documents.map {try $0.data (as: TicketsFoundModel.self) }
-        let filteredTickets = array.filter { $0.departureDate > Date.now.description }
-        return filteredTickets
     }
     
     //MARK: - Create user data DB -

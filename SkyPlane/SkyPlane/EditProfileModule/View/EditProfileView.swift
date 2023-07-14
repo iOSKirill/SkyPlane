@@ -64,7 +64,7 @@ struct EditProfileView: View {
                 Image(.datePicker)
                     .padding(.leading, 16)
                 
-                Text("\(vm.userInfo.dateOfBirth.dateFormat())")
+                Text("\(vm.userInfo.dateOfBirth.dateFormat(.ddMMYYYY))")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                     .overlay {

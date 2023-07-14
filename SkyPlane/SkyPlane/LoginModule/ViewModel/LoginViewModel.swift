@@ -27,9 +27,19 @@ final class LoginViewModel: ObservableObject {
     func singInWithGoogle() {
         Task { [weak self] in
             guard let self = self else { return }
-            let _ = try await firebaseManager.singInWithGoogle()
-            await MainActor.run {
-                self.appCondition = .homeView
+            do {
+                let googleData = try await firebaseManager.singInWithGoogle()
+                if googleData.isEmailVerified {
+                    UserDefaults.standard.set(googleData.uid.description, forKey: "uid")
+                    try await firebaseManager.createUserDataDB(firstName: "", lastName: "", email: googleData.email ?? "", dateOfBirth: .now, uid: googleData.uid, urlImage: "https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg", passport: "", country: "")
+                    await MainActor.run {
+                        self.appCondition = .homeView
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorText = error.localizedDescription
+                }
             }
         }
     }

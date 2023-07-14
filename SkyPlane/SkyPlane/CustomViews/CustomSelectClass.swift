@@ -87,12 +87,7 @@ struct CustomSelectClass: View {
         Button {
             selectClass = selectClassItem
         } label: {
-            if selectClassItem == .economy {
-                labelSelectClassButton
-                Image(.arrowProfile)
-            } else {
-                labelSelectClassButton
-            }
+            labelSelectClassButton
         }
         .background(Color(.ticketBackgroundColor))
         .cornerRadius(16)

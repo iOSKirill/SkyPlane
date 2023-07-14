@@ -7,27 +7,19 @@
 
 import Foundation
 
+//MARK: - Enum date format -
+enum DateFormat: String {
+    case ddMMYYYY = "dd-MM-yyyy"
+    case mmYY = "MM/yy"
+    case yyyyMMDD = "yyyy-MM-dd"
+}
+
 extension Date {
     
     //MARK: - Date basic format -
-    func dateFormat() -> String {
+    func dateFormat(_ format: DateFormat) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = format.rawValue
         return formatter.string(from: self)
     }
-    
-    //MARK: - Date format date expiry date -
-    func dateFormatPayment() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/yy"
-        return formatter.string(from: self)
-    }
-    
-    //MARK: - Date formate search tickets -
-    func dateFormatSearchTickets() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: self)
-    }
-    
 }

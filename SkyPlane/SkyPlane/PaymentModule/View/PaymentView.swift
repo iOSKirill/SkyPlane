@@ -127,7 +127,7 @@ struct PaymentView: View {
                 Image(.datePicker)
                 .padding(.leading, 16)
        
-                Text("\(vm.date.dateFormatPayment())")
+                Text("\(vm.date.dateFormat(.mmYY))")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                     .overlay {

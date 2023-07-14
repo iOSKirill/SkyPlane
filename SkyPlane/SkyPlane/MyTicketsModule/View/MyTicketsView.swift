@@ -45,7 +45,6 @@ struct MyTicketsView: View {
     var filterMyTickets: some View {
         HStack {
             Button {
-                vm.filter = .all
                 vm.getAllTicktes()
             } label: {
                 Text("All")
@@ -65,7 +64,6 @@ struct MyTicketsView: View {
             .padding(.leading, 16)
             
             Button {
-                vm.filter = .upcomingTrip
                 vm.getUpcomingTripTicktes()
             } label: {
                 Text("Upcoming Trip")
@@ -84,7 +82,6 @@ struct MyTicketsView: View {
             .frame(maxWidth: .infinity)
             
             Button {
-                vm.filter = .pastTrip
                 vm.getPastTripTicktes()
             } label: {
                 Text("Past Trip")
@@ -122,7 +119,7 @@ struct MyTicketsView: View {
             } else {
                     VStack {
                         filterMyTickets
-                        if vm.tickets.count > 0 {
+                        if !vm.tickets.isEmpty {
                             List {
                                 ForEach(vm.tickets) { i in
                                     CustomMyTicketsCell(ticketsFound: i)

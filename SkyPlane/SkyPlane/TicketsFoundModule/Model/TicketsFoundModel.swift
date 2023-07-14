@@ -39,4 +39,8 @@ struct TicketsFoundModel: Identifiable, Encodable, Decodable {
         self.icon = icon
         self.duration = duration
     }
+    
+    func iconFlight() -> String {
+        return "https://pics.avs.io/100/50/\(icon).png"
+    }
 }
