@@ -80,7 +80,6 @@ struct LaunchScreenView: View {
             }
         }
         .task {
-            vm.checkInternetAccess()
             vm.nextOnboardingView()
         }
     }

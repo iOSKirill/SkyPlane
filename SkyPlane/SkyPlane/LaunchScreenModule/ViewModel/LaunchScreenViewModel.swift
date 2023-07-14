@@ -34,6 +34,7 @@ final class LaunchScreenViewModel: ObservableObject {
     
     //MARK: - Methods -
     func nextOnboardingView() {
+        checkInternetAccess()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             if self.isOnline {
                 self.isPresented = true
