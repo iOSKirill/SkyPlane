@@ -11,6 +11,7 @@ struct HomeView: View {
     
     //MARK: - Property -
     @StateObject var vm = HomeViewModel()
+    @FocusState private var textIsFocused: Bool
     
     //MARK: - Origin Destination textField -
     var originDestination: some View {
@@ -18,8 +19,10 @@ struct HomeView: View {
             VStack {
                 CustomHomeTextField(bindingValue: $vm.originNameCity, textSection: "From", textFieldValue: "Enter your origin")
                     .padding(.horizontal, 16)
+                    .focused($textIsFocused)
                 CustomHomeTextField(bindingValue: $vm.destinationNameCity, textSection: "To", textFieldValue: "Enter your destination")
                     .padding(.horizontal, 16)
+                    .focused($textIsFocused)
             }
             ZStack {
                 Circle()
@@ -228,6 +231,9 @@ struct HomeView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(vm.errorText)
+        }
+        .onTapGesture {
+            textIsFocused = false
         }
     }
 }

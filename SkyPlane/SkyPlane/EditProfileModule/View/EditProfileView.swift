@@ -20,6 +20,7 @@ struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = EditProfileViewModel()
     @State var currentScreen: ScreenProfile = .profile
+    @FocusState private var textIsFocused: Bool
     
     //MARK: - Button back -
     var buttonBack: some View {
@@ -159,10 +160,14 @@ struct EditProfileView: View {
                 imageAccount
                 ScrollView(showsIndicators: false) {
                     CustomProfileСardHolderNameTextField(bindingValue: $vm.firstNameUser, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
+                        .focused($textIsFocused)
                     CustomProfileСardHolderNameTextField(bindingValue: $vm.lastNameUser, textSection: "Last Name", textFieldValue: "Enter your last name")
+                        .focused($textIsFocused)
                     CustomProfileEmailTextField(textSection: "E-mail")
                     CustomProfileСardHolderNameTextField(bindingValue: $vm.passportUser, textSection: "Passport", textFieldValue: "Enter your passport")
+                        .focused($textIsFocused)
                     CustomProfileСardHolderNameTextField(bindingValue: $vm.countryUser, textSection: "Country", textFieldValue: "Enter your country")
+                        .focused($textIsFocused)
                     datePicker
                     switch currentScreen {
                     case .profile:
@@ -191,6 +196,9 @@ struct EditProfileView: View {
         }
         .task {
             vm.getUserData()
+        }
+        .onTapGesture {
+            textIsFocused = false
         }
     }
 }

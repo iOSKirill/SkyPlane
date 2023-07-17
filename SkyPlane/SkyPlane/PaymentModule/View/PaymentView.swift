@@ -208,6 +208,7 @@ struct PaymentView: View {
                             .keyboardType(.numberPad)
                             .focused($textIsFocused)
                         CustomProfileСardHolderNameTextField(bindingValue: $vm.cardHolderName, textSection: "Card Holder Name", textFieldValue: "Enter your name")
+                            .focused($textIsFocused)
                         HStack {
                             CustomProfileСvvNumberTextField(bindingValue: $vm.cvv, textSection: "CVV", textFieldValue: "000")
                                 .keyboardType(.numberPad)
