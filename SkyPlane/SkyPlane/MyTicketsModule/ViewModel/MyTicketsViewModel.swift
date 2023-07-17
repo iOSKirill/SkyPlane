@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 //MARK: - Enum fiter my tickets -
 enum FilterMyTickets: String {
@@ -31,6 +32,7 @@ final class MyTicketsViewModel: ObservableObject {
                 let arrayTickets = try await firebaseManager.getTicketsDB(id: uid ?? "")
                    await MainActor.run {
                        self.tickets = arrayTickets
+                       self.scheduleNotifications()
                        self.isLoading = false
                        self.filter = .all
                    }
@@ -91,6 +93,30 @@ final class MyTicketsViewModel: ObservableObject {
                 await MainActor.run {
                     print(error)
                 }
+            }
+        }
+    }
+    
+    //MARK: - Schedule notification -
+    func scheduleNotifications() {
+        for flight in tickets {
+            let content = UNMutableNotificationContent()
+            content.title = "Departure reminder"
+            content.body = "Your flight: \(flight.origin) - \(flight.destination), it's leaving soon!\nFlight number: \(flight.flightNumber)\nDeparture time: \(flight.departureDate.formatDateTicket())"
+            content.sound = UNNotificationSound.default
+            
+            let dateTicket = flight.departureDate
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+            if let date = dateFormatter.date(from: dateTicket) {
+                let triggerDate = Calendar.current.date(byAdding: .hour, value: -2, to: date)!
+                print(triggerDate)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate), repeats: false)
+                let request = UNNotificationRequest(identifier: "flightReminder\(flight.id)", content: content, trigger: trigger)
+                UNUserNotificationCenter.current().add(request)
+            } else {
+                print("Incorrect date string format")
             }
         }
     }

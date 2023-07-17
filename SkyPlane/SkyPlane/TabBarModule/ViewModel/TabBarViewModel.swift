@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Photos
 import UIKit
+import UserNotifications
 
 //MARK: - Singleton user data -
 class UserData {
@@ -47,7 +47,6 @@ final class TabBarViewModel: ObservableObject {
     //MARK: - Property -
     private var firebaseManager: FirebaseManagerProtocol = FirebaseManager()
     private var uid = UserDefaults.standard.string(forKey: "uid")
-    @Published var showPhotoPermissionAlert: Bool = false
     
     //MARK: - Get user data and a singleton entry -
     func getUserData() {
@@ -55,25 +54,16 @@ final class TabBarViewModel: ObservableObject {
             do {
                 let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
                 UserData.shared.saveInfo(user: data)
-                requestPhotoPermissions()
+                userNotifications()
             } catch {
                 print(error)
             }
         }
     }
     
-    //MARK: - Request photo permissions -
-    func requestPhotoPermissions() {
-        PHPhotoLibrary.requestAuthorization { status in
-            DispatchQueue.main.async {
-                self.showPhotoPermissionAlert = status != .authorized
-            }
-        }
+    //MARK: - User notifications -
+    func userNotifications()
+    {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {_,_ in }
     }
-      
-    //MARK: - Open app settings -
-    func openAppSettings() {
-       guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-       UIApplication.shared.open(settingsURL)
-   }
 }

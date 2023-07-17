@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import MessageUI
 import SwiftUI
+import Photos
 
 final class BoordingPassViewModel: ObservableObject {
     
@@ -19,6 +20,7 @@ final class BoordingPassViewModel: ObservableObject {
     @Published var userInfo = UserData.shared
     @Published var isImageSaved: Bool = false
     @Published var isShowingMailView: Bool = false
+    @Published var showPhotoPermissionAlert: Bool = false
 
     init() {
         buyTicketInfo = TicketsFoundModel(data: DateTicket())
@@ -51,6 +53,21 @@ final class BoordingPassViewModel: ObservableObject {
             }
         }
     }
+    
+    //MARK: - Request photo permissions -
+    func requestPhotoPermissions() {
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                self.showPhotoPermissionAlert = status != .authorized
+            }
+        }
+    }
+    
+    //MARK: - Open app settings -
+    func openAppSettings() {
+       guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+       UIApplication.shared.open(settingsURL)
+   }
 }
 
 //MARK: - Mail view -
