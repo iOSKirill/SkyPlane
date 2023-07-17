@@ -12,7 +12,6 @@ final class ProfileViewModel: ObservableObject {
     
     //MARK: - Property -
     @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
-    @Published var userInfo = UserData.shared
     @Published var imageUrl: String = ""
     @Published var emailUser: String = ""
     @Published var firstAndLastNameUser: String = ""

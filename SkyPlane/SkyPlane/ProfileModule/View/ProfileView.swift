@@ -22,7 +22,7 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity, maxHeight: 130)
             
             HStack {
-                WebImage(url: URL(string: vm.userInfo.urlImage))
+                WebImage(url: URL(string: vm.imageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 80, height: 80)
@@ -30,10 +30,10 @@ struct ProfileView: View {
                     .padding(.leading, 20)
                 
                 VStack(alignment: .leading,spacing: 8) {
-                    Text(vm.userInfo.firstLastName())
+                    Text(vm.firstAndLastNameUser)
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(Color(.whiteBlack))
-                    Text(vm.userInfo.email)
+                    Text(vm.emailUser)
                         .font(.system(size: 18, weight: .regular))
                         .foregroundColor(Color(.whiteBlack))
                 }
