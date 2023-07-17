@@ -83,6 +83,9 @@ struct ProfileView: View {
                 }
             }
             .navigationBarTitle(Text("My Profile"), displayMode: .inline)
+            .task {
+                vm.getUserData()
+            }
         }
     }
 }

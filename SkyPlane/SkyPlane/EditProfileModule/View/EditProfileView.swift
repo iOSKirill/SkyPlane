@@ -39,7 +39,7 @@ struct EditProfileView: View {
     //MARK: - Image account -
     var imageAccount: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebImage(url: URL(string: vm.userInfo.urlImage))
+            WebImage(url: URL(string: vm.urlImageUser))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 100, height: 100)
@@ -50,7 +50,7 @@ struct EditProfileView: View {
                 Image(.changeImage)
             }
             .sheet(isPresented: $vm.isPresented) {
-                ImagePicker(selectedImageUrl: $vm.userInfo.urlImage, sourceType: .photoLibrary)
+                ImagePicker(selectedImageUrl: $vm.urlImageUser, sourceType: .photoLibrary)
             }
         }
         .padding(.top, 37)
@@ -64,11 +64,11 @@ struct EditProfileView: View {
                 Image(.datePicker)
                     .padding(.leading, 16)
                 
-                Text("\(vm.userInfo.dateOfBirth.dateFormat(.ddMMYYYY))")
+                Text("\(vm.dateOfBirthUser.dateFormat(.ddMMYYYY))")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                     .overlay {
-                        DatePicker("", selection: $vm.userInfo.dateOfBirth, in: ...Date(), displayedComponents: [.date])
+                        DatePicker("", selection: $vm.dateOfBirthUser, in: ...Date(), displayedComponents: [.date])
                             .blendMode(.destinationOver)
                     }
                 
@@ -158,11 +158,11 @@ struct EditProfileView: View {
             VStack {
                 imageAccount
                 ScrollView(showsIndicators: false) {
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.firstNameUser, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.lastNameUser, textSection: "Last Name", textFieldValue: "Enter your last name")
                     CustomProfileEmailTextField(textSection: "E-mail")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.passport, textSection: "Passport", textFieldValue: "Enter your passport")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.country, textSection: "Country", textFieldValue: "Enter your country")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.passportUser, textSection: "Passport", textFieldValue: "Enter your passport")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.countryUser, textSection: "Country", textFieldValue: "Enter your country")
                     datePicker
                     switch currentScreen {
                     case .profile:
@@ -170,7 +170,7 @@ struct EditProfileView: View {
                             .padding(.bottom, 16)
                     case .buyTicket:
                         updateButton
-                        if !vm.userInfo.passport.isEmpty, !vm.userInfo.country.isEmpty {
+                        if !vm.passportUser.isEmpty, !vm.countryUser.isEmpty {
                             skipButton
                         } else {
                             skipButtonError
@@ -188,6 +188,9 @@ struct EditProfileView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(vm.errorText)
+        }
+        .task {
+            vm.getUserData()
         }
     }
 }
