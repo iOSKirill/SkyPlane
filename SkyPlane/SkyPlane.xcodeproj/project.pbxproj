@@ -16,6 +16,7 @@
 		6C01D19B2A338A8100A3993F /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C01D19A2A338A8100A3993F /* OnboardingModel.swift */; };
 		6C20915F2A5829CF0072633D /* BuyTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C20915E2A5829CF0072633D /* BuyTicketModel.swift */; };
 		6C2091612A582B040072633D /* CustomProfileEmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2091602A582B040072633D /* CustomProfileEmailTextField.swift */; };
+		6C29B4422A66774C00E59BB3 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C29B4412A66774C00E59BB3 /* MapViewModel.swift */; };
 		6C33561D2A40768B00A5FC7D /* CustomHomeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C33561C2A40768B00A5FC7D /* CustomHomeTextField.swift */; };
 		6C370B0F2A52EBF20048DDC6 /* CustomProfileСardHolderNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C370B0E2A52EBF20048DDC6 /* CustomProfileСardHolderNameTextField.swift */; };
 		6C370B112A52EEB10048DDC6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C370B102A52EEB10048DDC6 /* ImagePicker.swift */; };
@@ -124,6 +125,7 @@
 		6C01D19A2A338A8100A3993F /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		6C20915E2A5829CF0072633D /* BuyTicketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketModel.swift; sourceTree = "<group>"; };
 		6C2091602A582B040072633D /* CustomProfileEmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfileEmailTextField.swift; sourceTree = "<group>"; };
+		6C29B4412A66774C00E59BB3 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		6C33561C2A40768B00A5FC7D /* CustomHomeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHomeTextField.swift; sourceTree = "<group>"; };
 		6C370B0E2A52EBF20048DDC6 /* CustomProfileСardHolderNameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomProfileСardHolderNameTextField.swift"; sourceTree = "<group>"; };
 		6C370B102A52EEB10048DDC6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -315,6 +317,14 @@
 				6C20915E2A5829CF0072633D /* BuyTicketModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6C29B4402A66772B00E59BB3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C29B4412A66774C00E59BB3 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		6C5056F72A374A1A00D11302 /* Model */ = {
@@ -760,6 +770,7 @@
 			isa = PBXGroup;
 			children = (
 				6CCC86052A55F81E001F064F /* View */,
+				6C29B4402A66772B00E59BB3 /* ViewModel */,
 			);
 			path = MapModule;
 			sourceTree = "<group>";
@@ -1022,6 +1033,7 @@
 				6CE3B3A22A42328800E2FBCC /* Autocomplete.swift in Sources */,
 				6C91980D2A50559900232668 /* TermsConditionsView.swift in Sources */,
 				6CEB60692A4AB424004345E6 /* String+Extension.swift in Sources */,
+				6C29B4422A66774C00E59BB3 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

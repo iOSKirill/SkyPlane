@@ -6,49 +6,78 @@
 //
 
 import SwiftUI
-import GoogleMaps
-
-struct MapViewGoogle: UIViewRepresentable {
-    
-    let apiGoogleMap = Bundle.main.object(forInfoDictionaryKey: "ApiGoogleMapKey") as? String ?? "Api Error"
-    
-    func makeUIView(context: Context) -> GMSMapView {
-        GMSServices.provideAPIKey(apiGoogleMap)
-        let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 12.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        return mapView
-    }
-
-    func updateUIView(_ uiView: GMSMapView, context: Context) {
-        uiView.clear()
-        // Массив координат маршрутов
-        let routes = [
-            [(37.7749, -122.4194), (37.7749, -122.4313)],
-            [(37.7838, -122.4313), (37.7867, -122.4105)]
-        ]
-        
-        // Создание и добавление каждого маршрута на карту
-        for route in routes {
-            let path = GMSMutablePath()
-            for coordinate in route {
-                path.addLatitude(coordinate.0, longitude: coordinate.1)
-            }
-            
-            let polyline = GMSPolyline(path: path)
-            polyline.strokeColor = .blue
-            polyline.strokeWidth = 1.0
-            polyline.map = uiView
-        }
-
-    }
-}
 
 struct MapView: View {
+    
+    //MARK: - Property -
+    @StateObject var vm = MapViewModel()
+    
+    //MARK: - Search button -
+    var searchButton: some View {
+        Button {
+            vm.isSearch.toggle()
+            vm.createRoute()
+        } label: {
+            Text("Search")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Color(.blackColor))
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(Color(.basicColor))
+                .cornerRadius(16)
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    //MARK: - Search cicle button -
+    var searchCicle: some View {
+        Button {
+            vm.isSearch.toggle()
+        } label: {
+            Circle()
+                .foregroundColor(Color(.basicColor))
+                .frame(maxWidth: 60, maxHeight: 60)
+                .overlay {
+                    Image(.searchTabBar)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                }
+        }
+        .padding(.bottom, 10)
+        .padding(.trailing, 16)
+    }
+    
+    //MARK: - Body -
     var body: some View {
         VStack {
-            MapViewGoogle()
+            ZStack(alignment: .bottom) {
+                MapViewGoogle(viewModel: vm)
+                HStack {
+                    Spacer()
+                    searchCicle
+                }
+                if vm.isSearch {
+                    VStack {
+                        CustomHomeTextField(bindingValue: $vm.origin, textSection: "Origin", textFieldValue: "Enter your origin")
+                            .padding(.horizontal, 16)
+                        CustomHomeTextField(bindingValue: $vm.destination, textSection: "Destination", textFieldValue: "Enter your destination")
+                            .padding(.horizontal, 16)
+                        searchButton
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 260)
+                    .background(Color(.ticketBackgroundColor))
+                    .cornerRadius(16)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 10)
+                }
+            }
         }
-
+        .alert("Error", isPresented: $vm.isAlert) {
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(vm.errorText)
+        }
     }
 }
 
