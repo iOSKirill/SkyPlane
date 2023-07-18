@@ -11,6 +11,7 @@ struct MapView: View {
     
     //MARK: - Property -
     @StateObject var vm = MapViewModel()
+    @State private var keyboardHeight: CGFloat = 0.0
     
     //MARK: - Search button -
     var searchButton: some View {
@@ -59,17 +60,36 @@ struct MapView: View {
                 }
                 if vm.isSearch {
                     VStack {
-                        CustomHomeTextField(bindingValue: $vm.origin, textSection: "Origin", textFieldValue: "Enter your origin")
-                            .padding(.horizontal, 16)
-                        CustomHomeTextField(bindingValue: $vm.destination, textSection: "Destination", textFieldValue: "Enter your destination")
-                            .padding(.horizontal, 16)
-                        searchButton
+                        VStack {
+                            CustomHomeTextField(bindingValue: $vm.origin, textSection: "Origin", textFieldValue: "Enter your origin")
+                                .padding(.horizontal, 16)
+                            CustomHomeTextField(bindingValue: $vm.destination, textSection: "Destination", textFieldValue: "Enter your destination")
+                                .padding(.horizontal, 16)
+                            searchButton
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 260)
+                        .background(Color(.ticketBackgroundColor))
+                        .cornerRadius(16)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 10)
+                        Spacer()
+                        .frame(height: keyboardHeight)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 260)
-                    .background(Color(.ticketBackgroundColor))
-                    .cornerRadius(16)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 10)
+                    .animation(.easeInOut)
+                    .onAppear {
+                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                            let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+                            let keyboardSize = value.cgRectValue.size
+                            keyboardHeight = keyboardSize.height - 100
+                        }
+                        
+                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (_) in
+                            keyboardHeight = 0
+                        }
+                    }
+                    .onDisappear {
+                        NotificationCenter.default.removeObserver(self)
+                    }
                 }
             }
         }

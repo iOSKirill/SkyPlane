@@ -40,6 +40,8 @@ final class MapViewModel: ObservableObject {
                 ]
                 await MainActor.run {
                     self.routeCoordinates = [coordinates]
+                    self.origin = ""
+                    self.destination = ""
                 }
             } catch {
                 await MainActor.run {
@@ -59,7 +61,7 @@ struct MapViewGoogle: UIViewRepresentable {
 
     func makeUIView(context: Context) -> GMSMapView {
         GMSServices.provideAPIKey(apiGoogleMap)
-        let camera = GMSCameraPosition.camera(withLatitude: viewModel.routeCoordinates.first?.first?.0 ?? 53.9000000, longitude: viewModel.routeCoordinates.first?.first?.1 ?? 27.5666700, zoom: 12.0)
+        let camera = GMSCameraPosition.camera(withLatitude: viewModel.routeCoordinates.first?.first?.0 ?? 53.9000000, longitude: viewModel.routeCoordinates.first?.first?.1 ?? 27.5666700, zoom: 5.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         return mapView
     }
@@ -70,6 +72,7 @@ struct MapViewGoogle: UIViewRepresentable {
         for route in routes {
             let path = GMSMutablePath()
             for coordinate in route {
+                uiView.animate(toLocation: CLLocationCoordinate2D(latitude: coordinate.0.wrappedValue, longitude: coordinate.1.wrappedValue))
                 path.addLatitude(coordinate.0.wrappedValue, longitude: coordinate.1.wrappedValue)
             }
             
@@ -79,7 +82,15 @@ struct MapViewGoogle: UIViewRepresentable {
             polyline.geodesic = true
             polyline.map = uiView
 
+            let startMarker = GMSMarker()
+            startMarker.position = path.coordinate(at: 0)
+            startMarker.icon = GMSMarker.markerImage(with: .green)
+            startMarker.map = uiView
+
+            let endMarker = GMSMarker()
+            endMarker.position = path.coordinate(at: 1)
+            endMarker.icon = GMSMarker.markerImage(with: .green)
+            endMarker.map = uiView
         }
     }
 }
-
