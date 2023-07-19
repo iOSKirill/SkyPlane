@@ -17,13 +17,7 @@ final class EditProfileViewModel: ObservableObject {
     @Published var paymentVM = PaymentViewModel()
     @Published var buyTicketInfo: TicketsFoundModel
     @Published var classFlight: ClassFlight = .economy
-    @Published var firstNameUser: String = ""
-    @Published var lastNameUser: String = ""
-    @Published var emailUser: String = ""
-    @Published var dateOfBirthUser: Date = .now
-    @Published var urlImageUser: String = ""
-    @Published var passportUser: String = ""
-    @Published var countryUser: String = ""
+    @Published var editProfileModel: EditProfileModel
     @Published var isPresented = false
     @Published var isAlert: Bool = false
     @Published var updateAlert: Bool = false
@@ -35,6 +29,13 @@ final class EditProfileViewModel: ObservableObject {
     
     init() {
         buyTicketInfo = TicketsFoundModel(data: DateTicket())
+        editProfileModel = EditProfileModel(firstName: UserData.shared.firstName,
+                                            lastName:  UserData.shared.lastName,
+                                            email: UserData.shared.email,
+                                            dateOfBirth: UserData.shared.dateOfBirth,
+                                            urlImage: UserData.shared.urlImage,
+                                            passport:  UserData.shared.passport,
+                                            country: UserData.shared.country)
         $buyTicketInfo
             .sink { item in
                 self.paymentVM.buyTicketInfo = item
@@ -52,30 +53,19 @@ final class EditProfileViewModel: ObservableObject {
         cancellable.removeAll()
     }
     
-    //MARK: - Get user data -
-    func getUserData() {
-        firstNameUser = UserData.shared.firstName
-        lastNameUser = UserData.shared.lastName
-        emailUser = UserData.shared.email
-        dateOfBirthUser = UserData.shared.dateOfBirth
-        urlImageUser = UserData.shared.urlImage
-        passportUser = UserData.shared.passport
-        countryUser = UserData.shared.country
-    }
-    
     //MARK: - Update user info DB -
     func updateUserData() {
         Task {
             do {
-                guard !firstNameUser.isEmpty, !lastNameUser.isEmpty, !passportUser.isEmpty, !countryUser.isEmpty else { return await MainActor.run { self.errorText = "Fill in the user data" } }
-                guard firstNameUser.isValidFirstAndLastName(), lastNameUser.isValidFirstAndLastName() else {
+                guard !editProfileModel.firstName.isEmpty, !editProfileModel.lastName.isEmpty, !editProfileModel.passport.isEmpty, !editProfileModel.country.isEmpty else { return await MainActor.run { self.errorText = "Fill in the user data" } }
+                guard editProfileModel.firstName.isValidFirstAndLastName(), editProfileModel.lastName.isValidFirstAndLastName() else {
                     return await MainActor.run {
                         self.errorText = "Invalid first of last name"
                     }
                 }
-                guard countryUser.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid country" } }
-                guard passportUser.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
-                try await firebaseManager.createUserDataDB(firstName: firstNameUser, lastName: lastNameUser, email: emailUser, dateOfBirth: dateOfBirthUser, uid: uid ?? "", urlImage: urlImageUser, passport: passportUser, country: countryUser)
+                guard editProfileModel.country.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid country" } }
+                guard editProfileModel.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
+                try await firebaseManager.createUserDataDB(firstName: editProfileModel.firstName, lastName: editProfileModel.lastName, email: editProfileModel.email, dateOfBirth: editProfileModel.dateOfBirth, uid: uid ?? "", urlImage: editProfileModel.urlImage, passport: editProfileModel.passport, country: editProfileModel.country)
                 let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
                 UserData.shared.saveInfo(user: data)
                 await MainActor.run {

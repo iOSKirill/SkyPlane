@@ -16,7 +16,8 @@ final class MapViewModel: ObservableObject {
     @Published var origin: String = ""
     @Published var destination: String = ""
     @Published var isSearch: Bool = false
-    @Published var routeCoordinates: [[(Double, Double)]] = [[]]
+    @Published var routeCoordinates: [[Double]] = [[]]
+    @Published var keyboardHeight: CGFloat = 0.0
     @Published var isAlert: Bool = false
     @Published var errorText = "" {
         didSet {
@@ -35,11 +36,12 @@ final class MapViewModel: ObservableObject {
                 let destinationLatLonByCityName = try await alamofireProvider.getCodeByCityName(cityName: destination)
                 guard let destinationLat = destinationLatLonByCityName.first?.coordinates?.lat, let destinationLon = destinationLatLonByCityName.first?.coordinates?.lon else { return }
                 let coordinates = [
-                    (originLat, originLon),
-                    (destinationLat, destinationLon)
+                    [originLat, originLon],
+                    [destinationLat, destinationLon]
                 ]
                 await MainActor.run {
-                    self.routeCoordinates = [coordinates]
+                    self.isSearch.toggle()
+                    self.routeCoordinates = coordinates
                     self.origin = ""
                     self.destination = ""
                 }
@@ -48,6 +50,18 @@ final class MapViewModel: ObservableObject {
                     self.errorText = error.localizedDescription
                 }
             }
+        }
+    }
+    
+    //MARK: - Keyboard height -
+    func keyboardHeightView() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+            guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+            let keyboardSize = value.cgRectValue.size
+            self.keyboardHeight = keyboardSize.height - 100
+        }
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (_) in
+            self.keyboardHeight = 0
         }
     }
 }
@@ -61,20 +75,18 @@ struct MapViewGoogle: UIViewRepresentable {
 
     func makeUIView(context: Context) -> GMSMapView {
         GMSServices.provideAPIKey(apiGoogleMap)
-        let camera = GMSCameraPosition.camera(withLatitude: viewModel.routeCoordinates.first?.first?.0 ?? 53.9000000, longitude: viewModel.routeCoordinates.first?.first?.1 ?? 27.5666700, zoom: 5.0)
+        let camera = GMSCameraPosition.camera(withLatitude: viewModel.routeCoordinates.first?.first ?? 53.9000000, longitude: viewModel.routeCoordinates.last?.last ?? 27.5666700, zoom: 5.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         return mapView
     }
 
     func updateUIView(_ uiView: GMSMapView, context: Context) {
         uiView.clear()
-        let routes = $viewModel.routeCoordinates
-        for route in routes {
-            let path = GMSMutablePath()
-            for coordinate in route {
-                uiView.animate(toLocation: CLLocationCoordinate2D(latitude: coordinate.0.wrappedValue, longitude: coordinate.1.wrappedValue))
-                path.addLatitude(coordinate.0.wrappedValue, longitude: coordinate.1.wrappedValue)
-            }
+        let path = GMSMutablePath()
+        for coordinate in viewModel.routeCoordinates {
+            guard let latitude = coordinate.first,let longitude = coordinate.last else { return }
+            uiView.animate(toLocation: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            path.add(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
             
             let polyline = GMSPolyline(path: path)
             polyline.strokeColor = .blue

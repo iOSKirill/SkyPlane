@@ -11,12 +11,10 @@ struct MapView: View {
     
     //MARK: - Property -
     @StateObject var vm = MapViewModel()
-    @State private var keyboardHeight: CGFloat = 0.0
     
     //MARK: - Search button -
     var searchButton: some View {
         Button {
-            vm.isSearch.toggle()
             vm.createRoute()
         } label: {
             Text("Search")
@@ -73,22 +71,11 @@ struct MapView: View {
                         .padding(.horizontal, 16)
                         .padding(.bottom, 10)
                         Spacer()
-                        .frame(height: keyboardHeight)
+                            .frame(height: vm.keyboardHeight)
                     }
-                    .animation(.easeInOut)
+                    .animation(.easeInOut, value: vm.keyboardHeight)
                     .onAppear {
-                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
-                            let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-                            let keyboardSize = value.cgRectValue.size
-                            keyboardHeight = keyboardSize.height - 100
-                        }
-                        
-                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (_) in
-                            keyboardHeight = 0
-                        }
-                    }
-                    .onDisappear {
-                        NotificationCenter.default.removeObserver(self)
+                        vm.keyboardHeightView()
                     }
                 }
             }

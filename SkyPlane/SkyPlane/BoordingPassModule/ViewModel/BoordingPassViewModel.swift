@@ -32,6 +32,7 @@ final class BoordingPassViewModel: ObservableObject {
     
     //MARK: - Save view ticket in document and photoAlbum -
     func saveViewTicket() {
+        requestPhotoPermissions()
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         let renderer = UIGraphicsImageRenderer(bounds: window.bounds)

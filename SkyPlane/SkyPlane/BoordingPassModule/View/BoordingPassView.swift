@@ -45,7 +45,6 @@ struct BoordingPassView: View {
     //MARK: - Download ticket in photoAlbum-
     var downloadTicketButton: some View {
         Button {
-            vm.requestPhotoPermissions()
             vm.saveViewTicket()
         } label: {
             Text("Download ticket")

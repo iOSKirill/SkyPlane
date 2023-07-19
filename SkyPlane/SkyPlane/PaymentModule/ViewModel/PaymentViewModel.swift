@@ -92,7 +92,7 @@ final class PaymentViewModel: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 
         if let date = dateFormatter.date(from: dateTicket) {
-            let triggerDate = Calendar.current.date(byAdding: .hour, value: -3, to: date)!
+            guard let triggerDate = Calendar.current.date(byAdding: .hour, value: -3, to: date) else { return }
             let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate), repeats: false)
             let request = UNNotificationRequest(identifier: "flightReminder\(buyTicketInfo.id)", content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)

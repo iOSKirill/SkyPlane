@@ -40,7 +40,7 @@ struct EditProfileView: View {
     //MARK: - Image account -
     var imageAccount: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebImage(url: URL(string: vm.urlImageUser))
+            WebImage(url: URL(string: vm.editProfileModel.urlImage))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 100, height: 100)
@@ -51,7 +51,7 @@ struct EditProfileView: View {
                 Image(.changeImage)
             }
             .sheet(isPresented: $vm.isPresented) {
-                ImagePicker(selectedImageUrl: $vm.urlImageUser, sourceType: .photoLibrary)
+                ImagePicker(selectedImageUrl: $vm.editProfileModel.urlImage, sourceType: .photoLibrary)
             }
         }
         .padding(.top, 37)
@@ -65,11 +65,11 @@ struct EditProfileView: View {
                 Image(.datePicker)
                     .padding(.leading, 16)
                 
-                Text("\(vm.dateOfBirthUser.dateFormat(.ddMMYYYY))")
+                Text("\(vm.editProfileModel.dateOfBirth.dateFormat(.ddMMYYYY))")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                     .overlay {
-                        DatePicker("", selection: $vm.dateOfBirthUser, in: ...Date(), displayedComponents: [.date])
+                        DatePicker("", selection: $vm.editProfileModel.dateOfBirth, in: ...Date(), displayedComponents: [.date])
                             .blendMode(.destinationOver)
                     }
                 
@@ -159,14 +159,14 @@ struct EditProfileView: View {
             VStack {
                 imageAccount
                 ScrollView(showsIndicators: false) {
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.firstNameUser, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
                         .focused($textIsFocused)
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.lastNameUser, textSection: "Last Name", textFieldValue: "Enter your last name")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
                         .focused($textIsFocused)
                     CustomProfileEmailTextField(textSection: "E-mail")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.passportUser, textSection: "Passport", textFieldValue: "Enter your passport")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.passport, textSection: "Passport", textFieldValue: "Enter your passport")
                         .focused($textIsFocused)
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.countryUser, textSection: "Country", textFieldValue: "Enter your country")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.country, textSection: "Country", textFieldValue: "Enter your country")
                         .focused($textIsFocused)
                     datePicker
                     switch currentScreen {
@@ -175,7 +175,7 @@ struct EditProfileView: View {
                             .padding(.bottom, 16)
                     case .buyTicket:
                         updateButton
-                        if !vm.passportUser.isEmpty, !vm.countryUser.isEmpty {
+                        if !vm.editProfileModel.passport.isEmpty, !vm.editProfileModel.country.isEmpty {
                             skipButton
                         } else {
                             skipButtonError
@@ -193,9 +193,6 @@ struct EditProfileView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(vm.errorText)
-        }
-        .task {
-            vm.getUserData()
         }
         .onTapGesture {
             textIsFocused = false
