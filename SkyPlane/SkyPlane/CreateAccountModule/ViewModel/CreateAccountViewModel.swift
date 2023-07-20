@@ -36,7 +36,11 @@ final class CreateAccountViewModel: ObservableObject {
                 let googleData = try await firebaseManager.singInWithGoogle()
                 if googleData.isEmailVerified {
                     UserDefaults.standard.set(googleData.uid.description, forKey: "uid")
-                    try await firebaseManager.createUserDataDB(firstName: "", lastName: "", email: googleData.email ?? "", dateOfBirth: .now, uid: googleData.uid, urlImage: "https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg", passport: "", country: "")
+                    let fullName = googleData.displayName
+                    let names = fullName?.split(separator: " ")
+                    let firstName = String(names?[0] ?? "")
+                    let lastName = String(names?[1] ?? "")
+                    try await firebaseManager.createUserDataDB(firstName: firstName, lastName: lastName, email: googleData.email ?? "", dateOfBirth: .now, uid: googleData.uid, urlImage: "https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg", passport: "", country: "")
                     await MainActor.run {
                         self.appCondition = .homeView
                     }

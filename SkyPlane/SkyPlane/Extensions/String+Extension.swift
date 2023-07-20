@@ -71,7 +71,7 @@ extension String {
     
     //MARK: - Valid fist and last name registration -
     func isValidFirstAndLastName() -> Bool {
-        let fistAndLastRegex = "^[A-Za-z]+$"
+        let fistAndLastRegex = "^[A-Za-zА-Яа-я]+$"
         let firstAndLastTest = NSPredicate(format: "SELF MATCHES %@", fistAndLastRegex)
         return firstAndLastTest.evaluate(with: self)
     }

@@ -23,9 +23,8 @@ final class ProfileViewModel: ObservableObject {
         firstAndLastNameUser = UserData.shared.firstLastName()
     }
     
-    //MARK: -Logout -
+    //MARK: - Logout -
     func logout() {
-        UserDefaults.standard.removeObject(forKey: "uid")
         appCondition = .createAccountView
     }
 }
