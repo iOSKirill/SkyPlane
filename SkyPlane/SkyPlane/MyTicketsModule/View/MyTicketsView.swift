@@ -123,7 +123,8 @@ struct MyTicketsView: View {
                             List {
                                 ForEach(vm.tickets) { i in
                                     CustomMyTicketsCell(ticketsFound: i)
-                                }  .onDelete { index in
+                                }
+                                .onDelete { index in
                                     vm.removeMyTicket(indexRemove: index)
                                 }
                             }

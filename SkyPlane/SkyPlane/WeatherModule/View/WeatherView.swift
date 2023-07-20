@@ -11,12 +11,14 @@ struct WeatherView: View {
     
     //MARK: - Property -
     @StateObject var vm = WeatherViewModel()
+    @FocusState private var textIsFocused: Bool
     
     //MARK: - Search textField weather -
     var searchTextField: some View {
         HStack {
             CustomHomeTextField(bindingValue: $vm.nameSearchCity, textSection: "", textFieldValue: "Enter name city")
                 .padding(.horizontal, 16)
+                .focused($textIsFocused)
             Spacer()
             
             Button {
@@ -143,6 +145,9 @@ struct WeatherView: View {
             }
             .task {
                 vm.getWeatherDataByCityName(cityName: "Minsk")
+            }
+            .onTapGesture {
+                textIsFocused = false
             }
         }
     }

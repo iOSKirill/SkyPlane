@@ -12,11 +12,19 @@ final class ProfileViewModel: ObservableObject {
     
     //MARK: - Property -
     @AppStorage("appCondition", store: .standard) var appCondition: AppCondition = .onboardingView
-    @Published var userInfo = UserData.shared
+    @Published var imageUrl: String = ""
+    @Published var emailUser: String = ""
+    @Published var firstAndLastNameUser: String = ""
     
-    //MARK: -Logout -
+    //MARK: - Get user data - 
+    func getUserData() {
+        imageUrl = UserData.shared.urlImage
+        emailUser = UserData.shared.email
+        firstAndLastNameUser = UserData.shared.firstLastName()
+    }
+    
+    //MARK: - Logout -
     func logout() {
-        UserDefaults.standard.removeObject(forKey: "uid")
         appCondition = .createAccountView
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UserNotifications
 
 final class PaymentViewModel: ObservableObject {
     
@@ -71,11 +72,32 @@ final class PaymentViewModel: ObservableObject {
                 try await firebaseManager.saveTicket(uid: uid, origin: buyTicketInfo.origin, destination: buyTicketInfo.destination, price: buyTicketInfo.price, flightNumber: buyTicketInfo.flightNumber, departureDate: buyTicketInfo.departureDate.formatSaveTicket(), returnDate: buyTicketInfo.returnDate.formatSaveTicket(), duration: buyTicketInfo.duration, icon: buyTicketInfo.icon)
                 await MainActor.run {
                     self.isPresented.toggle()
+                    self.scheduleNotifications()
                 }
             } catch {
                 errorText = error.localizedDescription
             }
         }
     }
+    
+    //MARK: - Schedule notification -
+    func scheduleNotifications() {
+        let content = UNMutableNotificationContent()
+        content.title = "Departure reminder"
+        content.body = "Your flight: \(buyTicketInfo.origin) - \(buyTicketInfo.destination), it's leaving soon!\nFlight number: \(buyTicketInfo.flightNumber)\nDeparture time: \(buyTicketInfo.departureDate)"
+        content.sound = UNNotificationSound.default
+        
+        let dateTicket = buyTicketInfo.departureDate.formatSaveTicket()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 
+        if let date = dateFormatter.date(from: dateTicket) {
+            guard let triggerDate = Calendar.current.date(byAdding: .hour, value: -3, to: date) else { return }
+            let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate), repeats: false)
+            let request = UNNotificationRequest(identifier: "flightReminder\(buyTicketInfo.id)", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request)
+        } else {
+            print("Incorrect date string format")
+        }
+    }
 }

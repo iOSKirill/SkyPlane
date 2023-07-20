@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 //MARK: - Enum fiter my tickets -
 enum FilterMyTickets: String {
@@ -87,6 +88,7 @@ final class MyTicketsViewModel: ObservableObject {
             do {
                 guard let index = indexRemove.first else { return }
                 try await firebaseManager.deleteMyTickets(ticket: tickets[index], id: uid ?? "")
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [tickets[index].id.uuidString])
             } catch {
                 await MainActor.run {
                     print(error)

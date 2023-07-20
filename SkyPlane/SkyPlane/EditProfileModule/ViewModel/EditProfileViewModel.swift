@@ -17,7 +17,7 @@ final class EditProfileViewModel: ObservableObject {
     @Published var paymentVM = PaymentViewModel()
     @Published var buyTicketInfo: TicketsFoundModel
     @Published var classFlight: ClassFlight = .economy
-    @Published var userInfo = UserData.shared
+    @Published var editProfileModel: EditProfileModel
     @Published var isPresented = false
     @Published var isAlert: Bool = false
     @Published var updateAlert: Bool = false
@@ -29,6 +29,13 @@ final class EditProfileViewModel: ObservableObject {
     
     init() {
         buyTicketInfo = TicketsFoundModel(data: DateTicket())
+        editProfileModel = EditProfileModel(firstName: UserData.shared.firstName,
+                                            lastName:  UserData.shared.lastName,
+                                            email: UserData.shared.email,
+                                            dateOfBirth: UserData.shared.dateOfBirth,
+                                            urlImage: UserData.shared.urlImage,
+                                            passport:  UserData.shared.passport,
+                                            country: UserData.shared.country)
         $buyTicketInfo
             .sink { item in
                 self.paymentVM.buyTicketInfo = item
@@ -45,20 +52,22 @@ final class EditProfileViewModel: ObservableObject {
     deinit {
         cancellable.removeAll()
     }
-
+    
     //MARK: - Update user info DB -
     func updateUserData() {
         Task {
             do {
-                guard !userInfo.firstName.isEmpty, !userInfo.lastName.isEmpty, !userInfo.passport.isEmpty, !userInfo.country.isEmpty else { return await MainActor.run { self.errorText = "Fill in the user data" } }
-                guard userInfo.firstName.isValidFirstAndLastName(), userInfo.lastName.isValidFirstAndLastName() else {
+                guard !editProfileModel.firstName.isEmpty, !editProfileModel.lastName.isEmpty, !editProfileModel.passport.isEmpty, !editProfileModel.country.isEmpty else { return await MainActor.run { self.errorText = "Fill in the user data" } }
+                guard editProfileModel.firstName.isValidFirstAndLastName(), editProfileModel.lastName.isValidFirstAndLastName() else {
                     return await MainActor.run {
                         self.errorText = "Invalid first of last name"
                     }
                 }
-                guard userInfo.country.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid country" } }
-                guard userInfo.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
-                try await firebaseManager.createUserDataDB(firstName: userInfo.firstName, lastName: userInfo.lastName, email: userInfo.email, dateOfBirth: userInfo.dateOfBirth, uid: uid ?? "", urlImage: userInfo.urlImage, passport: userInfo.passport, country: userInfo.country)
+                guard editProfileModel.country.isValidFirstAndLastName() else { return await MainActor.run { self.errorText = "Invalid country" } }
+                guard editProfileModel.passport.isValidPassportNumber() else { return await MainActor.run { self.errorText = "Invalid passport number" } }
+                try await firebaseManager.createUserDataDB(firstName: editProfileModel.firstName, lastName: editProfileModel.lastName, email: editProfileModel.email, dateOfBirth: editProfileModel.dateOfBirth, uid: uid ?? "", urlImage: editProfileModel.urlImage, passport: editProfileModel.passport, country: editProfileModel.country)
+                let data = try await firebaseManager.getUserDataDB(id: uid ?? "")
+                UserData.shared.saveInfo(user: data)
                 await MainActor.run {
                     updateAlert = true
                 }

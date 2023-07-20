@@ -20,6 +20,7 @@ struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = EditProfileViewModel()
     @State var currentScreen: ScreenProfile = .profile
+    @FocusState private var textIsFocused: Bool
     
     //MARK: - Button back -
     var buttonBack: some View {
@@ -39,7 +40,7 @@ struct EditProfileView: View {
     //MARK: - Image account -
     var imageAccount: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebImage(url: URL(string: vm.userInfo.urlImage))
+            WebImage(url: URL(string: vm.editProfileModel.urlImage))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 100, height: 100)
@@ -50,7 +51,7 @@ struct EditProfileView: View {
                 Image(.changeImage)
             }
             .sheet(isPresented: $vm.isPresented) {
-                ImagePicker(selectedImageUrl: $vm.userInfo.urlImage, sourceType: .photoLibrary)
+                ImagePicker(selectedImageUrl: $vm.editProfileModel.urlImage, sourceType: .photoLibrary)
             }
         }
         .padding(.top, 37)
@@ -64,11 +65,11 @@ struct EditProfileView: View {
                 Image(.datePicker)
                     .padding(.leading, 16)
                 
-                Text("\(vm.userInfo.dateOfBirth.dateFormat(.ddMMYYYY))")
+                Text("\(vm.editProfileModel.dateOfBirth.dateFormat(.ddMMYYYY))")
                     .font(.system(size: 16, weight: .medium, design: .default))
                     .frame(height: 60)
                     .overlay {
-                        DatePicker("", selection: $vm.userInfo.dateOfBirth, in: ...Date(), displayedComponents: [.date])
+                        DatePicker("", selection: $vm.editProfileModel.dateOfBirth, in: ...Date(), displayedComponents: [.date])
                             .blendMode(.destinationOver)
                     }
                 
@@ -158,11 +159,15 @@ struct EditProfileView: View {
             VStack {
                 imageAccount
                 ScrollView(showsIndicators: false) {
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.firstName, textSection: "Fisrt Name", textFieldValue: "Enter your first name")
+                        .focused($textIsFocused)
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.lastName, textSection: "Last Name", textFieldValue: "Enter your last name")
+                        .focused($textIsFocused)
                     CustomProfileEmailTextField(textSection: "E-mail")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.passport, textSection: "Passport", textFieldValue: "Enter your passport")
-                    CustomProfileСardHolderNameTextField(bindingValue: $vm.userInfo.country, textSection: "Country", textFieldValue: "Enter your country")
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.passport, textSection: "Passport", textFieldValue: "Enter your passport")
+                        .focused($textIsFocused)
+                    CustomProfileСardHolderNameTextField(bindingValue: $vm.editProfileModel.country, textSection: "Country", textFieldValue: "Enter your country")
+                        .focused($textIsFocused)
                     datePicker
                     switch currentScreen {
                     case .profile:
@@ -170,7 +175,7 @@ struct EditProfileView: View {
                             .padding(.bottom, 16)
                     case .buyTicket:
                         updateButton
-                        if !vm.userInfo.passport.isEmpty, !vm.userInfo.country.isEmpty {
+                        if !vm.editProfileModel.passport.isEmpty, !vm.editProfileModel.country.isEmpty {
                             skipButton
                         } else {
                             skipButtonError
@@ -188,6 +193,9 @@ struct EditProfileView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(vm.errorText)
+        }
+        .onTapGesture {
+            textIsFocused = false
         }
     }
 }
