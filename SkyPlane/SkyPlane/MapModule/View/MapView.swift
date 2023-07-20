@@ -51,7 +51,7 @@ struct MapView: View {
     var body: some View {
         VStack {
             ZStack(alignment: .bottom) {
-                MapViewGoogle(viewModel: vm)
+                MapViewGoogle(viewModel: vm).ignoresSafeArea()
                 HStack {
                     Spacer()
                     searchCicle
