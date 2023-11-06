@@ -13,7 +13,7 @@ The SkyPlane project is written in SwiftUI and is intended for the purchase of a
 - Ticket search and purchase Screen: On this screen, the user can search and select the desired ticket, as well as view popular destinations. The user can specify the departure and arrival points, select the desired dates, class of service. Then the user can select a suitable ticket from the list of search results and make a purchase.
 
 Home Screen:
-![Simula![3](https://github.com/iOSKirill/SkyPlane/assets/108831301/18217f51-4e58-41fd-8feb-9c078933e135)
+![3](https://github.com/iOSKirill/SkyPlane/assets/108831301/18217f51-4e58-41fd-8feb-9c078933e135)
 
 Popular Screen:
 ![4](https://github.com/iOSKirill/SkyPlane/assets/108831301/9f2d132a-5fbe-4959-a5a0-dddcb511a55d)
