@@ -1,4 +1,4 @@
-![7](https://github.com/iOSKirill/SkyPlane/assets/108831301/28207b67-7bf6-43dc-ae82-adf4b1ab744f)# SkyPlane
+# SkyPlane
 
 The SkyPlane project is written in SwiftUI and is intended for the purchase of air tickets. The application contains several screens that provide a convenient and intuitive user interface.
 
